@@ -1,0 +1,24 @@
+Package: NanoString
+Type: Package
+Title: Performs Quality Control on the NanoString platform
+Version: 0.0.0.9008
+Date: 2015-12-16
+Authors@R: as.person(c(
+    "Derek Chiu <dchiu@bccrc.ca> [cre]",
+    "Aline Talhouk <atalhouk@bccrc.ca> [aut]"
+  ))
+Description: QC and batch adjustment operations for NanoString data.
+Depends: R (>= 3.2.0)
+Imports: dplyr, magrittr, assertthat
+License: MIT + file LICENSE
+LazyData: TRUE
+Suggests: otta,
+    testthat,
+    knitr,
+    rmarkdown,
+    pander,
+    stringr,
+    tidyr,
+    ggplot2
+RoxygenNote: 5.0.1
+VignetteBuilder: knitr
