@@ -1,5 +1,5 @@
 ---
-title: "Introduction to using the NanoString package"
+title: "Introduction to using the nanostringr package"
 author: "Aline Talhouk"
 
 output:
