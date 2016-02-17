@@ -1,7 +1,7 @@
 ---
 title: "Introduction to using the NanoString package"
-author: "Derek Chiu"
-date: "`r Sys.Date()`"
+author: "Aline Talhouk"
+
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -9,7 +9,7 @@ output:
     fig_height: 4.5
     fig_width: 6
 vignette: >
-  %\VignetteIndexEntry{Introduction to using the NanoString package}
+  %\VignetteIndexEntry{Introduction to using the nanostringr package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

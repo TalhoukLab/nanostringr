@@ -1,6 +1,6 @@
-Package: NanoString
+Package: nanonstringr
 Type: Package
-Title: Performs Quality Control on the NanoString platform
+Title: Performs quality control and data normalization on the NanoString platform
 Version: 0.0.0.9008
 Date: 2015-12-16
 Authors@R: as.person(c(
