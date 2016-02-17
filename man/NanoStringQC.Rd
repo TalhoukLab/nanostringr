@@ -11,9 +11,9 @@ NanoStringQC(raw, exp, detect = 80, sn = 150, plots = TRUE, ttl = " ",
 \item{raw}{matrix of raw counts obtained from nCounter (rows are genes).
 The first three columns must be labeled: \code{c("Code.Class", "Name", "Accession")} and contain that information.}
 
-\item{exp}{matrix of annotations with rows in the same order as the columns of raw.}
+\item{exp}{matrix of annotations with rows in the same order as the columns of raw. Needs a column labeled File.Name with entries corresponding to sample names in raw count, also needs columns fov.counted and fov.count as well as binding.density. These fields can be extracted from the RCC files.}
 
-\item{detect}{Percent threshold of genes over load that we would like to detect (not decimal).}
+\item{detect}{percent threshold of genes over load that we would like to detect (not decimal).}
 
 \item{sn}{Signal to noise ratio of the housekeeping genes we are willing to tolerate}
 

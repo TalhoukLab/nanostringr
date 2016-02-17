@@ -1,4 +1,4 @@
-NanoString
+nanostringer
 ==========
 
 Installation
