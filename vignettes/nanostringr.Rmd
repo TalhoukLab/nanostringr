@@ -14,4 +14,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Testing 1 2 3 
+```{r child = "QAmeasures.Rmd"}
+```
+
+
+```{r child = "Normalization.Rmd"}
+```

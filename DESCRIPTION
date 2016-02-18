@@ -13,6 +13,7 @@ Imports: dplyr, magrittr, assertthat
 License: MIT + file LICENSE
 LazyData: TRUE
 Suggests: otta,
+    dplyr,
     testthat,
     knitr,
     rmarkdown,

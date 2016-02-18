@@ -1,0 +1,103 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setupNormalization, message = FALSE, echo = FALSE, warning = FALSE}
+library(nanostringr)
+library(NanoStringNorm)
+library(dplyr)
+library(knitr)
+library(batchAdj)
+opts_chunk$set(message = FALSE, echo = FALSE, warning = FALSE)
+
+expOVD <- NanoStringQC(ovd.r,subset(expQC,OVD=="Yes"), plot="F")
+
+```
+# Normalization for Single-patient Samples
+##  Distribution of HK genes
+```{r fig.height=11, fig.width=7}
+HK=t(ovd.r[ovd.r$Code.Class=="Housekeeping",-(1:3)])
+par(mfrow=c(5,2))
+genes=colnames(HK)[order(apply(HK,2,mean))]
+for(i in 1: length(genes)){
+  hist(HK[,genes[i]], xlab=genes[i], main="Raw", probability = T)
+  hist(log(HK[,genes[i]]), xlab=genes[i], main="Log Base 2", probability = T)
+}
+```
+
+
+## Manufacturer Suggested Normalization  
+
+```{r NanoStringNorm, results = 'hide'}
+#Normalized to Positive controls and housekeeping genes using geometric mean
+MAPC.d <- NanoStringNorm(ovd.r, CodeCount = 'geo.mean', SampleContent = 'housekeeping.geo.mean', round.values = TRUE, take.log = T)
+normPC <- t(MAPC.d$normalized.data[MAPC.d$normalized.data$Code.Class == "Endogenous", -c(1:3)])
+
+#Normalized to housekeeping genes using geometric mean
+MAHK.d <- NanoStringNorm(ovd.r, SampleContent = 'housekeeping.geo.mean', round.values = TRUE, take.log = T)
+normHK <- t(MAHK.d$normalized.data[MAHK.d$normalized.data$Code.Class == "Endogenous", -c(1:3)])
+
+#Normalized to housekeeping genes using geometric mean and background corrected
+MANC.d = NanoStringNorm(ovd.r,Background = 'mean.2sd' ,SampleContent='housekeeping.geo.mean',round.values=TRUE, take.log=T)
+normNC=t(MANC.d$normalized.data[MANC.d$normalized.data$Code.Class == "Endogenous", -c(1:3)])
+
+set.seed(13)
+gene="Gene 49 "
+```
+
+```{r PCNorm, fig.height = 8, fig.width = 6, caption = "Ovarian Cancer data comparisons of two normalization procedures of the data of the gene `r gene`. The method that performs only housekeeping normalization is denoted by HK1 and HK2 in CodeSet 1 and 2 respectively. On the other hand, the method that normalizes both to positive controls and housekeeping genes at the same time, is denoted by PC1 and PC2 when ran on CodeSet 1 and CodeSet 2 respectively."}
+
+pc1 <- normPC[expOVD$geneRLF=="CS1", gene]
+pc2 <- normPC[expOVD$geneRLF=="CS2", gene]
+hk1 <- normHK[expOVD$geneRLF=="CS1", gene]
+hk2 <- normHK[expOVD$geneRLF=="CS2", gene]
+par(mfrow = c(2, 1), oma = c(.5, .5, 2, .5), mar = c(5.1,4.1,1.1,2.1))
+CCplot(hk1, pc1, Ptype = "scatter", xlabel = "HK1", ylabel = "PC1", subtitle = paste( letters[1],":","CodeSet 1"))
+CCplot(hk2, pc2, Ptype = "scatter", xlabel = "HK2", ylabel =  "PC2", subtitle =paste( letters[2], ":","CodeSet 2"))
+title(gene, outer = T)
+```
+
+
+
+#### Background correction is not necessary
+
+
+```{r MABackground, fig.height = 8, fig.width = 6, fig.cap="Ovarian Cancer data comparisons of two normalization procedures of the data of the gene `r gene`. The method that performs only housekeeping normalization is denoted by HK1 and HK2 in CodeSet 1 and 2 respectively. On the other hand, the method that normalizes housekeeping genes and performs background correction, is denoted by NC1 and NC2 when ran on CodeSet 1 and CodeSet 2 respectively."}
+nc1 <- normNC[expOVD$geneRLF=="CS1", gene]
+nc2 <- normNC[expOVD$geneRLF=="CS2", gene]
+hk1 <- normHK[expOVD$geneRLF=="CS1", gene]
+hk2 <- normHK[expOVD$geneRLF=="CS2", gene]
+par(mfrow = c(2, 1), oma = c(.5, .5, 2, .5), mar = c(5.1,4.1,1.1,2.1))
+CCplot(hk1, nc1, Ptype = "scatter", xlabel = "HK1", ylabel = "NC1", subtitle = paste( letters[1],":","CodeSet 1"))
+CCplot(hk2, nc2, Ptype = "scatter", xlabel = "HK2", ylabel =  "NC2", subtitle = paste( letters[2],":","CodeSet 2"))
+title(gene, outer = T)
+
+```
+
+
+
+#### Choice of Housekeeping Genes
+
+```{r MAmeansdPlot,message=FALSE,echo=FALSE,fig.height=8,fig.width=6, fig.cap="In both CodeSets we  see that where the negative control genes are in the lower limit of detection. The housekeeping genes have constant varianceand it's low relative to other genes."}
+Plot.NanoStringNorm(x = MAHK.d,label.best.guess = FALSE, plot.type = 'mean.sd',title=FALSE);
+title("OC Clinical Samples", outer=T)
+```
+
+
+#### Correction using Housekeeping Genes without scaling by overall mean.
+
+```{r fig.height=8,fig.width=6}
+par(mfrow = c(2, 1), oma = c(.5, .5, 2, .5), mar = c(5.1,4.1,1.1,2.1))
+ovd.n <- t(HKnorm(ovd.r)[,-(1:3)])
+ovd.1 <- ovd.n[expOVD$geneRLF=="CS1",]
+ovd.2 <- ovd.n[expOVD$geneRLF=="CS2",]
+
+CCplot(hk1, ovd.1[,gene], Ptype = "scatter", xlabel = "Normalized with scaling", ylabel = "Normalized without scaling", subtitle = paste( letters[1],":","CodeSet 1"),xrange=c(-10,15),yrange=c(-10,15))
+
+CCplot(hk2, ovd.2[, gene], Ptype = "scatter", xlabel = "Normalized with scaling", ylabel =  "Normalized without scaling", subtitle = paste( letters[2],":","CodeSet 2"),xrange=c(-10,15),yrange=c(-10,15))
+title(gene, outer = T)
+```
+

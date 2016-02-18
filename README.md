@@ -1,4 +1,4 @@
-nanostringer
+nanostringr
 ==========
 
 Installation
