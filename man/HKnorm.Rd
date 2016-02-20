@@ -2,31 +2,26 @@
 % Please edit documentation in R/HKnorm.R
 \name{HKnorm}
 \alias{HKnorm}
-\title{Normalization to Housekeeping Genes (Single-Patient sample)}
+\title{Normalization to Housekeeping Genes}
 \usage{
-HKnorm(raw.data, corr = 1e-04)
+HKnorm(raw.data, is.logged = FALSE, corr = 1e-04)
 }
 \arguments{
 \item{raw.data}{matrix of raw counts obtained from nCounter (rows are genes).
 The first three columns must be labeled: c("Code.Class", "Name", "Accession")
 and contain that information.}
 
-\item{corr}{small correction on normalization}
+\item{corr}{small correction to avoid error}
 }
 \value{
 A matrix of log normalized data in the same format but without reference genes.
 }
 \description{
 Normalizes the gene expression of NanoString nCounter data to housekeeping genes.
-This is done by subtracting the average log housekeeping gene expression.
+This is done by subtracting the average log housekeeping gene expression from the expression level of every gene in each sample.
 }
 \examples{
-library(NanoStringNorm)
-data(NanoString)
-NanoString.mRNA[NanoString.mRNA$Name \%in\%
-c('Eef1a1','Gapdh','Hprt1','Ppia','Sdha'), 'Code.Class'] <- 'Housekeeping'
-
-HKnorm(NanoString.mRNA)
+HKnorm(ovd.r)
 }
 \author{
 Aline Talhouk

@@ -1,10 +1,10 @@
-#' Ratio method for batch adjustment
+#' Reference-based approach for batch adjustment
 #'
-#' Batch adjustment by taking the ratio of a reference sample
-#' @param Y2 data run in the second batch, samples are rows and genes are columns
+#' Batch adjustment by considering a measure relative to a reference sample
+#' @param Y data run in first or second batch, samples are rows and genes are columns. If correcting one batch only R1 is needed and would correspond to reference run in the same batch as Y, if calibrating one batch to the other Y represents the data from batch 2 and R1 would be reference run in batch 1 and R2 would be reference from batch 2
 #' @param R1 reference data run in the first batch
 #' @param R2 reference data run in the second batch
-#' @return The Y2 data adjusted to batch 1
+#' @return The Y data adjusted calibrated to batch 1 (if two batches are presented) or the data with reference sample expression removed if only one data is provided
 #' @author Aline Talhouk
 #' @export
 #' @examples
@@ -12,11 +12,11 @@
 #' A <- matrix(rnorm(120), ncol = 10)
 #' B <- matrix(rnorm(80), ncol = 10)
 #' C <- matrix(rnorm(50), ncol = 10)
-#' ratioMethod(A, B, C)
-ratioMethod <- function(Y2, R1, R2) {
-  assertthat::assert_that(check_data(Y2, R1, R2))
-  assertthat::assert_that(check_ncol(Y2, R1, R2))
+#' refMethod(A, B, C)
+refMethod <- function(Y, R1, R2) {
+  assertthat::assert_that(check_data(Y, R1, R2))
+  assertthat::assert_that(check_ncol(Y, R1, R2))
   m <- apply(R1, 2, mean) - apply(R2, 2, mean)
-  Y2new <- t(apply(Y2, 1, function(x) x + m))
-  return(Y2new)
+  Ynew <- t(apply(Y, 1, function(x) x + m))
+  return(Ynew)
 }

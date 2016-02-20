@@ -2,50 +2,29 @@
 % Please edit documentation in R/NanoStringQC.R
 \name{NanoStringQC}
 \alias{NanoStringQC}
-\title{QC for NanoString Data}
+\title{QC metrics for NanoString Data}
 \usage{
-NanoStringQC(raw, exp, detect = 80, sn = 150, plots = TRUE, ttl = " ",
-  explore = TRUE)
+NanoStringQC(raw, exp, detect = 80, sn = 150)
 }
 \arguments{
-\item{raw}{matrix of raw counts obtained from nCounter (rows are genes).
+\item{raw}{matrix of raw counts obtained from nCounter (rows represent genes, columns represent samples).
 The first three columns must be labeled: \code{c("Code.Class", "Name", "Accession")} and contain that information.}
 
-\item{exp}{matrix of annotations with rows in the same order as the columns of raw. Needs a column labeled File.Name with entries corresponding to sample names in raw count, also needs columns fov.counted and fov.count as well as binding.density. These fields can be extracted from the RCC files.}
+\item{exp}{matrix of annotations with rows in the same order as the columns of \code{raw}. Requires a column labeled \code{"File.Name"} with entries corresponding to sample names in \code{raw}, also needs columns \code{c("fov.counted", "fov.count", "binding.density")}.These fields can be extracted from the nanostring RCC files.}
 
-\item{detect}{percent threshold of genes over load that we would like to detect (not decimal).}
+\item{detect}{threshold of percentage of genes expressed over limit of detection (LOD) that we would like to detect (not decimal), defaults to 80 percent.}
 
-\item{sn}{Signal to noise ratio of the housekeeping genes we are willing to tolerate}
-
-\item{plots}{logical; indicates whether plots to visualise the results are requested, defaults to \code{TRUE}}
-
-\item{ttl}{a string to show the title on the plots}
-
-\item{explore}{returns the plots only, defaults to \code{TRUE}}
+\item{sn}{signal to noise ratio of the housekeeping genes we are willing to tolerate, defaults to 150.}
 }
 \value{
 matrix of annotations updated with normalization parameters
 }
 \description{
-Computes NanoString quality control parameters and flags
+Computes and returns NanoString quality control metrics and flags.
 }
 \examples{
-# Load otta package for raw datasets and annotation matrix
-library(otta)
-data(rawOVCA2, rawPROT, rawOTTA, annot)
-
-# Codeset 1, 2, 3 and annotations
-cs1 <- rawOVCA2; cs2 <- rawPROT; cs3 <- rawOTTA; exp0 <- annot
-exp0$geneRLF <- as.character(factor(exp0$geneRLF,
-                     labels = c("HL1", "HL2", "HL3", "HuRef", "CS3", "mini", "CS1", "CS2")))
-
-# Compute NanoString QC
-exp.CS1 <- NanoStringQC(cs1, exp0[exp0$geneRLF == "CS1", ],
-                        plots = FALSE, detect = 50, ttl = "CodeSet 1")
-exp.CS2 <- NanoStringQC(cs2, exp0[exp0$geneRLF == "CS2", ],
-                        plots = FALSE, sn = 100, ttl = "CodeSet 2")
-exp.CS3 <- NanoStringQC(cs3, exp0[exp0$geneRLF == "CS3", ],
-                        plots = TRUE, detect = 50, sn = 100, ttl = "CodeSet 3")
+exp.OVD <-subset(expQC,OVD=="Yes")
+expOVD <- NanoStringQC(ovd.r,exp.OVD)
 }
 \author{
 Aline Talhouk, Derek Chiu

@@ -13,7 +13,7 @@ library(knitr)
 library(batchAdj)
 opts_chunk$set(message = FALSE, echo = FALSE, warning = FALSE)
 
-expOVD <- NanoStringQC(ovd.r,subset(expQC,OVD=="Yes"), plot="F")
+expOVD <- NanoStringQC(ovd.r,subset(expQC,OVD=="Yes"))
 
 ```
 # Normalization for Single-patient Samples
