@@ -6,6 +6,8 @@ Aline Talhouk
 
 
 
+The dataset expQC is the annotation file for all of the experiments, including:
+
 
 
 ```r
@@ -99,38 +101,16 @@ expQC <- expQC %>%
 
 
 
-# Normalization for Single-patient Samples
-##  Distribution of HK genes
-![](nanostringr_files/figure-html/unnamed-chunk-4-1.png)
-
-
-## Manufacturer Suggested Normalization  
 
 
 
-![](nanostringr_files/figure-html/PCNorm-1.png)
+![](nanostringr_files/figure-html/RawScores-1.png)
 
+![](nanostringr_files/figure-html/BootStrapped-1.png)![](nanostringr_files/figure-html/BootStrapped-2.png)![](nanostringr_files/figure-html/BootStrapped-3.png)![](nanostringr_files/figure-html/BootStrapped-4.png)![](nanostringr_files/figure-html/BootStrapped-5.png)
 
-
-#### Background correction is not necessary
-
-
-<div class="figure">
-<img src="nanostringr_files/figure-html/MABackground-1.png" alt="Ovarian Cancer data comparisons of two normalization procedures of the data of the gene `r gene`. The method that performs only housekeeping normalization is denoted by HK1 and HK2 in CodeSet 1 and 2 respectively. On the other hand, the method that normalizes housekeeping genes and performs background correction, is denoted by NC1 and NC2 when ran on CodeSet 1 and CodeSet 2 respectively."  />
-<p class="caption">Ovarian Cancer data comparisons of two normalization procedures of the data of the gene `r gene`. The method that performs only housekeeping normalization is denoted by HK1 and HK2 in CodeSet 1 and 2 respectively. On the other hand, the method that normalizes housekeeping genes and performs background correction, is denoted by NC1 and NC2 when ran on CodeSet 1 and CodeSet 2 respectively.</p>
-</div>
-
-
-
-#### Choice of Housekeeping Genes
-
-<div class="figure">
-<img src="nanostringr_files/figure-html/MAmeansdPlot-1.png" alt="In both CodeSets we  see that where the negative control genes are in the lower limit of detection. The housekeeping genes have constant varianceand it's low relative to other genes."  />
-<p class="caption">In both CodeSets we  see that where the negative control genes are in the lower limit of detection. The housekeeping genes have constant varianceand it's low relative to other genes.</p>
-</div>
-
-
-#### Correction using Housekeeping Genes without scaling by overall mean.
-
-![](nanostringr_files/figure-html/unnamed-chunk-5-1.png)
+```
+## Accuracy
+## 0.98 0.99    1 
+##    4  492 4504
+```
 

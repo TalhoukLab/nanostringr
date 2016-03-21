@@ -18,5 +18,6 @@ vignette: >
 ```
 
 
-```{r child = "Normalization.Rmd"}
+```{r child = "downstream.Rmd"}
 ```
+

@@ -18,6 +18,8 @@ COL.HLD <-  "#8DA0CB"
 COL.HLO <-"#E78AC3"
 ```
 
+The dataset expQC is the annotation file for all of the experiments, including:
+
 
 ```{r message=TRUE,echo=TRUE}
 library(nanostringr)

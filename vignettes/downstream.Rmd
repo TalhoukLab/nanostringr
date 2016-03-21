@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Downstream Analysis of Hodgkin Lymphoma Classifier"
 author: "Aline Talhouk"
 date: "February 18, 2016"
 output: html_document
@@ -8,7 +8,6 @@ output: html_document
 ```{r  message = FALSE, echo = FALSE, warning = FALSE}
 library(CHL26predictor)
 library(dplyr)
-library(batchAdj)
 library(nanostringr)
 getNum <- function(str.vect){
   sapply(strsplit(str.vect,"[_]"),"[[",2)
@@ -56,7 +55,7 @@ points(scores.risk.df1$score[ind.mis],scores.risk.df2$score[ind.mis],col="red")
 ```{r BootStrapped, message = FALSE, echo = FALSE, warning = FALSE}
 set.seed(40)
 r=3 #Number of reference samples
-nB=5000# of bootstrap samples
+nB=1500# of bootstrap samples
 
 nth=1000
 misCount=rep(0,nB)

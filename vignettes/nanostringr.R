@@ -113,76 +113,87 @@ axis(1, at = seq(0, 5, by = .5), las = 2)
 points(expQC$binding.density[expQC$bdFlag == "Failed"], expQC$lod[expQC$bdFlag == "Failed"], col = "blue", pch = 19)
 legend("topright", legend = "Failed Binding Density QC", col = "blue", pch = 20, bty = 'n')
 
-## ----setupNormalization, message = FALSE, echo = FALSE, warning = FALSE----
-library(nanostringr)
-library(NanoStringNorm)
+## ----message = FALSE, echo = FALSE, warning = FALSE----------------------
+library(CHL26predictor)
 library(dplyr)
-library(knitr)
-library(batchAdj)
-opts_chunk$set(message = FALSE, echo = FALSE, warning = FALSE)
-
-expOVD <- NanoStringQC(ovd.r,subset(expQC,OVD=="Yes"))
-
-
-## ----fig.height=11, fig.width=7------------------------------------------
-HK=t(ovd.r[ovd.r$Code.Class=="Housekeeping",-(1:3)])
-par(mfrow=c(5,2))
-genes=colnames(HK)[order(apply(HK,2,mean))]
-for(i in 1: length(genes)){
-  hist(HK[,genes[i]], xlab=genes[i], main="Raw", probability = T)
-  hist(log(HK[,genes[i]]), xlab=genes[i], main="Log Base 2", probability = T)
+library(nanostringr)
+getNum <- function(str.vect){
+  sapply(strsplit(str.vect,"[_]"),"[[",2)
 }
 
-## ----NanoStringNorm, results = 'hide'------------------------------------
-#Normalized to Positive controls and housekeeping genes using geometric mean
-MAPC.d <- NanoStringNorm(ovd.r, CodeCount = 'geo.mean', SampleContent = 'housekeeping.geo.mean', round.values = TRUE, take.log = T)
-normPC <- t(MAPC.d$normalized.data[MAPC.d$normalized.data$Code.Class == "Endogenous", -c(1:3)])
 
-#Normalized to housekeeping genes using geometric mean
-MAHK.d <- NanoStringNorm(ovd.r, SampleContent = 'housekeeping.geo.mean', round.values = TRUE, take.log = T)
-normHK <- t(MAHK.d$normalized.data[MAHK.d$normalized.data$Code.Class == "Endogenous", -c(1:3)])
+## ----message = FALSE, echo = FALSE, warning = FALSE----------------------
+# Normalize to HK 
+hld.n <- HKnorm(hld.r)
+expHLD <- subset(expQC,HLD=="Yes")
 
-#Normalized to housekeeping genes using geometric mean and background corrected
-MANC.d = NanoStringNorm(ovd.r,Background = 'mean.2sd' ,SampleContent='housekeeping.geo.mean',round.values=TRUE, take.log=T)
-normNC=t(MANC.d$normalized.data[MANC.d$normalized.data$Code.Class == "Endogenous", -c(1:3)])
+hld1 <- hld.n[,grep("HL1",colnames(hld.n))]
+exp.hld1 <- subset(expHLD,geneRLF=="HL1")
 
-set.seed(13)
-gene="Gene 49 "
+hld2 <- hld.n[,grep("HL2",colnames(hld.n))]
+exp.hld2 <- subset(expHLD,geneRLF=="HL2")
 
-## ----PCNorm, fig.height = 8, fig.width = 6, caption = "Ovarian Cancer data comparisons of two normalization procedures of the data of the gene `r gene`. The method that performs only housekeeping normalization is denoted by HK1 and HK2 in CodeSet 1 and 2 respectively. On the other hand, the method that normalizes both to positive controls and housekeeping genes at the same time, is denoted by PC1 and PC2 when ran on CodeSet 1 and CodeSet 2 respectively."----
+CHL26.HL1.exprs=hld.n[rownames(hld.n)%in%CHL26.model.coef.df$geneName,grep("HL1",colnames(hld.n))]+log(1000,2)
+CHL26.HL2.exprs=hld.n[rownames(hld.n)%in%CHL26.model.coef.df$geneName,grep("HL2",colnames(hld.n))]+log(1000,2)
+risk.thres <- 0.6235
 
-pc1 <- normPC[expOVD$geneRLF=="CS1", gene]
-pc2 <- normPC[expOVD$geneRLF=="CS2", gene]
-hk1 <- normHK[expOVD$geneRLF=="CS1", gene]
-hk2 <- normHK[expOVD$geneRLF=="CS2", gene]
-par(mfrow = c(2, 1), oma = c(.5, .5, 2, .5), mar = c(5.1,4.1,1.1,2.1))
-CCplot(hk1, pc1, Ptype = "scatter", xlabel = "HK1", ylabel = "PC1", subtitle = paste( letters[1],":","CodeSet 1"))
-CCplot(hk2, pc2, Ptype = "scatter", xlabel = "HK2", ylabel =  "PC2", subtitle =paste( letters[2], ":","CodeSet 2"))
-title(gene, outer = T)
-
-## ----MABackground, fig.height = 8, fig.width = 6, fig.cap="Ovarian Cancer data comparisons of two normalization procedures of the data of the gene `r gene`. The method that performs only housekeeping normalization is denoted by HK1 and HK2 in CodeSet 1 and 2 respectively. On the other hand, the method that normalizes housekeeping genes and performs background correction, is denoted by NC1 and NC2 when ran on CodeSet 1 and CodeSet 2 respectively."----
-nc1 <- normNC[expOVD$geneRLF=="CS1", gene]
-nc2 <- normNC[expOVD$geneRLF=="CS2", gene]
-hk1 <- normHK[expOVD$geneRLF=="CS1", gene]
-hk2 <- normHK[expOVD$geneRLF=="CS2", gene]
-par(mfrow = c(2, 1), oma = c(.5, .5, 2, .5), mar = c(5.1,4.1,1.1,2.1))
-CCplot(hk1, nc1, Ptype = "scatter", xlabel = "HK1", ylabel = "NC1", subtitle = paste( letters[1],":","CodeSet 1"))
-CCplot(hk2, nc2, Ptype = "scatter", xlabel = "HK2", ylabel =  "NC2", subtitle = paste( letters[2],":","CodeSet 2"))
-title(gene, outer = T)
+scores.df1 <- get_CHL26_scores(as.matrix(CHL26.HL1.exprs))
+scores.df2 <- get_CHL26_scores(as.matrix(CHL26.HL2.exprs))
 
 
-## ----MAmeansdPlot,message=FALSE,echo=FALSE,fig.height=8,fig.width=6, fig.cap="In both CodeSets we  see that where the negative control genes are in the lower limit of detection. The housekeeping genes have constant varianceand it's low relative to other genes."----
-Plot.NanoStringNorm(x = MAHK.d,label.best.guess = FALSE, plot.type = 'mean.sd',title=FALSE);
-title("OC Clinical Samples", outer=T)
+scores.risk.df1 <- scores.df1 %>%
+  mutate(riskClass = ifelse(score >= risk.thres, "High", "Low"))
+scores.risk.df2 <- scores.df2 %>%
+  mutate(riskClass = ifelse(score >= risk.thres, "High", "Low"))
+tabRisk=table(scores.risk.df1$riskClass,scores.risk.df2$riskClass)
+ind.mis <- which(scores.risk.df1$riskClass!=scores.risk.df2$riskClass)
+n=(dim(CHL26.HL1.exprs)[2])
+mis=n-sum(diag(tabRisk))
 
-## ----fig.height=8,fig.width=6--------------------------------------------
-par(mfrow = c(2, 1), oma = c(.5, .5, 2, .5), mar = c(5.1,4.1,1.1,2.1))
-ovd.n <- t(HKnorm(ovd.r)[,-(1:3)])
-ovd.1 <- ovd.n[expOVD$geneRLF=="CS1",]
-ovd.2 <- ovd.n[expOVD$geneRLF=="CS2",]
 
-CCplot(hk1, ovd.1[,gene], Ptype = "scatter", xlabel = "Normalized with scaling", ylabel = "Normalized without scaling", subtitle = paste( letters[1],":","CodeSet 1"),xrange=c(-10,15),yrange=c(-10,15))
+## ----RawScores, message = FALSE, echo = FALSE, warning = FALSE-----------
+CCplot(scores.risk.df1$score,scores.risk.df2$score,Ptype = "scatter",xrange = range(scores.df1$score), yrange = range(scores.df2$score), xlabel = "HL1", ylabel = "HL2", subtitle = "Scores without Batch Adjustment")
+abline(h = risk.thres, col=2, lty = 1)
+text (0.7,0.58,paste("Misclassified:",mis),col="red")
+points(scores.risk.df1$score[ind.mis],scores.risk.df2$score[ind.mis],col="red")
 
-CCplot(hk2, ovd.2[, gene], Ptype = "scatter", xlabel = "Normalized with scaling", ylabel =  "Normalized without scaling", subtitle = paste( letters[2],":","CodeSet 2"),xrange=c(-10,15),yrange=c(-10,15))
-title(gene, outer = T)
+## ----BootStrapped, message = FALSE, echo = FALSE, warning = FALSE--------
+set.seed(40)
+r=3 #Number of reference samples
+nB=5000# of bootstrap samples
+
+nth=1000
+misCount=rep(0,nB)
+ind.mis.count=rep(0,nB)
+Cmetrix=matrix(0, nrow = nB, ncol = 3)
+for(i in 1:nB){
+choice.refs <- exp.hld1$sampleID[sample((1:dim(exp.hld1)[1]), r, replace = F)] 
+DSR1 <- t(hld1[,choice.refs]+log2(1000))
+DSR2 <- t(hld2[,paste("HL2",getNum(choice.refs),sep="_")]+log2(1000))
+DSY <- t(hld2[,!colnames(hld2)%in%paste("HL2",getNum(choice.refs),sep="_")]+log2(1000))
+
+DSS2.r <- t(refMethod(DSY,DSR1, DSR2))
+
+CHL26.HL2.r.SS.exprs=DSS2.r[rownames(DSS2.r)%in%CHL26.model.coef.df$geneName,]
+scores.ss.df2.r <- get_CHL26_scores(as.matrix(CHL26.HL2.r.SS.exprs))
+scores.risk.ss.df2.r <- scores.ss.df2.r %>%
+  mutate(riskClass = ifelse(score >= risk.thres, "High", "Low"))
+ndx2.r <- substring(scores.df1$sampleID,5) %in% substring(scores.ss.df2.r$sampleID,5)
+misCount[i] <- (n-r)-sum(diag(table(scores.risk.df1$riskClass[ndx2.r],scores.risk.ss.df2.r$riskClass)))
+ind.mis.t <- scores.risk.ss.df2.r$sampleID[which(scores.risk.df1$riskClass[ndx2.r]!=scores.risk.ss.df2.r$riskClass)]
+
+ind.mis.count[i] <- (sum(ind.mis.t%in%c("HL2_30","HL2_32"))==misCount[i])
+
+Cmetrix[i,]=CCplot(scores.df1$score[ndx2.r],scores.risk.ss.df2.r$score, metrics = TRUE)
+
+if(i %% nth == 0){
+CCplot(scores.df1$score[ndx2.r],scores.risk.ss.df2.r$score,Ptype = "scatter", xrange = range(scores.df1$score), yrange = range(scores.df2$score), xlabel = "HL1", ylabel = "HL2")
+abline(h = risk.thres, col=2, lty = 1)
+text(0.7,0.6,paste("Misclassified",misCount[i]))
+}
+}
+TotalMisCount <- table(misCount)/nB
+Accuracy <- Cmetrix[,2]
+table(Accuracy)
+if (length(TotalMisCount) > 3) {print("more than 3 misclassifications observed")}
 
