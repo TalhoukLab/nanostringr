@@ -4,8 +4,9 @@ Title: Performs quality control and data normalization and batch effect correcti
 Version: 0.0.0.9008
 Date: 2015-12-16
 Authors@R: as.person(c(
-    "Derek Chiu <dchiu@bccrc.ca> [cre]",
-    "Aline Talhouk <atalhouk@bccrc.ca> [aut]"
+    "Aline Talhouk <atalhouk@bccrc.ca> [aut]",
+    "Samuel Leung <Samuel.Leung@vch.ca> [aut]",
+    "Derek Chiu <dchiu@bccrc.ca> [cre]"
   ))
 Description: QC and batch adjustment operations for NanoString data.
 Depends: R (>= 3.2.0)
