@@ -1,12 +1,12 @@
 {
-    "contents" : "nanostringr\n===========\n\nAn R Package for quality assurance checking, normalization and batch effects adjustments of NanoString data suitable for single sample processing. This is the companion R package for the paper published in XXX.\n\nInstallation\n------------\n\nTo install this package, use devtools:\n\n``` r\ndevtools::install_github(\"OVCARE/nanostringr\")\n```\n\nDependencies\n------------\n\nPlease note that the package CHL26predictor (<https://github.com/tinyheero/CHL26predictor>) is needed to run the Hodgkin Lymphoma predictive model.\n\nOverview\n--------\n\nTo see the full list of exported functions:\n\n``` r\nlibrary(nanostringr)\nls(\"package:nanostringr\")\n```\n\nA quick overview of the key functions:\n\n-   NanoStringQC: Computes quality assurance metrics.\n-   HKnorm: Performs log (base 2) transformation and normalization to Housekeeping Genes\n-   refMethod: Performs batch effect correction using the reference-based strategie\n\nA [vignette](http://htmlpreview.github.io/?https://github.com/AlineTalhouk/nanostringr/blob/master/vignettes/my-vignette.html) that reproduces most of the analyses in the paper is included.\n",
+    "contents" : "nanostringr\n===========\n\nAn R Package for quality assurance checking, normalization and batch effects adjustments of NanoString data suitable for single sample processing. This is the companion R package for the paper published in XXX.\n\nInstallation\n------------\n\nTo install this package, use devtools:\n\n``` r\ndevtools::install_github(\"OVCARE/nanostringr\")\n```\n\nDependencies\n------------\n\nPlease note that the package CHL26predictor (<https://github.com/tinyheero/CHL26predictor>) is needed to run the Hodgkin Lymphoma predictive model.\n\nOverview\n--------\n\nTo see the full list of exported functions:\n\n``` r\nlibrary(nanostringr)\nls(\"package:nanostringr\")\n```\n\nA quick overview of the key functions:\n\n-   NanoStringQC: Computes quality assurance metrics.\n-   HKnorm: Performs log (base 2) transformation and normalization to Housekeeping Genes\n-   refMethod: Performs batch effect correction using the reference-based strategie\n\nA [vignette](http://htmlpreview.github.io/?https://github.com/AlineTalhouk/nanostringr/blob/master/vignettes/my-vignette.html) that reproduces most of the analyses in the paper is included. The vignettes can be accessed in R  using \n\n``` r\nbrowse_Vignettes(\"nanostringr\")\n```\n",
     "created" : 1458856750577.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1324171482",
+    "hash" : "178017707",
     "id" : "F5E4E4B2",
-    "lastKnownWriteTime" : 1458852187,
+    "lastKnownWriteTime" : 1458857010,
     "path" : "~/Repositories/sandbox/nanostringr/README.md",
     "project_path" : "README.md",
     "properties" : {

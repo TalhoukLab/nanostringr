@@ -33,4 +33,8 @@ A quick overview of the key functions:
 -   HKnorm: Performs log (base 2) transformation and normalization to Housekeeping Genes
 -   refMethod: Performs batch effect correction using the reference-based strategie
 
-A [vignette](http://htmlpreview.github.io/?https://github.com/AlineTalhouk/nanostringr/blob/master/vignettes/my-vignette.html) that reproduces most of the analyses in the paper is included.
+A [vignette](http://htmlpreview.github.io/?https://github.com/AlineTalhouk/nanostringr/blob/master/vignettes/my-vignette.html) that reproduces most of the analyses in the paper is included. The vignettes can be accessed in R  using 
+
+``` r
+browse_Vignettes("nanostringr")
+```
