@@ -41,4 +41,4 @@ A quick overview of the key functions:
 - refMethod: Performs batch effect correction using the reference-based strategie 
 
 
-A [vignette]() that reproduces most of the analyses in the paper is included.
+A [vignette](http://htmlpreview.github.io/?https://github.com/tinyheero/CHL26predictor/blob/master/vignettes/introduction.html) that reproduces most of the analyses in the paper is included.
