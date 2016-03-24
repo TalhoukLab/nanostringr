@@ -9,7 +9,7 @@ Installation
 To install this package, use devtools:
 
 ``` r
-#devtools::install_github("OVCARE/nanostringr")
+devtools::install_github("OVCARE/nanostringr")
 ```
 
 Dependencies
@@ -25,9 +25,6 @@ To see the full list of exported functions:
 ``` r
 library(nanostringr)
 ls("package:nanostringr")
-#> [1] "expQC"        "HKnorm"       "hld.r"        "hlo.r"       
-#> [5] "NanoStringQC" "ovc.r"        "ovd.r"        "ovo.r"       
-#> [9] "refMethod"
 ```
 
 A quick overview of the key functions:
@@ -35,3 +32,5 @@ A quick overview of the key functions:
 -   NanoStringQC: Computes quality assurance metrics.
 -   HKnorm: Performs log (base 2) transformation and normalization to Housekeeping Genes
 -   refMethod: Performs batch effect correction using the reference-based strategie
+
+A vignette that reproduces most of the analyses in the paper is included.

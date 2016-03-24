@@ -52,7 +52,7 @@ text (0.7,0.58,paste("Misclassified:",mis),col="red")
 points(scores.risk.df1$score[ind.mis],scores.risk.df2$score[ind.mis],col="red")
 ```
 
-```{r BootStrapped, message = FALSE, echo = FALSE, warning = FALSE}
+```{r BootStrapped, message = FALSE, echo = FALSE, warning = FALSE,cache=TRUE}
 set.seed(40)
 r=3 #Number of reference samples
 nB=1500# of bootstrap samples
