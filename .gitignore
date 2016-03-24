@@ -1,2 +1,5 @@
-inst/doc
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^README-.*\.png$
 .Rproj.user
