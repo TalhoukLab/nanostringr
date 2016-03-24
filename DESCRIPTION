@@ -23,4 +23,3 @@ Suggests:epiR,
     tidyr,
     ggplot2
 RoxygenNote: 5.0.1
-VignetteBuilder: knitr
