@@ -1,0 +1,17 @@
+{
+    "contents" : "---\ntitle: \"nanostringr Package\"\nauthor: \"Aline Talhouk\"\ndate: \"`r Sys.Date()`\"\noutput: rmarkdown::html_vignette\nvignette: >\n  %\\VignetteIndexEntry{Vignette Title}\n  %\\VignetteEngine{knitr::rmarkdown}\n  %\\VignetteEncoding{UTF-8}\n  \\usepackage[utf8]{inputenc}\n---\n\n```{r child = \"QAmeasures.Rmd\"}\n```\n\n\n```{r child = \"downstream.Rmd\"}\n```\n\n",
+    "created" : 1458850537413.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "672687080",
+    "id" : "D10615CE",
+    "lastKnownWriteTime" : 1458851967,
+    "path" : "~/Repositories/sandbox/nanostringr/vignettes/my-vignette.Rmd",
+    "project_path" : "vignettes/my-vignette.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}
