@@ -1,4 +1,4 @@
----
+li---
 title: "Downstream Analysis of Hodgkin Lymphoma Classifier"
 author: "Aline Talhouk"
 date: "February 18, 2016"
@@ -12,12 +12,18 @@ library(nanostringr)
 getNum <- function(str.vect){
   sapply(strsplit(str.vect,"[_]"),"[[",2)
 }
-
 ```
 
-```{r  message = FALSE, echo = FALSE, warning = FALSE}
+We first load the Hodgkin Lymphoma raw data and normalize it to housekeeping genes:
+```{r}
 # Normalize to HK 
 hld.n <- HKnorm(hld.r)
+```
+
+We compute the risk scores for the samples obtained in each CodeSet
+
+```{r  message = FALSE, warning = FALSE}
+
 expHLD <- subset(expQC,HLD=="Yes")
 
 hld1 <- hld.n[,grep("HL1",colnames(hld.n))]
@@ -36,12 +42,14 @@ scores.df2 <- get_CHL26_scores(as.matrix(CHL26.HL2.exprs))
 
 scores.risk.df1 <- scores.df1 %>%
   mutate(riskClass = ifelse(score >= risk.thres, "High", "Low"))
+
 scores.risk.df2 <- scores.df2 %>%
   mutate(riskClass = ifelse(score >= risk.thres, "High", "Low"))
-tabRisk=table(scores.risk.df1$riskClass,scores.risk.df2$riskClass)
+
+tabRisk <- table(scores.risk.df1$riskClass,scores.risk.df2$riskClass)
 ind.mis <- which(scores.risk.df1$riskClass!=scores.risk.df2$riskClass)
-n=(dim(CHL26.HL1.exprs)[2])
-mis=n-sum(diag(tabRisk))
+
+mis <- (dim(CHL26.HL1.exprs)[2])-sum(diag(tabRisk))
 
 ```
 
@@ -52,17 +60,19 @@ text (0.7,0.58,paste("Misclassified:",mis),col="red")
 points(scores.risk.df1$score[ind.mis],scores.risk.df2$score[ind.mis],col="red")
 ```
 
+
 ```{r BootStrapped, message = FALSE, echo = FALSE, warning = FALSE,cache=TRUE}
 set.seed(40)
-r=3 #Number of reference samples
-nB=1500# of bootstrap samples
+r <- 3 #Number of reference samples
+nB <- 1500# of bootstrap samples
 
-nth=1000
-misCount=rep(0,nB)
-ind.mis.count=rep(0,nB)
-Cmetrix=matrix(0, nrow = nB, ncol = 3)
+nth <- 1000
+misCount <- rep(0,nB)
+ind.mis.count <- rep(0,nB)
+Cmetrix <- matrix(0, nrow = nB, ncol = 3)
+
 for(i in 1:nB){
-choice.refs <- exp.hld1$sampleID[sample((1:dim(exp.hld1)[1]), r, replace = F)] 
+choice.refs <- exp.hld1$sampleID[sample((1:dim(exp.hld1)[1]), r, replace = F)] # select reference samples randomly
 DSR1 <- t(hld1[,choice.refs]+log2(1000))
 DSR2 <- t(hld2[,paste("HL2",getNum(choice.refs),sep="_")]+log2(1000))
 DSY <- t(hld2[,!colnames(hld2)%in%paste("HL2",getNum(choice.refs),sep="_")]+log2(1000))
