@@ -1,3 +1,9 @@
+---
+output: 
+  html_document: 
+    fig_caption: yes
+    toc: yes
+---
 li---
 title: "Downstream Analysis of Hodgkin Lymphoma Classifier"
 author: "Aline Talhouk"

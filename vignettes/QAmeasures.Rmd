@@ -1,6 +1,9 @@
 ---
 title: "QAmeasures"
-output: html_document
+output: 
+  html_document: 
+    fig_caption: yes
+    toc: yes
 ---
 
 
