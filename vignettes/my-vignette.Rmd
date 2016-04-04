@@ -3,7 +3,6 @@ title: "nanostringr Package"
 author: "Aline Talhouk"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
-    toc: yes
 vignette: >
   \VignetteIndexEntry{Vignette Title}
   \VignetteEngine{knitr::rmarkdown}
@@ -13,7 +12,6 @@ vignette: >
 
 ```{r child = "QAmeasures.Rmd"}
 ```
-
 
 ```{r child = "downstream.Rmd"}
 ```
