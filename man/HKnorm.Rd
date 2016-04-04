@@ -11,6 +11,8 @@ HKnorm(raw.data, is.logged = FALSE, corr = 1e-04)
 The first three columns must be labeled: c("Code.Class", "Name", "Accession")
 and contain that information.}
 
+\item{is.logged}{logical; If \code{TRUE}, normalization done on log base 2 scale}
+
 \item{corr}{small correction to avoid error}
 }
 \value{

@@ -18,9 +18,9 @@ exp0$geneRLF <- as.character(factor(
                            "CS3", "mini", "CS1", "CS2")))
 
 test_that("Always returns data frame", {
-  expect_is(NanoStringQC(cs1, exp0[exp0$geneRLF == "CS1", ], plots = FALSE), "data.frame")
-  expect_is(NanoStringQC(cs2, exp0[exp0$geneRLF == "CS2", ], plots = FALSE), "data.frame")
-  expect_is(NanoStringQC(cs3, exp0[exp0$geneRLF == "CS3", ], plots = FALSE), "data.frame")
+  expect_is(NanoStringQC(cs1, exp0[exp0$geneRLF == "CS1", ]), "data.frame")
+  expect_is(NanoStringQC(cs2, exp0[exp0$geneRLF == "CS2", ]), "data.frame")
+  expect_is(NanoStringQC(cs3, exp0[exp0$geneRLF == "CS3", ]), "data.frame")
 })
 
 test_that("ncol(raw) == nrow(exp) + 3", {

@@ -7,27 +7,20 @@
 #' @param exp matrix of annotations with rows in the same order as the columns of \code{raw}. Requires a column labeled \code{"File.Name"} with entries corresponding to sample names in \code{raw}, also needs columns \code{c("fov.counted", "fov.count", "binding.density")}.These fields can be extracted from the nanostring RCC files.
 #' @param detect threshold of percentage of genes expressed over limit of detection (LOD) that we would like to detect (not decimal), defaults to 80 percent.
 #' @param sn signal to noise ratio of the housekeeping genes we are willing to tolerate, defaults to 150.
-#'
 #' @return matrix of annotations updated with normalization parameters
-#'
 #' @author Aline Talhouk, Derek Chiu
-#'
 #' @import dplyr
-#'
 #' @export
-#'
 #' @examples
 #' exp.OVD <-subset(expQC,OVD=="Yes")
 #' expOVD <- NanoStringQC(ovd.r,exp.OVD)
-
-
 NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
 
   # Run a bunch of checks to make sure the data is in the right order
-  assertthat::assert_that(check_colnames(raw)) #Checks format of raw counts
-  assertthat::assert_that(check_genes(raw)) #Checks that HK genes are specified
+  assertthat::assert_that(check_colnames(raw))  # Checks format of raw counts
+  assertthat::assert_that(check_genes(raw))  # Checks that HK genes are specified
   assertthat::assert_that(ncol(raw) == nrow(exp) + 3)
-  assertthat::assert_that(all(substring(colnames(raw[,-(1:3)]),2) == exp$File.Name))
+  assertthat::assert_that(all(substring(colnames(raw[, -(1:3)]), 2) == exp$File.Name))
 
   sn.in <- sn
   genes <- raw$Name

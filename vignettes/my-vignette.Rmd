@@ -5,9 +5,9 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
     toc: yes
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  \VignetteIndexEntry{Vignette Title}
+  \VignetteEngine{knitr::rmarkdown}
+  \VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
 ---
 

@@ -6,6 +6,7 @@
 #' @param raw.data matrix of raw counts obtained from nCounter (rows are genes).
 #' The first three columns must be labeled: c("Code.Class", "Name", "Accession")
 #' and contain that information.
+#' @param is.logged logical; If \code{TRUE}, normalization done on log base 2 scale
 #' @param corr small correction to avoid error
 #' @return A matrix of log normalized data in the same format but without reference genes.
 #' @author Aline Talhouk
