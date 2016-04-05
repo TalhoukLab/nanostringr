@@ -1,11 +1,6 @@
 base
-methods
-datasets
-utils
-grDevices
-graphics
-stats
 knitr
 dplyr
 nanostringr
 CHL26predictor
+devtools

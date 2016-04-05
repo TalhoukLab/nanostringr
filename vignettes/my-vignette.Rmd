@@ -3,9 +3,14 @@ title: "nanostringr Package"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
+<<<<<<< HEAD
   \VignetteIndexEntry{nanostringr Vignettes}
   \VignetteEngine{knitr::rmarkdown}
   \VignetteEncoding{UTF-8}
+=======
+  %\VignetteIndexEntry{nanostringr Package}
+  %\VignetteEngine{knitr::rmarkdown}
+>>>>>>> origin/master
   \usepackage[utf8]{inputenc}
 ---
 
