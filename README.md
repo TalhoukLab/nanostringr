@@ -3,6 +3,7 @@ nanostringr
 
 An R Package for quality assurance checking, normalization and batch effects adjustments of NanoString data suitable for single sample processing. This is the companion R package for the paper published in XXX.
 
+
 Installation
 ------------
 
@@ -36,5 +37,5 @@ A quick overview of the key functions:
 A [vignette](http://htmlpreview.github.io/?https://github.com/AlineTalhouk/nanostringr/blob/master/vignettes/my-vignette.html) that reproduces most of the analyses in the paper is included. The vignettes can be accessed in R  using 
 
 ``` r
-browse_Vignettes("nanostringr")
+browseVignettes("nanostringr")
 ```
