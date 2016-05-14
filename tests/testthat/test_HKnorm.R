@@ -1,6 +1,5 @@
 context("HKnorm")
 
-library(NanoStringNorm)
 data(NanoString)
 
 test_that("Error if no endogenous and housekeeping genes", {
