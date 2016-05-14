@@ -14,6 +14,8 @@
 #' @param MArange MA range
 #' @return Either a scatterplot or MA plot showing concordance correlation.
 #' @author Aline Talhouk
+#' @importFrom graphics abline par plot text
+#' @importFrom stats cor lm sd var
 #' @export
 #' @examples
 #' # Simulate normally distributed data
