@@ -1,15 +1,4 @@
----
-title: "nanostringr Package"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{nanostringr Vignettes}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
-  %\usepackage[utf8]{inputenc}
----
-
-```{r setupQualityMeasures, message = FALSE, echo = FALSE, warning = FALSE}
+## ----setupQualityMeasures, message = FALSE, echo = FALSE, warning = FALSE----
 library(knitr)
 library(dplyr)
 opts_chunk$set(message = FALSE, echo = TRUE, warning = FALSE, fig.height = 6, fig.width = 7)
@@ -22,46 +11,8 @@ COL.HLO <- "#E78AC3"
 getNum <- function(str.vect) {
   sapply(strsplit(str.vect, "[_]"), "[[", 2)
 }
-```
 
-The `nanostringr` R package is a companion R package to the manuscript:
-
-A. Talhouk, R. McKenzie, S. Ramus, S. Leung, F. Chan, S. Kommoss, D. Huntsman, C. Steidl, D. Scott, M. Anglesio. (2016). Single-patient molecular testing with NanoString nCounter Data using a reference-based strategy for batch effect correction. *PLos ONE*.
-
-This vignette provides a guide to reproduce the analyses in the paper and document the use of some of the functions.
-
-# The Data
-Included in this package are several datasets that are described in detail in the manuscript and that are annotated in expQC, the annotation data frame for all of the experiments, run in different CodeSets, including:
-
-- **Hodgkin Lymphoma Clinical Samples (HL)** 	TOTAL 	74 samples	
-    - HL1	n=32	Unique Samples
-    - HL2	n=32	Replicates of HL1 samples
-    - HL3	n=10	Replicates (subset of HL1 samples)
-
-- **Ovarian Cancer Clinical Samples (OC)**		TOTAL	258	samples
-    - OC1	n=129	Unique
-    - OC2	n=129	Replicates of OC1 samples
-	    
-- **Ovarian Cancer Cell Lines (OVCL)**	TOTAL	26 
-    - OC1	n=13	Unique
-    - OC2	n=13	Replicates of OC1 samples
-	
-- **DNA Oligonucleotides for the HL CodeSet (HLO)**	TOTAL	68 HLO pool run at different concentrations
-    - HL1	n=36	
-    - HL2	n=30	
-    - HL3	n=2	
-    
-- **DNA Oligonucleotides for the OC CodeSet (OVO)**		TOTAL	135	OVO pool run at different concentrations
-    - OC1	n=47	
-	  - OC2	n=88	
-
-# The Functions
-
-## NanoStringQC
-
-The NanoStringQC function computes several QC metrics and appends them to the annotation matrix. Care should be taken to ensure that the data is in the proper format. The function returns different QC metric flags that can be used to filter out samples that fail QC.
-
-```{r NanoStringQC, message=TRUE, echo=TRUE}
+## ----NanoStringQC, message=TRUE, echo=TRUE-------------------------------
 library(nanostringr)
 expOVD <- NanoStringQC(ovd.r, subset(expQC, OVD == "Yes"))
 expOVO <- NanoStringQC(ovo.r, subset(expQC, OVO == "Yes"))
@@ -77,52 +28,33 @@ expQC <- expQC %>%
                                                   c("HLD" = "HL",
                                                     "OVD" = "OC")),
                          levels = c("HL", "OC", "OVCL", "HLO", "OVO")))
-```
 
-### Metrics for Quality Assurance
-
-### Fields Of View (FOV) 
-
-```{r perFOVPlot, fig.cap="Samples that failed imaging QC based on percent fields of view (FOV) counted across cohorts."}
+## ----perFOVPlot, fig.cap="Samples that failed imaging QC based on percent fields of view (FOV) counted across cohorts."----
 boxplot(perFOV ~ cohort, ylab = "% FOV", main = "% FOV by Cohort", data = expQC, pch = 20,
         col = c(COL.HLD, COL.OVD, COL.OVCL, COL.HLO, COL.OVO))
 abline(h = 75, lty = 2, col = "red")
 grid(NULL, NULL, lwd = 1)
-```
 
-### Postive Controls
-    
-#### Linearity of Positive Controls
-
-```{r linPCPlot, fig.cap="Plot of $R^2$ of postive control probes from samples across all cohorts."}
+## ----linPCPlot, fig.cap="Plot of $R^2$ of postive control probes from samples across all cohorts."----
 boxplot(linPC ~ cohort, ylab = expression(R ^ 2), main = "Linearity of Positive Controls by Cohort",
         data = expQC, pch = 20, col = c(COL.HLD, COL.OVD, COL.OVCL, COL.HLO, COL.OVO), ylim = c(0, 1))
 abline(h = 0.95, lty = 2, col = "red")
 grid(NULL, NULL, lwd = 1)
-```
 
-### Signal to Noise Ratio (SNR)
-
-#### Level of Housekeeping Genes
-
-```{r averageHKPlot, fig.cap="Average log expression of Housekeeping genes by Cohort."}
+## ----averageHKPlot, fig.cap="Average log expression of Housekeeping genes by Cohort."----
 boxplot(averageHK ~ cohort, ylab = "Average log HK expression",
         main = "Average log expression of Housekeeping genes by Cohort", data = expQC, pch = 20,
         col = c(COL.HLD, COL.OVD, COL.OVCL, COL.HLO, COL.OVO))
 abline(h = 50, lty = 2, col = "red")
 grid(NULL, NULL, lwd = 1)
-```
 
-#### Limit of Detection (LOD)
-
-```{r lodPlot, fig.cap="Limit of detection by cohort."}
+## ----lodPlot, fig.cap="Limit of detection by cohort."--------------------
 boxplot(lod ~ cohort, ylab = "LOD", main = "Limit of detection (LOD) by Cohort",
         data = expQC, pch = 20, col = c(COL.HLD, COL.OVD, COL.OVCL, COL.HLO, COL.OVO))
 abline(h = 50, lty = 2, col = "red")
 grid(NULL, NULL, lwd = 1)
-```
 
-```{r pergdPlot, fig.cap="Percent genes of total (excluding controls) detected above the limit of detection."}
+## ----pergdPlot, fig.cap="Percent genes of total (excluding controls) detected above the limit of detection."----
 boxplot(pergd ~ cohort, data = expQC, border = "white",
        ylab = "% Genes Detected", 
        main = "Percent of Genes Detected Above \n the Limit of Detection", 
@@ -133,9 +65,8 @@ stripchart(pergd ~ cohort, data = expQC,
            vertical = TRUE, method = "jitter",  
            pch = 20, cex = 0.4 , col = "#3A6EE3", 
            add = TRUE) 
-```
 
-```{r snPlot, fig.cap="Signal to Noise versus % Gene Detected by cohort."}
+## ----snPlot, fig.cap="Signal to Noise versus % Gene Detected by cohort."----
 sn <- 100
 detect <- 60
 
@@ -151,9 +82,8 @@ abline(h = detect, lty = 2)
 title("Signal to Noise vs \n Ratio of Genes Detected")
 legend("bottomright", c("HL", "OC", "OVCL", "HLO", "OVO"), pch = 20, bty = 'n',
        col = c(COL.HLD, COL.OVD, COL.OVCL, COL.HLO, COL.OVO))
-```
 
-```{r snZoom, fig.cap="Signal to Noise versus % Gene Detected by cohort zoomed in to the area of possible failures."}
+## ----snZoom, fig.cap="Signal to Noise versus % Gene Detected by cohort zoomed in to the area of possible failures."----
 plot(expOVD$sn, expOVD$pergd, pch = 20, col = COL.OVD, xaxt = "n", ylim = c(0, 100), xlim = c(0, 6000),
      xlab = "Signal to Noise Ratio ", ylab = "Ratio of Genes Detected")
 points(expOVO$sn, expOVO$pergd, pch = 20, col = COL.OVO)
@@ -167,32 +97,17 @@ abline(h = detect, lty = 2)
 title("Signal to Noise vs \n Ratio of Genes Detected (Zooming-in)")
 legend("bottomright", c("HL", "OC", "OVCL", "HLO", "OVO"), pch = 20, bty = 'n',
        col = c(COL.HLD, COL.OVD, COL.OVCL, COL.HLO, COL.OVO))
-```
 
-## HKnorm
-
-The HKnorm function does a simple normalization to log transformed (base 2) gene expression data data to housekeeping genes. This is done by subtracting the average log housekeeping gene expression level from the expression level of every gene in each sample.
-
-As an example, here we check the QC metrics of the Hodgkin Lymphoma data and normalize it to housekeeping genes:
-
-We can check to see if any samples failed QC metrics
-
-```{r HKnorm}
+## ----HKnorm--------------------------------------------------------------
 expHLD0 <- expHLD
 any(expHLD0$QCFlag == "Failed")
 expHLD0$sampleID[which(expHLD0$QCFlag == "Failed")]
-```
 
-Since these are matched samples we must remove both pairs from the annotation data frame and from the gene expression data frame.
-
-```{r remove_samples}
+## ----remove_samples------------------------------------------------------
 expHLD <- filter(expHLD0, sampleID != "HL1_18" & sampleID != "HL2_18")
 hld <- hld.r[, !colnames(hld.r) %in% c("HL1_18", "HL2_18")]
-```
 
-We now normalize the resulting gene expression data
-
-```{r normalize_HK}
+## ----normalize_HK--------------------------------------------------------
 # Normalize to HK 
 hld.n <- HKnorm(hld)
 hld1 <- hld.n[, grep("HL1", colnames(hld.n))]
@@ -200,26 +115,16 @@ exp.hld1 <- subset(expHLD, geneRLF == "HL1")
 
 hld2 <- hld.n[, grep("HL2", colnames(hld.n))]
 exp.hld2 <- subset(expHLD, geneRLF == "HL2")
-```
 
-## refMethod
-
-This function does batch adjustment using a reference-based strategy. 
-
-Below is how this would work for the HL data:
-
-```{r refMethod}
+## ----refMethod-----------------------------------------------------------
 r <- 3 # The number of references to use
 choice.refs <- exp.hld1$sampleID[sample((1:dim(exp.hld1)[1]), r, replace = F)] # select reference samples randomly
 R1 <- t(hld1[, choice.refs])
 R2 <- t(hld2[, paste("HL2", getNum(choice.refs), sep = "_")])
 Y <- t(hld2[, !colnames(hld2) %in% paste("HL2", getNum(choice.refs), sep = "_")])
 S2.r <- t(refMethod(Y, R1, R2)) # Data from CodeSet 2 now calibrated for CodeSet 1
-```
 
-We can check the result by selecting a random gene and plotting the expression values from both CodeSets
-
-```{r plot_gene}
+## ----plot_gene-----------------------------------------------------------
 set.seed(2016)
 gene <- sample(1:nrow(hld1), 1)
 par(mfrow = c(1, 2))
@@ -228,13 +133,8 @@ abline(0, 1)
 
 plot(t(hld1[gene, !(colnames(hld1) %in% choice.refs)]), t(S2.r[gene, ]), xlab = "HL1", ylab = "HL2", main = "Corrected")
 abline(0, 1)
-```
 
-# Downstream Analysis
-
-In the previous analysis we compared the gene expression value of an individual gene. Below is the impact on a downstream analysis. We use the HL prognostic model as an example. For additional information on this model, the reader is referred to XX
-
-```{r downstream_analysis}
+## ----downstream_analysis-------------------------------------------------
 library(CHL26predictor)
 
 # We select the genes that are used in the model
@@ -260,59 +160,12 @@ tabRisk <- table(scores.risk.df1$riskClass, scores.risk.df2$riskClass)
 ind.mis <- which(scores.risk.df1$riskClass != scores.risk.df2$riskClass)
 
 mis <- n - sum(diag(tabRisk))
-```
 
-```{r RawScores, message = FALSE, echo = FALSE, warning = FALSE}
+## ----RawScores, message = FALSE, echo = FALSE, warning = FALSE-----------
 CCplot(scores.risk.df1$score, scores.risk.df2$score, Ptype = "scatter",
        xrange = range(scores.df1$score), yrange = range(scores.df2$score),
        xlabel = "HL1", ylabel = "HL2", subtitle = "Scores without Batch Adjustment")
 abline(h = risk.thres, col = 2, lty = 1)
 text(0.7, 0.58, paste("Misclassified:", mis), col = "red")
 points(scores.risk.df1$score[ind.mis], scores.risk.df2$score[ind.mis], col = "red")
-```
 
-```{r BootStrapped, message = FALSE, echo = FALSE, warning = FALSE, cache = TRUE, results='asis'}
-set.seed(40)
-r <- 3  # Number of reference samples
-nB <- 1500  # of bootstrap samples
-nth <- 1000
-misCount <- rep(0, nB)
-ind.mis.count <- rep(0, nB)
-Cmetrix <- matrix(0, nrow = nB, ncol = 3)
-
-for (i in 1:nB) {
-  choice.refs <- exp.hld1$sampleID[sample((1:dim(exp.hld1)[1]), r, replace = F)]  # select reference samples randomly
-  DSR1 <- t(hld1[, choice.refs] + log2(1000))
-  DSR2 <- t(hld2[, paste("HL2", getNum(choice.refs), sep = "_")] + log2(1000))
-  DSY <- t(hld2[, !colnames(hld2) %in% paste("HL2", getNum(choice.refs), sep = "_")] + log2(1000))
-  
-  DSS2.r <- t(refMethod(DSY, DSR1, DSR2))
-  
-  CHL26.HL2.r.SS.exprs <- DSS2.r[rownames(DSS2.r) %in% CHL26.model.coef.df$geneName, ]
-  scores.ss.df2.r <- get_CHL26_scores(as.matrix(CHL26.HL2.r.SS.exprs))
-  scores.risk.ss.df2.r <- scores.ss.df2.r %>%
-    mutate(riskClass = ifelse(score >= risk.thres, "High", "Low"))
-  ndx2.r <- substring(scores.df1$sampleID, 5) %in% substring(scores.ss.df2.r$sampleID, 5)
-  misCount[i] <- (n - r) - sum(diag(table(scores.risk.df1$riskClass[ndx2.r],
-                                          scores.risk.ss.df2.r$riskClass)))
-  ind.mis.t <- scores.risk.ss.df2.r$sampleID[which(scores.risk.df1$riskClass[ndx2.r] != scores.risk.ss.df2.r$riskClass)]
-  
-  ind.mis.count[i] <- (sum(ind.mis.t %in% c("HL2_30", "HL2_32")) == misCount[i])
-  
-  Cmetrix[i, ] <- CCplot(scores.df1$score[ndx2.r], scores.risk.ss.df2.r$score, metrics = TRUE)
-  
-  if (i %% nth == 0) {
-    CCplot(scores.df1$score[ndx2.r], scores.risk.ss.df2.r$score, Ptype = "scatter",
-           xrange = range(scores.df1$score), yrange = range(scores.df2$score),
-           xlabel = "HL1", ylabel = "HL2")
-    abline(h = risk.thres, col = 2, lty = 1)
-    text(0.7, 0.6, paste("Misclassified", misCount[i]))
-  }
-}
-TotalMisCount <- table(misCount) / nB
-Accuracy <- Cmetrix[, 2]
-knitr::kable(data.frame(table(Accuracy)))
-if (length(TotalMisCount) > 3) {
-  print("more than 3 misclassifications observed")
-}
-```
