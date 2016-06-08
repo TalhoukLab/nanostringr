@@ -1,6 +1,7 @@
 #' Concordance Correlation Plot
 #'
 #' Plotting function for reliability measure.
+#'
 #' @param method1 measurements obtained in batch 1 or using method 1
 #' @param method2 measurements obtained in batch 2 or using method 2
 #' @param Ptype type of plot to be outputted c("scatter", "MAplot")
@@ -16,6 +17,7 @@
 #' @author Aline Talhouk
 #' @importFrom graphics abline par plot text
 #' @importFrom stats cor lm sd var
+#' @author Aline Talhouk
 #' @export
 #' @examples
 #' # Simulate normally distributed data
@@ -50,10 +52,10 @@ CCplot <- function(method1, method2, Ptype = "None", metrics = FALSE,
   tmp.ccc <- epiR::epi.ccc(method1, method2, ci = "z-transform",
                            conf.level = 0.95)
   cclab <- paste0("Rc: ", round(tmp.ccc$rho.c[,1], digits = 2), " (",
-                 round(tmp.ccc$rho.c[, 2], digits = 2), " - ",
-                 round(tmp.ccc$rho.c[, 3], digits = 2), ")")
-  r2lab <- bquote(R : .( round(cor(method1, method2),2)))
-  r2rob <- bquote(rM : .( round(ccaPP::corM(method1, method2),2)))
+                  round(tmp.ccc$rho.c[, 2], digits = 2), " - ",
+                  round(tmp.ccc$rho.c[, 3], digits = 2), ")")
+  r2lab <- bquote(R:.(round(cor(method1, method2), 2)))
+  r2rob <- bquote(rM:.(round(ccaPP::corM(method1, method2), 2)))
   Acc <- paste("Ca:", round(tmp.ccc$C.b, 2))
   loc <- paste0("Location shift:", round(tmp.ccc$l.shift, 2))
   scl <- paste0("Scale shift:", round(tmp.ccc$s.shift, 2))

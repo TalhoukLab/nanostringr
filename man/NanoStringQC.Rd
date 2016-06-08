@@ -23,8 +23,8 @@ matrix of annotations updated with normalization parameters
 Computes and returns NanoString quality control metrics and flags.
 }
 \examples{
-exp.OVD <-subset(expQC,OVD=="Yes")
-expOVD <- NanoStringQC(ovd.r,exp.OVD)
+exp.OVD <- subset(expQC, OVD == "Yes")
+expOVD <- NanoStringQC(ovd.r, exp.OVD)
 }
 \author{
 Aline Talhouk, Derek Chiu

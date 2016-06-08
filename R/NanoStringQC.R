@@ -12,8 +12,8 @@
 #' @import dplyr
 #' @export
 #' @examples
-#' exp.OVD <-subset(expQC,OVD=="Yes")
-#' expOVD <- NanoStringQC(ovd.r,exp.OVD)
+#' exp.OVD <- subset(expQC, OVD == "Yes")
+#' expOVD <- NanoStringQC(ovd.r, exp.OVD)
 NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
 
   # Run a bunch of checks to make sure the data is in the right order
@@ -65,7 +65,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
              ifelse(sn < sn.in | pergd < detect,
                     "Failed", "Passed"), flag.levs),
            QCFlag = factor(ifelse(
-             as.vector(spcFlag == "Failed"|
+             as.vector(spcFlag == "Failed" |
                          imagingFlag == "Failed" | linFlag == "Failed"),
              "Failed", "Passed"))) %>%
     magrittr::set_rownames(.$rn) %>%

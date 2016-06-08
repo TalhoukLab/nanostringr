@@ -13,18 +13,18 @@
 #' @export
 #' @examples
 #' HKnorm(ovd.r)
-HKnorm <- function(raw.data, is.logged=FALSE, corr = 0.0001) {
+HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
   assertthat::assert_that(check_colnames(raw.data))
   assertthat::assert_that(check_genes(raw.data))
   rawdat <- raw.data[, -(1:3)]
   rownames(rawdat) <- raw.data$Name
   hks <- raw.data$Code.Class == "Housekeeping"
   refs <- raw.data$Code.Class != "Endogenous"
-  if(is.logged==FALSE){
-  rawdat <- rawdat+ corr
+  if (is.logged == FALSE) {
+  rawdat <- rawdat + corr
   logHK <- apply(log2(rawdat[hks, ]), 2, mean)
   logXpr <- log2(rawdat[!refs, ])
-  }else{
+  } else {
     logHK <- apply(rawdat[hks, ], 2, mean)
     logXpr <- rawdat[!refs, ]
   }
