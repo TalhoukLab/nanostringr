@@ -10,7 +10,7 @@ Installation
 To install this package, use devtools:
 
 ``` r
-devtools::install_github("OVCARE/nanostringr")
+devtools::install_github("OVCARE/nanostringr", build_vignettes = TRUE)
 ```
 
 Dependencies
