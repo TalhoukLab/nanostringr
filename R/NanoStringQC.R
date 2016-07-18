@@ -15,13 +15,13 @@
 #' exp.OVD <- subset(expQC, OVD == "Yes")
 #' expOVD <- NanoStringQC(ovd.r, exp.OVD)
 NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
-
+  
   # Run a bunch of checks to make sure the data is in the right order
   assertthat::assert_that(check_colnames(raw))  # Checks format of raw counts
   assertthat::assert_that(check_genes(raw))  # Checks that HK genes are specified
   assertthat::assert_that(ncol(raw) == nrow(exp) + 3)
   assertthat::assert_that(all(substring(colnames(raw[, -(1:3)]), 2) == exp$File.Name))
-
+  
   sn.in <- sn
   genes <- raw$Name
   rownames(raw) <- genes
@@ -34,7 +34,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   . <- linPC <- linFlag <- fov.counted <- fov.count <- perFOV <- ncgMean <-
     ncgSD <- llod <- lod <- gd <- averageHK <- binding.density <- pergd <-
     spcFlag <- normFlag <- imagingFlag <- linFlag <- rn <- NULL
-
+  
   exp <- exp %>%
     mutate(rn = rownames(.),
            linPC = round(apply(raw[PCgenes, -(1:3)], 2,

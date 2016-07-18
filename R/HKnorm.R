@@ -21,9 +21,9 @@ HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
   hks <- raw.data$Code.Class == "Housekeeping"
   refs <- raw.data$Code.Class != "Endogenous"
   if (is.logged == FALSE) {
-  rawdat <- rawdat + corr
-  logHK <- apply(log2(rawdat[hks, ]), 2, mean)
-  logXpr <- log2(rawdat[!refs, ])
+    rawdat <- rawdat + corr
+    logHK <- apply(log2(rawdat[hks, ]), 2, mean)
+    logXpr <- log2(rawdat[!refs, ])
   } else {
     logHK <- apply(rawdat[hks, ], 2, mean)
     logXpr <- rawdat[!refs, ]
