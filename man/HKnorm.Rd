@@ -24,6 +24,7 @@ This is done by subtracting the average log housekeeping gene expression from th
 }
 \examples{
 HKnorm(ovd.r)
+HKnorm(ovd.r, is.logged = TRUE)
 }
 \author{
 Aline Talhouk

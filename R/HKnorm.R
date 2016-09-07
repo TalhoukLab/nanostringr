@@ -13,6 +13,7 @@
 #' @export
 #' @examples
 #' HKnorm(ovd.r)
+#' HKnorm(ovd.r, is.logged = TRUE)
 HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
   assertthat::assert_that(check_colnames(raw.data))
   assertthat::assert_that(check_genes(raw.data))
