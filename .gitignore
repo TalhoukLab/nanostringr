@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 inst/doc
+vignettes/my-vignette_cache/*
+vignettes/my-vignette_files/*
