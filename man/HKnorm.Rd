@@ -8,19 +8,22 @@ HKnorm(raw.data, is.logged = FALSE, corr = 1e-04)
 }
 \arguments{
 \item{raw.data}{matrix of raw counts obtained from nCounter (rows are genes).
-The first three columns must be labeled: c("Code.Class", "Name", "Accession")
-and contain that information.}
+The first three columns must be labeled: c("Code.Class", "Name",
+"Accession") and contain that information.}
 
-\item{is.logged}{logical; If \code{TRUE}, normalization done on log base 2 scale}
+\item{is.logged}{logical; If \code{TRUE}, normalization has already been done
+on log base 2 scale, no need log the data}
 
 \item{corr}{small correction to avoid error}
 }
 \value{
-A matrix of log normalized data in the same format but without reference genes.
+A matrix of log normalized data in the same format but without
+  reference genes.
 }
 \description{
-Normalizes the gene expression of NanoString nCounter data to housekeeping genes.
-This is done by subtracting the average log housekeeping gene expression from the expression level of every gene in each sample.
+Normalizes the gene expression of NanoString nCounter data to housekeeping
+genes. This is done by subtracting the average log housekeeping gene
+expression from the expression level of every gene in each sample.
 }
 \examples{
 HKnorm(ovd.r)

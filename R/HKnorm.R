@@ -1,14 +1,17 @@
 #' Normalization to Housekeeping Genes
 #'
-#' Normalizes the gene expression of NanoString nCounter data to housekeeping genes.
-#' This is done by subtracting the average log housekeeping gene expression from the expression level of every gene in each sample.
+#' Normalizes the gene expression of NanoString nCounter data to housekeeping
+#' genes. This is done by subtracting the average log housekeeping gene
+#' expression from the expression level of every gene in each sample.
 #'
 #' @param raw.data matrix of raw counts obtained from nCounter (rows are genes).
-#' The first three columns must be labeled: c("Code.Class", "Name", "Accession")
-#' and contain that information.
-#' @param is.logged logical; If \code{TRUE}, normalization done on log base 2 scale
+#'   The first three columns must be labeled: c("Code.Class", "Name",
+#'   "Accession") and contain that information.
+#' @param is.logged logical; If \code{TRUE}, normalization has already been done
+#'   on log base 2 scale, no need log the data
 #' @param corr small correction to avoid error
-#' @return A matrix of log normalized data in the same format but without reference genes.
+#' @return A matrix of log normalized data in the same format but without
+#'   reference genes.
 #' @author Aline Talhouk
 #' @export
 #' @examples
