@@ -5,7 +5,7 @@
 \title{Concordance Correlation Plot}
 \usage{
 CCplot(method1, method2, Ptype = "None", metrics = FALSE, xlabel = "",
-  ylabel = "", title = "", subtitle = "", xrange = NULL,
+  ylabel = "", title = "", subtitle = NULL, xrange = NULL,
   yrange = NULL, MArange = c(-3.5, 5.5))
 }
 \arguments{
@@ -15,11 +15,11 @@ CCplot(method1, method2, Ptype = "None", metrics = FALSE, xlabel = "",
 
 \item{Ptype}{type of plot to be outputted c("scatter", "MAplot")}
 
-\item{metrics}{if return metrics is set to \code{TRUE}, returns Rc, Ca and R2}
+\item{metrics}{if \code{TRUE}, prints Rc, Ca, and R2 to console}
 
-\item{xlabel}{label for x axis}
+\item{xlabel}{x-axis label for scatterplot}
 
-\item{ylabel}{label for y axis}
+\item{ylabel}{y-axis label for scatterplot}
 
 \item{title}{title for the main plot}
 
@@ -48,21 +48,22 @@ a5 <- 1.3 * a1 + rnorm(20, 0, 0.15) + 1
 a6 <- a1 + rnorm(20, 0, 0.8)
 par(mfrow = c(3, 2), mar = c(5.1, 4.1, 1.5, 1.5))
 
-# Scatterplots
-CCplot(a1, a1, Ptype = "scatter", "X", "Y", "Perfect Agreement", subtitle = letters[1])
-CCplot(a1, a2, Ptype = "scatter", "X", "Y", "Very Good Agreement", subtitle = letters[2])
-CCplot(a1, a3, Ptype = "scatter", "X", "Y", "Location Shift", subtitle = letters[3])
-CCplot(a1, a4, Ptype = "scatter", "X", "Y", "Scale Shift", subtitle = letters[4])
-CCplot(a1, a5, Ptype = "scatter", "X", "Y", "Location and Scale Shift", subtitle = letters[5])
-CCplot(a1, a6, Ptype = "scatter", "X", "Y", "Measurement Error", subtitle = letters[6])
+m2 <- list(a1, a2, a3, a4, a5, a6)
+mains <- c("Perfect Agreement", "Very Good Agreement", "Location Shift",
+           "Scale Shift", "Location and Scale Shift", "Measurement Error")
+subs <- letters[1:6]
 
-# MAplots
-CCplot(a1, a1, Ptype = "MAplot", "X", "Y", "Perfect Agreement", subtitle = letters[1])
-CCplot(a1, a2, Ptype = "MAplot", "X", "Y", "Very Good Agreement", subtitle = letters[2])
-CCplot(a1, a3, Ptype = "MAplot", "X", "Y", "Location Shift", subtitle = letters[3])
-CCplot(a1, a4, Ptype = "MAplot", "X", "Y", "Scale Shift", subtitle = letters[4])
-CCplot(a1, a5, Ptype = "MAplot", "X", "Y", "Location and Scale Shift", subtitle = letters[5])
-CCplot(a1, a6, Ptype = "MAplot", "X", "Y", "Measurement Error", subtitle = letters[6])
+# Scatterplots
+mapply(function(y, t, s)
+  CCplot(method1 = a1, method2 = y, Ptype = "scatter",
+         xlabel = "X", ylabel = "Y", title = t, subtitle = s),
+  y = m2, t = mains, s = subs)
+
+# MAplots and show metrics
+mapply(function(y, t, s)
+  CCplot(method1 = a1, method2 = y, Ptype = "MAplot",
+         title = t, subtitle = s, metrics = TRUE),
+  y = m2, t = mains, s = subs)
 }
 \author{
 Aline Talhouk
