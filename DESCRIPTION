@@ -1,8 +1,8 @@
 Package: nanostringr
 Type: Package
 Title: Performs quality control and data normalization and batch effect correction for NanoString nCounter data
-Version: 0.1.3
-Date: 2016-07-18
+Version: 0.1.4
+Date: 2016-09-08
 Authors@R: as.person(c(
     "Aline Talhouk <atalhouk@bccrc.ca> [aut]",
     "Samuel Leung <Samuel.Leung@vch.ca> [aut]",
