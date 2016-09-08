@@ -7,7 +7,7 @@ An R Package for quality assurance checking, normalization and batch effects adj
 Installation
 ------------
 
-To install this package, use devtools:
+To install this package, use `devtools`:
 
 ``` r
 # install.packages(devtools)
@@ -17,7 +17,7 @@ devtools::install_github("OVCARE/nanostringr", build_vignettes = TRUE)
 Dependencies
 ------------
 
-Please note that the package [CHL26predictor](https://github.com/tinyheero/CHL26predictor) is needed to run the Hodgkin Lymphoma predictive model.
+Please note that the package [CHL26predictor](https://github.com/tinyheero/CHL26predictor) is needed to run the Hodgkin Lymphoma predictive model shown in the vignette.
 
 Overview
 --------
@@ -35,7 +35,7 @@ A quick overview of the key functions:
 -   `HKnorm`: Performs log (base 2) transformation and normalization to Housekeeping Genes
 -   `refMethod`: Performs batch effect correction using the reference-based strategie
 
-A [vignette](http://htmlpreview.github.io/?https://github.com/OVCARE/nanostringr/blob/master/vignettes/my-vignette.html) that reproduces most of the analyses in the paper is included. The vignettes can be accessed in R  using 
+A [vignette](http://htmlpreview.github.io/?https://github.com/OVCARE/nanostringr/blob/master/vignettes/Overview.html) that reproduces most of the analyses in the paper is included. The vignettes can be accessed in R using 
 
 ``` r
 browseVignettes("nanostringr")
