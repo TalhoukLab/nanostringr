@@ -1,7 +1,8 @@
 The `nanostringr` R package is a companion R package to the manuscript:
 
-A. Talhouk, R. McKenzie, S. Ramus, S. Leung, F. Chan, S. Kommoss, D.
-Huntsman, C. Steidl, D. Scott, M. Anglesio. (2016). Single-patient
+A. Talhouk, S. Kommoss, R. Mackenzie, M. Cheung, S. Leung, D. Chiu, S.
+Kalloger, D. Huntsman, S. Chen, M. Intermaggio, J. Gronwald, F. Chan, S.
+Ramus, C. Steidl, D. Scott, M. Anglesio. (2016). Single-patient
 molecular testing with NanoString nCounter Data using a reference-based
 strategy for batch effect correction. *PLos ONE*.
 
@@ -192,7 +193,10 @@ annotation data frame and from the gene expression data frame.
 
 We now normalize the resulting gene expression data
 
-    # Normalize to HK 
+    # If data already log normalized
+    hld.n <- HKnorm(hld, is.logged = TRUE)
+
+    # Otherwise, normalize to HK 
     hld.n <- HKnorm(hld)
     hld1 <- hld.n[, grep("HL1", colnames(hld.n))]
     exp.hld1 <- subset(expHLD, geneRLF == "HL1")
@@ -234,7 +238,8 @@ Downstream Analysis
 In the previous analysis we compared the gene expression value of an
 individual gene. Below is the impact on a downstream analysis. We use
 the HL prognostic model as an example. For additional information on
-this model, the reader is referred to XX
+this model, the reader is referred to the
+[paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153844).
 
     library(CHL26predictor)
 
@@ -288,3 +293,8 @@ this model, the reader is referred to XX
 </tr>
 </tbody>
 </table>
+
+Another visualization to assess concordance correlation is the
+Bland-Altman plot or the MA plot:
+
+![](my-vignette_files/figure-markdown_strict/MAplot-1.png)

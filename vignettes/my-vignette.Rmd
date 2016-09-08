@@ -26,7 +26,7 @@ getNum <- function(str.vect) {
 
 The `nanostringr` R package is a companion R package to the manuscript:
 
-A. Talhouk, R. McKenzie, S. Ramus, S. Leung, F. Chan, S. Kommoss, D. Huntsman, C. Steidl, D. Scott, M. Anglesio. (2016). Single-patient molecular testing with NanoString nCounter Data using a reference-based strategy for batch effect correction. *PLos ONE*.
+A. Talhouk, S. Kommoss, R. Mackenzie, M. Cheung, S. Leung, D. Chiu, S. Kalloger, D. Huntsman, S. Chen, M. Intermaggio, J. Gronwald, F. Chan, S. Ramus, C. Steidl, D. Scott, M. Anglesio. (2016). Single-patient molecular testing with NanoString nCounter Data using a reference-based strategy for batch effect correction. *PLos ONE*.
 
 This vignette provides a guide to reproduce the analyses in the paper and document the use of some of the functions.
 
@@ -193,7 +193,10 @@ hld <- hld.r[, !colnames(hld.r) %in% c("HL1_18", "HL2_18")]
 We now normalize the resulting gene expression data
 
 ```{r normalize_HK}
-# Normalize to HK 
+# If data already log normalized
+hld.n <- HKnorm(hld, is.logged = TRUE)
+
+# Otherwise, normalize to HK 
 hld.n <- HKnorm(hld)
 hld1 <- hld.n[, grep("HL1", colnames(hld.n))]
 exp.hld1 <- subset(expHLD, geneRLF == "HL1")
@@ -232,7 +235,7 @@ abline(0, 1)
 
 # Downstream Analysis
 
-In the previous analysis we compared the gene expression value of an individual gene. Below is the impact on a downstream analysis. We use the HL prognostic model as an example. For additional information on this model, the reader is referred to XX
+In the previous analysis we compared the gene expression value of an individual gene. Below is the impact on a downstream analysis. We use the HL prognostic model as an example. For additional information on this model, the reader is referred to the [paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153844).
 
 ```{r downstream_analysis}
 library(CHL26predictor)
@@ -306,7 +309,7 @@ for (i in 1:nB) {
            xrange = range(scores.df1$score), yrange = range(scores.df2$score),
            xlabel = "HL1", ylabel = "HL2")
     abline(h = risk.thres, col = 2, lty = 1)
-    text(0.7, 0.6, paste("Misclassified", misCount[i]))
+    text(0.7, 0.58, paste("Misclassified:", misCount[i]), col = "red")
   }
 }
 TotalMisCount <- table(misCount) / nB
@@ -315,4 +318,12 @@ knitr::kable(data.frame(table(Accuracy)))
 if (length(TotalMisCount) > 3) {
   print("more than 3 misclassifications observed")
 }
+```
+
+Another visualization to assess concordance correlation is the Bland-Altman plot or the MA plot:
+
+```{r MAplot, echo=FALSE}
+CCplot(scores.risk.df1$score, scores.risk.df2$score, Ptype = "MAplot",
+       xrange = range(scores.df1$score), yrange = range(scores.df2$score),
+       xlabel = "HL1", ylabel = "HL2", subtitle = "Scores without Batch Adjustment")
 ```

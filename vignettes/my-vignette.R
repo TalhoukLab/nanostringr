@@ -108,7 +108,10 @@ expHLD <- filter(expHLD0, sampleID != "HL1_18" & sampleID != "HL2_18")
 hld <- hld.r[, !colnames(hld.r) %in% c("HL1_18", "HL2_18")]
 
 ## ----normalize_HK--------------------------------------------------------
-# Normalize to HK 
+# If data already log normalized
+hld.n <- HKnorm(hld, is.logged = TRUE)
+
+# Otherwise, normalize to HK 
 hld.n <- HKnorm(hld)
 hld1 <- hld.n[, grep("HL1", colnames(hld.n))]
 exp.hld1 <- subset(expHLD, geneRLF == "HL1")
@@ -168,4 +171,54 @@ CCplot(scores.risk.df1$score, scores.risk.df2$score, Ptype = "scatter",
 abline(h = risk.thres, col = 2, lty = 1)
 text(0.7, 0.58, paste("Misclassified:", mis), col = "red")
 points(scores.risk.df1$score[ind.mis], scores.risk.df2$score[ind.mis], col = "red")
+
+## ----BootStrapped, message = FALSE, echo = FALSE, warning = FALSE, cache = TRUE, results='asis'----
+set.seed(40)
+r <- 3  # Number of reference samples
+nB <- 1500  # of bootstrap samples
+nth <- 1000
+misCount <- rep(0, nB)
+ind.mis.count <- rep(0, nB)
+Cmetrix <- matrix(0, nrow = nB, ncol = 3)
+
+for (i in 1:nB) {
+  choice.refs <- exp.hld1$sampleID[sample((1:dim(exp.hld1)[1]), r, replace = F)]  # select reference samples randomly
+  DSR1 <- t(hld1[, choice.refs] + log2(1000))
+  DSR2 <- t(hld2[, paste("HL2", getNum(choice.refs), sep = "_")] + log2(1000))
+  DSY <- t(hld2[, !colnames(hld2) %in% paste("HL2", getNum(choice.refs), sep = "_")] + log2(1000))
+  
+  DSS2.r <- t(refMethod(DSY, DSR1, DSR2))
+  
+  CHL26.HL2.r.SS.exprs <- DSS2.r[rownames(DSS2.r) %in% CHL26.model.coef.df$geneName, ]
+  scores.ss.df2.r <- get_CHL26_scores(as.matrix(CHL26.HL2.r.SS.exprs))
+  scores.risk.ss.df2.r <- scores.ss.df2.r %>%
+    mutate(riskClass = ifelse(score >= risk.thres, "High", "Low"))
+  ndx2.r <- substring(scores.df1$sampleID, 5) %in% substring(scores.ss.df2.r$sampleID, 5)
+  misCount[i] <- (n - r) - sum(diag(table(scores.risk.df1$riskClass[ndx2.r],
+                                          scores.risk.ss.df2.r$riskClass)))
+  ind.mis.t <- scores.risk.ss.df2.r$sampleID[which(scores.risk.df1$riskClass[ndx2.r] != scores.risk.ss.df2.r$riskClass)]
+  
+  ind.mis.count[i] <- (sum(ind.mis.t %in% c("HL2_30", "HL2_32")) == misCount[i])
+  
+  Cmetrix[i, ] <- CCplot(scores.df1$score[ndx2.r], scores.risk.ss.df2.r$score, metrics = TRUE)
+  
+  if (i %% nth == 0) {
+    CCplot(scores.df1$score[ndx2.r], scores.risk.ss.df2.r$score, Ptype = "scatter",
+           xrange = range(scores.df1$score), yrange = range(scores.df2$score),
+           xlabel = "HL1", ylabel = "HL2")
+    abline(h = risk.thres, col = 2, lty = 1)
+    text(0.7, 0.58, paste("Misclassified:", misCount[i]), col = "red")
+  }
+}
+TotalMisCount <- table(misCount) / nB
+Accuracy <- Cmetrix[, 2]
+knitr::kable(data.frame(table(Accuracy)))
+if (length(TotalMisCount) > 3) {
+  print("more than 3 misclassifications observed")
+}
+
+## ----MAplot, echo=FALSE--------------------------------------------------
+CCplot(scores.risk.df1$score, scores.risk.df2$score, Ptype = "MAplot",
+       xrange = range(scores.df1$score), yrange = range(scores.df2$score),
+       xlabel = "HL1", ylabel = "HL2", subtitle = "Scores without Batch Adjustment")
 
