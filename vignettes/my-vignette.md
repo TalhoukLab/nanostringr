@@ -179,11 +179,11 @@ We can check to see if any samples failed QC metrics
     expHLD0 <- expHLD
     any(expHLD0$QCFlag == "Failed")
 
-    ## [1] TRUE
+\[1\] TRUE
 
     expHLD0$sampleID[which(expHLD0$QCFlag == "Failed")]
 
-    ## [1] "HL1_18"
+\[1\] "HL1\_18"
 
 Since these are matched samples we must remove both pairs from the
 annotation data frame and from the gene expression data frame.
@@ -224,10 +224,12 @@ expression values from both CodeSets
     set.seed(2016)
     gene <- sample(1:nrow(hld1), 1)
     par(mfrow = c(1, 2))
-    plot(t(hld1[gene, ]), t(hld2[gene, ]), xlab = "HL1", ylab = "HL2", main = "No Correction")
+    plot(t(hld1[gene, ]), t(hld2[gene, ]), xlab = "HL1", ylab = "HL2",
+         main = "No Correction")
     abline(0, 1)
 
-    plot(t(hld1[gene, !(colnames(hld1) %in% choice.refs)]), t(S2.r[gene, ]), xlab = "HL1", ylab = "HL2", main = "Corrected")
+    plot(t(hld1[gene, !(colnames(hld1) %in% choice.refs)]), t(S2.r[gene, ]),
+         xlab = "HL1", ylab = "HL2", main = "Corrected")
     abline(0, 1)
 
 ![](my-vignette_files/figure-markdown_strict/plot_gene-1.png)
@@ -244,8 +246,10 @@ this model, the reader is referred to the
     library(CHL26predictor)
 
     # We select the genes that are used in the model
-    CHL26.HL1.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName, grep("HL1", colnames(hld.n))] + log(1000, 2)
-    CHL26.HL2.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName, grep("HL2", colnames(hld.n))] + log(1000, 2)
+    CHL26.HL1.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName,
+                             grep("HL1", colnames(hld.n))] + log(1000, 2)
+    CHL26.HL2.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName,
+                             grep("HL2", colnames(hld.n))] + log(1000, 2)
 
     # This is the threshold
     risk.thres <- 0.6235
@@ -298,3 +302,26 @@ Another visualization to assess concordance correlation is the
 Bland-Altman plot or the MA plot:
 
 ![](my-vignette_files/figure-markdown_strict/MAplot-1.png)
+
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Rc</td>
+<td align="right">0.81</td>
+</tr>
+<tr class="even">
+<td align="left">Ca</td>
+<td align="right">0.81</td>
+</tr>
+<tr class="odd">
+<td align="left">R2</td>
+<td align="right">1.00</td>
+</tr>
+</tbody>
+</table>

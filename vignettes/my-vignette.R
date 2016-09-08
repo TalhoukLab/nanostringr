@@ -1,7 +1,14 @@
 ## ----setupQualityMeasures, message = FALSE, echo = FALSE, warning = FALSE----
 library(knitr)
 library(dplyr)
-opts_chunk$set(message = FALSE, echo = TRUE, warning = FALSE, fig.height = 6, fig.width = 7)
+knitr::opts_chunk$set(
+	echo = TRUE,
+	fig.height = 6,
+	fig.width = 7,
+	message = FALSE,
+	warning = FALSE,
+	results = "asis"
+)
 # Define colors constants----
 COL.OVD <- "#66C2A5"
 COL.OVO <- "#A6D854"
@@ -131,18 +138,22 @@ S2.r <- t(refMethod(Y, R1, R2)) # Data from CodeSet 2 now calibrated for CodeSet
 set.seed(2016)
 gene <- sample(1:nrow(hld1), 1)
 par(mfrow = c(1, 2))
-plot(t(hld1[gene, ]), t(hld2[gene, ]), xlab = "HL1", ylab = "HL2", main = "No Correction")
+plot(t(hld1[gene, ]), t(hld2[gene, ]), xlab = "HL1", ylab = "HL2",
+     main = "No Correction")
 abline(0, 1)
 
-plot(t(hld1[gene, !(colnames(hld1) %in% choice.refs)]), t(S2.r[gene, ]), xlab = "HL1", ylab = "HL2", main = "Corrected")
+plot(t(hld1[gene, !(colnames(hld1) %in% choice.refs)]), t(S2.r[gene, ]),
+     xlab = "HL1", ylab = "HL2", main = "Corrected")
 abline(0, 1)
 
 ## ----downstream_analysis-------------------------------------------------
 library(CHL26predictor)
 
 # We select the genes that are used in the model
-CHL26.HL1.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName, grep("HL1", colnames(hld.n))] + log(1000, 2)
-CHL26.HL2.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName, grep("HL2", colnames(hld.n))] + log(1000, 2)
+CHL26.HL1.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName,
+                         grep("HL1", colnames(hld.n))] + log(1000, 2)
+CHL26.HL2.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName,
+                         grep("HL2", colnames(hld.n))] + log(1000, 2)
 
 # This is the threshold
 risk.thres <- 0.6235
@@ -172,7 +183,7 @@ abline(h = risk.thres, col = 2, lty = 1)
 text(0.7, 0.58, paste("Misclassified:", mis), col = "red")
 points(scores.risk.df1$score[ind.mis], scores.risk.df2$score[ind.mis], col = "red")
 
-## ----BootStrapped, message = FALSE, echo = FALSE, warning = FALSE, cache = TRUE, results='asis'----
+## ----BootStrapped, message = FALSE, echo = FALSE, warning = FALSE, cache = TRUE----
 set.seed(40)
 r <- 3  # Number of reference samples
 nB <- 1500  # of bootstrap samples
@@ -218,7 +229,10 @@ if (length(TotalMisCount) > 3) {
 }
 
 ## ----MAplot, echo=FALSE--------------------------------------------------
-CCplot(scores.risk.df1$score, scores.risk.df2$score, Ptype = "MAplot",
-       xrange = range(scores.df1$score), yrange = range(scores.df2$score),
-       xlabel = "HL1", ylabel = "HL2", subtitle = "Scores without Batch Adjustment")
+Metrics <- CCplot(scores.risk.df1$score, scores.risk.df2$score,
+                  Ptype = "MAplot",
+                  xrange = range(scores.df1$score),
+                  yrange = range(scores.df2$score),
+                  xlabel = "HL1", ylabel = "HL2", metrics = TRUE)
+knitr::kable(data.frame(Metrics))
 

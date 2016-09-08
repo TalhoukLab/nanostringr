@@ -11,8 +11,8 @@ test_that("Measurements must be same length", {
 })
 
 test_that("Outputs scatterplot or MAplot", {
-  expect_error(CCplot(a1, a2, Ptype = "scatter"), NA)
-  expect_error(CCplot(a1, a2, Ptype = "MAplot"), NA)
+  expect_error(CCplot(a1, a2, Ptype = "scatter", subtitle = "ex1"), NA)
+  expect_error(CCplot(a1, a2, Ptype = "MAplot", subtitle = "ex2"), NA)
 })
 
 test_that("Metrics have correct structure", {
