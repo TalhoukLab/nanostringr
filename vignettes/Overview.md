@@ -75,7 +75,7 @@ that can be used to filter out samples that fail QC.
 
 ![Samples that failed imaging QC based on percent fields of view (FOV)
 counted across
-cohorts.](my-vignette_files/figure-markdown_strict/perFOVPlot-1.png)
+cohorts.](Overview_files/figure-markdown_strict/perFOVPlot-1.png)
 
 ### Postive Controls
 
@@ -87,7 +87,7 @@ cohorts.](my-vignette_files/figure-markdown_strict/perFOVPlot-1.png)
     grid(NULL, NULL, lwd = 1)
 
 ![Plot of *R*<sup>2</sup> of postive control probes from samples across
-all cohorts.](my-vignette_files/figure-markdown_strict/linPCPlot-1.png)
+all cohorts.](Overview_files/figure-markdown_strict/linPCPlot-1.png)
 
 ### Signal to Noise Ratio (SNR)
 
@@ -100,7 +100,7 @@ all cohorts.](my-vignette_files/figure-markdown_strict/linPCPlot-1.png)
     grid(NULL, NULL, lwd = 1)
 
 ![Average log expression of Housekeeping genes by
-Cohort.](my-vignette_files/figure-markdown_strict/averageHKPlot-1.png)
+Cohort.](Overview_files/figure-markdown_strict/averageHKPlot-1.png)
 
 #### Limit of Detection (LOD)
 
@@ -110,7 +110,7 @@ Cohort.](my-vignette_files/figure-markdown_strict/averageHKPlot-1.png)
     grid(NULL, NULL, lwd = 1)
 
 ![Limit of detection by
-cohort.](my-vignette_files/figure-markdown_strict/lodPlot-1.png)
+cohort.](Overview_files/figure-markdown_strict/lodPlot-1.png)
 
     boxplot(pergd ~ cohort, data = expQC, border = "white",
            ylab = "% Genes Detected", 
@@ -124,7 +124,7 @@ cohort.](my-vignette_files/figure-markdown_strict/lodPlot-1.png)
                add = TRUE) 
 
 ![Percent genes of total (excluding controls) detected above the limit
-of detection.](my-vignette_files/figure-markdown_strict/pergdPlot-1.png)
+of detection.](Overview_files/figure-markdown_strict/pergdPlot-1.png)
 
     sn <- 100
     detect <- 60
@@ -143,7 +143,7 @@ of detection.](my-vignette_files/figure-markdown_strict/pergdPlot-1.png)
            col = c(COL.HLD, COL.OVD, COL.OVCL, COL.HLO, COL.OVO))
 
 ![Signal to Noise versus % Gene Detected by
-cohort.](my-vignette_files/figure-markdown_strict/snPlot-1.png)
+cohort.](Overview_files/figure-markdown_strict/snPlot-1.png)
 
     plot(expOVD$sn, expOVD$pergd, pch = 20, col = COL.OVD, xaxt = "n", ylim = c(0, 100), xlim = c(0, 6000),
          xlab = "Signal to Noise Ratio ", ylab = "Ratio of Genes Detected")
@@ -161,7 +161,7 @@ cohort.](my-vignette_files/figure-markdown_strict/snPlot-1.png)
 
 ![Signal to Noise versus % Gene Detected by cohort zoomed in to the area
 of possible
-failures.](my-vignette_files/figure-markdown_strict/snZoom-1.png)
+failures.](Overview_files/figure-markdown_strict/snZoom-1.png)
 
 HKnorm
 ------
@@ -232,7 +232,7 @@ expression values from both CodeSets
          xlab = "HL1", ylab = "HL2", main = "Corrected")
     abline(0, 1)
 
-![](my-vignette_files/figure-markdown_strict/plot_gene-1.png)
+![](Overview_files/figure-markdown_strict/plot_gene-1.png)
 
 Downstream Analysis
 ===================
@@ -271,9 +271,9 @@ this model, the reader is referred to the
 
     mis <- n - sum(diag(tabRisk))
 
-![](my-vignette_files/figure-markdown_strict/RawScores-1.png)
+![](Overview_files/figure-markdown_strict/RawScores-1.png)
 
-![](my-vignette_files/figure-markdown_strict/BootStrapped-1.png)
+![](Overview_files/figure-markdown_strict/BootStrapped-1.png)
 
 <table>
 <thead>
@@ -301,7 +301,7 @@ this model, the reader is referred to the
 Another visualization to assess concordance correlation is the
 Bland-Altman plot or the MA plot:
 
-![](my-vignette_files/figure-markdown_strict/MAplot-1.png)
+![](Overview_files/figure-markdown_strict/MAplot-1.png)
 
 <table>
 <thead>
