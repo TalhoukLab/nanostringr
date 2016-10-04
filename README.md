@@ -1,5 +1,5 @@
 [![Travis-CI Build Status](https://travis-ci.org/OVCARE/nanostringr.svg?branch=master)](https://travis-ci.org/OVCARE/nanostringr)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/OVCARE/nanostringr?branch=master&svg=true)](https://ci.appveyor.com/project/OVCARE/nanostringr)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/OVCARE/nanostringr?branch=master&svg=true)](https://ci.appveyor.com/project/dchiu911/nanostringr)
 [![Coverage Status](https://codecov.io/gh/OVCARE/nanostringr/branch/master/graph/badge.svg)](https://codecov.io/gh/OVCARE/nanostringr)
 
 nanostringr
