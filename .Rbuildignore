@@ -2,3 +2,6 @@
 ^\.Rproj\.user$
 vignettes/Overview_cache/
 README.md
+^\.travis\.yml$
+^appveyor\.yml$
+^codecov\.yml$

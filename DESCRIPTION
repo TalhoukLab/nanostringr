@@ -22,6 +22,7 @@ Suggests: epiR,
     tidyr,
     ggplot2,
     NanoStringNorm,
-    CHL26predictor
+    CHL26predictor,
+    covr
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
