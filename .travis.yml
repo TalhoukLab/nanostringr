@@ -8,7 +8,7 @@ r:
  - devel
 
 before_install:
- - Rscript -e 'devtools::install_github("tinyheero/CHL26predictor")'
+ - Rscript -e 'install.packages("devtools"); devtools::install_github("tinyheero/CHL26predictor")'
 
 after_success:
  - Rscript -e 'covr::codecov()'
