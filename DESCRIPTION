@@ -21,7 +21,6 @@ Suggests: epiR,
     stringr,
     tidyr,
     ggplot2,
-    NanoStringNorm,
     CHL26predictor,
     covr
 RoxygenNote: 5.0.1

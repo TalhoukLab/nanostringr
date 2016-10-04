@@ -1,5 +1,7 @@
-context("order")
 
+context("Orderings")
+
+library(dplyr)
 set.seed(1)
 logXpr <- replicate(5, rnorm(6))
 dim(logXpr)
