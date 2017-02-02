@@ -20,8 +20,12 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   assertthat::assert_that(check_colnames(raw))  # Checks format of raw counts
   assertthat::assert_that(check_genes(raw))  # Checks that HK genes are specified
   assertthat::assert_that(ncol(raw) == nrow(exp) + 3)
-  assertthat::assert_that(all(substring(colnames(raw[, -(1:3)]), 2) == exp$File.Name))
-  
+  if(all(grepl("[[:digit:]]",substring(colnames(raw[, -(1:3)]),1,1)))){
+  		assertthat::assert_that(all(substring(colnames(raw[, -(1:3)]), 2) == exp$File.Name))
+  	} else if (all(grepl("[[:alpha:]]",substring(colnames(raw[, -(1:3)]),1,1)))) {
+  		assertthat::assert_that(all(substring(colnames(raw[, -(1:3)]), 1) == exp$File.Name))
+  	}
+  	
   sn.in <- sn
   genes <- raw$Name
   rownames(raw) <- genes
@@ -29,7 +33,8 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   PCgenes <- genes[raw$Code.Class == "Positive"]
   NCgenes <- genes[raw$Code.Class == "Negative"]
   Hybgenes <- genes[raw$Code.Class != "Endogenous"]
-  PCconc <- as.numeric(sub("\\).*", "", sub(".*\\(", "", PCgenes)))
+  if(!all(grepl("[[:digit:]]",PCgenes))) {stop("Positive controls must have concentrations in brackets: ex POS_A(128)")}
+PCconc <- as.numeric(sub("\\).*", "", sub(".*\\(", "", PCgenes)))
   flag.levs <- c("Failed", "Passed")
   . <- linPC <- linFlag <- fov.counted <- fov.count <- perFOV <- ncgMean <-
     ncgSD <- llod <- lod <- gd <- averageHK <- binding.density <- pergd <-
