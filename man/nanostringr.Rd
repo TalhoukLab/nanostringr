@@ -9,4 +9,3 @@
 The nanostringr package provides a novel set of tools used for quality control purposes
 in the NanoString platform. It includes batch adjustment using the ratio method thus far.
 }
-

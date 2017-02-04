@@ -29,4 +29,3 @@ refMethod(A, B, C)
 \author{
 Aline Talhouk
 }
-

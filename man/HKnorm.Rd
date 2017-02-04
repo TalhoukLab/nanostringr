@@ -32,4 +32,3 @@ HKnorm(ovd.r, is.logged = TRUE)
 \author{
 Aline Talhouk
 }
-
