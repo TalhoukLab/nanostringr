@@ -1,5 +1,5 @@
 #' @keywords internal
-#' @importFrom dplyr "%>%"
+#' @importFrom magrittr "%>%"
 "_PACKAGE"
 
 #' Expression QC data
