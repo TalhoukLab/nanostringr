@@ -10,7 +10,12 @@ Authors@R: as.person(c(
   ))
 Description: QC and batch adjustment operations for NanoString data.
 Depends: R (>= 3.2.0)
-Imports: dplyr, magrittr, ccaPP, assertthat
+Imports: 
+    dplyr,
+    magrittr,
+    ccaPP,
+    assertthat,
+    purrr
 License: MIT + file LICENSE
 LazyData: TRUE
 Suggests: epiR,
@@ -23,5 +28,5 @@ Suggests: epiR,
     ggplot2,
     CHL26predictor,
     covr
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
