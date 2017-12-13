@@ -17,7 +17,6 @@
 #'   tolerate, defaults to 150.
 #' @return matrix of annotations updated with normalization parameters
 #' @author Aline Talhouk, Derek Chiu
-#' @import dplyr
 #' @export
 #' @examples
 #' exp.OVD <- subset(expQC, OVD == "Yes")
@@ -47,7 +46,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   }
   PCconc <- as.numeric(sub("\\).*", "", sub(".*\\(", "", PCgenes)))
   flag.levs <- c("Failed", "Passed")
-  . <- linFlag <- fov.counted <- fov.count <- perFOV <- ncgMean <-
+  linFlag <- fov.counted <- fov.count <- perFOV <- ncgMean <-
     ncgSD <- llod <- lod <- gd <- averageHK <- binding.density <- pergd <-
     spcFlag <- normFlag <- imagingFlag <- linFlag <- rn <- NULL
   linPC <- raw[PCgenes, -(1:3)] %>%
