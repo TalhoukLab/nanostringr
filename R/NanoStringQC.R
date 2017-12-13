@@ -86,7 +86,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         "Failed", "Passed"))
     ) %>%
     magrittr::set_rownames(.$rn) %>%
-    select(-rn, -ncgMean, -ncgSD)
+    dplyr::select(-rn, -ncgMean, -ncgSD)
   names(exp[, ]) <- NULL
   return(exp)
 }

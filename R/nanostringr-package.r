@@ -4,6 +4,7 @@
 #' in the NanoString platform. It includes batch adjustment using the ratio method thus far.
 #'
 #' @name nanostringr
+#' @importFrom dplyr "%>%"
 #' @docType package
 NULL
 
