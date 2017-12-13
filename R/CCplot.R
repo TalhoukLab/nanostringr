@@ -56,14 +56,11 @@ CCplot <- function(method1, method2, Ptype = "None", metrics = FALSE,
   assertthat::assert_that(length(method1) == length(method2))
   tmp.ccc <- epiR::epi.ccc(method1, method2, ci = "z-transform",
                            conf.level = 0.95)
-  cclab <- paste0("Rc: ", round(tmp.ccc$rho.c[,1], digits = 2), " (",
-                  round(tmp.ccc$rho.c[, 2], digits = 2), " - ",
-                  round(tmp.ccc$rho.c[, 3], digits = 2), ")")
-  r2lab <- bquote(R:.(round(cor(method1, method2), 2)))
-  r2rob <- bquote(rM:.(round(ccaPP::corM(method1, method2), 2)))
-  Acc <- paste("Ca:", round(tmp.ccc$C.b, 2))
-  loc <- paste0("Location shift:", round(tmp.ccc$l.shift, 2))
-  scl <- paste0("Scale shift:", round(tmp.ccc$s.shift, 2))
+  r2rob <- paste0("rM: ", round(ccaPP::corM(method1, method2), 2))
+  r2lab <- paste0("R: ", round(cor(method1, method2), 2))
+  Acc <- paste0("Ca: ", round(tmp.ccc$C.b, 2))
+  cc <- round(tmp.ccc$rho.c, 2)
+  cclab <- paste0("Rc: ", cc[1], " (", cc[2], " - ", cc[3], ")")
   z <- lm(method2 ~ method1)
   tmp.mean <- mean(tmp.ccc$blalt$delta)
   tmp.sd <- sd(tmp.ccc$blalt$delta)
@@ -72,10 +69,8 @@ CCplot <- function(method1, method2, Ptype = "None", metrics = FALSE,
   } else {
     sub <- NULL
   }
-  if (is.null(xrange))
-    xrange <- range(method1)
-  if (is.null(yrange))
-    yrange <- range(method2)
+  xrange <- xrange %||% range(method1)
+  yrange <- yrange %||% range(method2)
   if (Ptype == "scatter") {  # Scatter Plot
     plot(method1, method2, xlab = xlabel, xlim = xrange, ylim = yrange,
          ylab = ylabel, main = title, pch = 16, sub = sub)
@@ -83,8 +78,8 @@ CCplot <- function(method1, method2, Ptype = "None", metrics = FALSE,
     abline(z, lty = 1)
     usr <- par("usr")  	# get user coordinates
     par(usr = c(0, 1, 0, 1))  # new relative user coordinates
-    text(0.5, 0.18, r2lab, adj = 0)
     text(0.5, 0.23, r2rob, adj = 0)
+    text(0.5, 0.18, r2lab, adj = 0)
     text(0.5, 0.12, Acc, adj = 0)
     text(0.5, 0.05, cclab, adj = 0)
     par(usr = usr)	# restore original user coordinates
@@ -103,8 +98,10 @@ CCplot <- function(method1, method2, Ptype = "None", metrics = FALSE,
     par(usr = usr)	# restore original user coordinates
   }
   if (metrics) {
-    return(c(Rc = round(tmp.ccc$rho.c[, 1], digits = 2),
-             Ca = round(tmp.ccc$C.b, 2),
-             R2 = round(cor(method1, method2), 2)))
+    round(c(
+      Rc = tmp.ccc$rho.c[, 1],
+      Ca = tmp.ccc$C.b,
+      R2 = cor(method1, method2)
+    ), 2)
   }
 }
