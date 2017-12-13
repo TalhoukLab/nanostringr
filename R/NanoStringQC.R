@@ -47,43 +47,45 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   }
   PCconc <- as.numeric(sub("\\).*", "", sub(".*\\(", "", PCgenes)))
   flag.levs <- c("Failed", "Passed")
-  . <- linPC <- linFlag <- fov.counted <- fov.count <- perFOV <- ncgMean <-
+  . <- linFlag <- fov.counted <- fov.count <- perFOV <- ncgMean <-
     ncgSD <- llod <- lod <- gd <- averageHK <- binding.density <- pergd <-
     spcFlag <- normFlag <- imagingFlag <- linFlag <- rn <- NULL
-
+  linPC <- raw[PCgenes, -(1:3)] %>%
+    purrr::map_dbl(~ summary(lm(. ~ PCconc))$r.squared) %>%
+    round(2)
   exp <- exp %>%
-    mutate(rn = rownames(.),
-           linPC = round(apply(raw[PCgenes, -(1:3)], 2,
-                               function(x)
-                                 summary(lm(x ~ PCconc))$r.squared), 2),
-           linFlag = factor(ifelse(linPC < 0.95 | is.na(linPC),
-                                   "Failed", "Passed"), flag.levs),
-           perFOV = (fov.counted / fov.count) * 100,
-           imagingFlag = factor(ifelse(perFOV < 75, "Failed", "Passed"),
-                                flag.levs),
-           ncgMean = apply(raw[NCgenes, -(1:3)], 2, mean),
-           ncgSD = apply(raw[NCgenes, -(1:3)], 2, sd),
-           lod = ncgMean + 2 * ncgSD,
-           llod = ncgMean - 2 * ncgSD,
-           spcFlag = factor(
-             ifelse(t(as.vector(raw["POS_E(0.5)", -(1:3)]) < llod |
-                        ncgMean == 0), "Failed", "Passed"), flag.levs),
-           gd = apply(raw[!(rownames(raw) %in% Hybgenes), -(1:3)] > lod,
-                      2, sum),
-           pergd = (gd / nrow(raw[!(rownames(raw) %in% Hybgenes),
-                                  -(1:3)])) * 100,
-           averageHK = exp(apply(log2(raw[HKgenes, -(1:3)]), 2, mean)),
-           sn = ifelse(lod < 0.001, 0, averageHK / lod),
-           bdFlag = factor(
-             ifelse(binding.density < 0.05 | binding.density > 2.25,
-                    "Failed", "Passed"), flag.levs),
-           normFlag = factor(
-             ifelse(sn < sn.in | pergd < detect,
-                    "Failed", "Passed"), flag.levs),
-           QCFlag = factor(ifelse(
-             as.vector(spcFlag == "Failed" |
-                         imagingFlag == "Failed" | linFlag == "Failed"),
-             "Failed", "Passed"))) %>%
+    dplyr::mutate(
+      rn = rownames(.),
+      linPC = linPC,
+      linFlag = factor(ifelse(linPC < 0.95 | is.na(linPC),
+                              "Failed", "Passed"), flag.levs),
+      perFOV = (fov.counted / fov.count) * 100,
+      imagingFlag = factor(ifelse(perFOV < 75, "Failed", "Passed"),
+                           flag.levs),
+      ncgMean = apply(raw[NCgenes, -(1:3)], 2, mean),
+      ncgSD = apply(raw[NCgenes, -(1:3)], 2, sd),
+      lod = ncgMean + 2 * ncgSD,
+      llod = ncgMean - 2 * ncgSD,
+      spcFlag = factor(
+        ifelse(t(as.vector(raw["POS_E(0.5)", -(1:3)]) < llod |
+                   ncgMean == 0), "Failed", "Passed"), flag.levs),
+      gd = apply(raw[!(rownames(raw) %in% Hybgenes), -(1:3)] > lod,
+                 2, sum),
+      pergd = (gd / nrow(raw[!(rownames(raw) %in% Hybgenes),
+                             -(1:3)])) * 100,
+      averageHK = exp(apply(log2(raw[HKgenes, -(1:3)]), 2, mean)),
+      sn = ifelse(lod < 0.001, 0, averageHK / lod),
+      bdFlag = factor(
+        ifelse(binding.density < 0.05 | binding.density > 2.25,
+               "Failed", "Passed"), flag.levs),
+      normFlag = factor(
+        ifelse(sn < sn.in | pergd < detect,
+               "Failed", "Passed"), flag.levs),
+      QCFlag = factor(ifelse(
+        as.vector(spcFlag == "Failed" |
+                    imagingFlag == "Failed" | linFlag == "Failed"),
+        "Failed", "Passed"))
+    ) %>%
     magrittr::set_rownames(.$rn) %>%
     select(-rn, -ncgMean, -ncgSD)
   names(exp[, ]) <- NULL
