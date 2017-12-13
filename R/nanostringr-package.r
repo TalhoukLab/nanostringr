@@ -1,5 +1,6 @@
 #' @keywords internal
 #' @importFrom magrittr "%>%"
+#' @importFrom purrr "%||%"
 "_PACKAGE"
 
 #' Expression QC data

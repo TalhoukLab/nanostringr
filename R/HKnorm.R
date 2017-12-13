@@ -35,5 +35,5 @@ HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
   norm <- t(apply(logXpr, 1, function(x) x - logHK))
   normdat <- cbind(raw.data[!refs, 1:3], norm)
   rownames(normdat) <- raw.data$Name[!refs]
-  return(normdat)
+  normdat
 }
