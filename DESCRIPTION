@@ -1,5 +1,5 @@
-Package: nanostringr
 Type: Package
+Package: nanostringr
 Title: Performs quality control and data normalization and batch effect correction for NanoString nCounter data
 Version: 0.2.0
 Date: 2017-12-13
@@ -9,24 +9,27 @@ Authors@R: as.person(c(
     "Derek Chiu <dchiu@bccrc.ca> [cre]"
   ))
 Description: QC and batch adjustment operations for NanoString data.
-Depends: R (>= 3.2.0)
+License: MIT + file LICENSE
+Depends: 
+    R (>= 3.2.0)
 Imports: 
+    assertthat,
+    ccaPP,
     dplyr,
     magrittr,
-    ccaPP,
-    assertthat,
-    purrr
-License: MIT + file LICENSE
-LazyData: TRUE
-Suggests: epiR,
-    testthat,
-    knitr,
-    rmarkdown,
-    pander,
-    stringr,
-    tidyr,
-    ggplot2,
+    purrr,
+    readr
+Suggests: 
     CHL26predictor,
-    covr
-RoxygenNote: 6.0.1
+    covr,
+    epiR,
+    ggplot2,
+    knitr,
+    pander,
+    rmarkdown,
+    stringr,
+    testthat,
+    tidyr
 VignetteBuilder: knitr
+LazyData: TRUE
+RoxygenNote: 6.0.1
