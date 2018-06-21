@@ -29,6 +29,7 @@ read_rcc <- function(file) {
   rcc_parsed <-
     rcc_file[purrr::invoke(seq, c(cs_header, cs_last))] %>%
     readr::read_csv() %>%
-    dplyr::rename(Code.Class = CodeClass, !!sample_name := Count) %>%
+    dplyr::rename(Code.Class = .data$CodeClass,
+                  !!sample_name := .data$Count) %>%
     magrittr::set_colnames(make.names(colnames(.)))
 }

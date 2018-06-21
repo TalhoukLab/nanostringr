@@ -18,7 +18,8 @@ Imports:
     dplyr,
     magrittr,
     purrr,
-    readr
+    readr,
+    rlang
 Suggests: 
     CHL26predictor,
     covr,
