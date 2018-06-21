@@ -9,7 +9,7 @@
 #'   from each sample.
 #' @export
 rcc_to_codeset <- function(dir) {
-  rcc_files <- list.files(dir, full.names = TRUE)
+  rcc_files <- list.files(dir, pattern = "RCC", full.names = TRUE)
   rcc_parsed_list <- purrr::map(rcc_files, read_rcc)
   purrr::reduce(rcc_parsed_list,
                 dplyr::inner_join,
