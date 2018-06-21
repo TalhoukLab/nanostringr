@@ -19,7 +19,8 @@ Imports:
     magrittr,
     purrr,
     readr,
-    rlang
+    rlang,
+    tibble
 Suggests: 
     CHL26predictor,
     covr,
