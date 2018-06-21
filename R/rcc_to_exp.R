@@ -19,7 +19,7 @@ rcc_to_exp <- function(dir) {
 parse_exp <- function(file) {
   rcc_file <- readr::read_lines(file)
   File.id <- grep("<Sample_Attributes>", rcc_file) + 1
-  File.Name <- make.names(strsplit(rcc_file[sample_id], ",")[[1]][2])
+  File.Name <- make.names(strsplit(rcc_file[File.id], ",")[[1]][2])
   fov.count <- get_attr(rcc_file, "FovCount")
   fov.counted <- get_attr(rcc_file, "FovCounted")
   binding.density <- get_attr(rcc_file, "BindingDensity")
