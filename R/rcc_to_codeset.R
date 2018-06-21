@@ -11,9 +11,10 @@
 rcc_to_codeset <- function(dir) {
   rcc_files <- list.files(dir, pattern = "RCC", full.names = TRUE)
   rcc_parsed_list <- purrr::map(rcc_files, parse_codeset)
-  purrr::reduce(rcc_parsed_list,
-                dplyr::inner_join,
-                by = c("Code.Class", "Name", "Accession"))
+  rcc_parsed_list %>%
+    purrr::reduce(dplyr::inner_join,
+                  by = c("Code.Class", "Name", "Accession")) %>%
+    as.data.frame()
 }
 
 #' @param file RCC file path
