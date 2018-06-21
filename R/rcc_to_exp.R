@@ -8,11 +8,6 @@
 #' @return A tibble with columns "File.Name", "fov.count", "fov.counted",
 #'   "binding.density".
 #' @export
-#' @examples
-#' rcc_dir <- "~/Downloads/20180524_CAP run3 24May2018_RCC"
-#' raw <- rcc_to_codeset(rcc_dir)
-#' exp <- rcc_to_exp(rcc_dir)
-#' NanoStringQC(raw, exp)
 rcc_to_exp <- function(dir) {
   rcc_files <- list.files(dir, pattern = "RCC", full.names = TRUE)
   rcc_parsed_list <- purrr::map(rcc_files, parse_exp)

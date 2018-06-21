@@ -17,9 +17,3 @@ A tibble with columns "File.Name", "fov.count", "fov.counted",
 Reads in RCC files from a directory and reformats to an expression object
 used for analysis
 }
-\examples{
-rcc_dir <- "~/Downloads/20180524_CAP run3 24May2018_RCC"
-raw <- rcc_to_codeset(rcc_dir)
-exp <- rcc_to_exp(rcc_dir)
-NanoStringQC(raw, exp)
-}
