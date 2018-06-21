@@ -1,13 +1,13 @@
 Type: Package
 Package: nanostringr
-Title: Performs quality control and data normalization and batch effect correction for NanoString nCounter data
-Version: 0.2.0
-Date: 2017-12-13
-Authors@R: as.person(c(
-    "Aline Talhouk <atalhouk@bccrc.ca> [aut]",
-    "Samuel Leung <Samuel.Leung@vch.ca> [aut]",
-    "Derek Chiu <dchiu@bccrc.ca> [cre]"
-  ))
+Title: Performs Quality Control and Data Normalization and Batch Effect Correction for NanoString nCounter Data
+Version: 0.2.1
+Date: 2018-06-21
+Authors@R: c(
+    person("Derek", "Chiu", , "dchiu@bccrc.ca", c("aut", "cre")),
+    person("Aline", "Talhouk", , "atalhouk@bccrc.ca", "aut"),
+    person("Samuel", "Leung", , "Samuel.Leung@vch.ca", "aut")
+    )
 Description: QC and batch adjustment operations for NanoString data.
 License: MIT + file LICENSE
 Depends: 
