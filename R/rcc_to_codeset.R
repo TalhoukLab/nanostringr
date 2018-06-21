@@ -10,7 +10,7 @@
 #' @export
 rcc_to_codeset <- function(dir) {
   rcc_files <- list.files(dir, pattern = "RCC", full.names = TRUE)
-  rcc_parsed_list <- purrr::map(rcc_files, read_rcc)
+  rcc_parsed_list <- purrr::map(rcc_files, parse_codeset)
   purrr::reduce(rcc_parsed_list,
                 dplyr::inner_join,
                 by = c("Code.Class", "Name", "Accession"))
@@ -18,7 +18,7 @@ rcc_to_codeset <- function(dir) {
 
 #' @param file RCC file path
 #' @noRd
-read_rcc <- function(file) {
+parse_codeset <- function(file) {
   rcc_file <- readr::read_lines(file)
   sample_id <- grep("<Sample_Attributes>", rcc_file) + 1
   sample_name <- strsplit(rcc_file[sample_id], ",")[[1]][2]
