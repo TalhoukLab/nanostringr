@@ -4,7 +4,7 @@
 \name{nanostringr-package}
 \alias{nanostringr}
 \alias{nanostringr-package}
-\title{nanostringr: Performs quality control and data normalization and batch effect correction for NanoString nCounter data}
+\title{nanostringr: Performs Quality Control and Data Normalization and Batch Effect Correction for NanoString nCounter Data}
 \description{
 QC and batch adjustment operations for NanoString data.
 }
