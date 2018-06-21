@@ -17,6 +17,3 @@ A tibble with columns "Code.Class", "Name", "Accession", and counts
 Reads in RCC files from a directory and reformats to a codeset that can be
 used for analysis
 }
-\examples{
-rcc_to_codeset("~/Downloads/20180524_CAP run3 24May2018_RCC")
-}

@@ -8,8 +8,6 @@
 #' @return A tibble with columns "Code.Class", "Name", "Accession", and counts
 #'   from each sample.
 #' @export
-#' @examples
-#' rcc_to_codeset("~/Downloads/20180524_CAP run3 24May2018_RCC")
 rcc_to_codeset <- function(dir) {
   rcc_files <- list.files(dir, full.names = TRUE)
   rcc_parsed_list <- purrr::map(rcc_files, read_rcc)
