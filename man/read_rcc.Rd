@@ -7,9 +7,9 @@
 read_rcc(path = ".", pattern = "\\\\.RCC$")
 }
 \arguments{
-\item{pattern}{file pattern for matching file extensions ".RCC" (or ".rcc")}
+\item{path}{directory path where RCC files exist}
 
-\item{dir}{directory path where RCC files exist}
+\item{pattern}{file pattern for matching file extensions ".RCC" (or ".rcc")}
 }
 \value{
 A tibble with columns "File.Name", "fov.count", "fov.counted",
