@@ -70,5 +70,8 @@ get_attr <- function(rcc_file, attr) {
 #' @noRd
 get_sample_name <- function(rcc_file) {
   id <- grep("<Sample_Attributes>", rcc_file) + 1
-  make.names(strsplit(rcc_file[id], ",")[[1]][2])
+  rcc_file[id] %>%
+    strsplit(split = ",") %>%
+    purrr::pluck(1, 2) %>%
+    make.names()
 }
