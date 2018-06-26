@@ -22,13 +22,12 @@ rcc_to_codeset <- function(dir) {
 parse_codeset <- function(file) {
   rcc_file <- readr::read_lines(file)
   sample_id <- grep("<Sample_Attributes>", rcc_file) + 1
-  sample_name <- strsplit(rcc_file[sample_id], ",")[[1]][2]
+  sample_name <- make.names(strsplit(rcc_file[sample_id], ",")[[1]][2])
   cs_header <- grep("<Code_Summary>", rcc_file) + 1
   cs_last <- grep("</Code_Summary>", rcc_file) - 1
   rcc_parsed <-
     rcc_file[purrr::invoke(seq, c(cs_header, cs_last))] %>%
     readr::read_csv() %>%
     dplyr::rename(Code.Class = .data$CodeClass,
-                  !!sample_name := .data$Count) %>%
-    magrittr::set_colnames(make.names(colnames(.)))
+                  !!sample_name := .data$Count)
 }
