@@ -9,7 +9,7 @@
 #'   "binding.density".
 #' @export
 rcc_to_exp <- function(dir) {
-  rcc_files <- list.files(dir, pattern = "RCC", full.names = TRUE)
+  rcc_files <- list.files(dir, pattern = "\\.RCC$", full.names = TRUE)
   rcc_parsed_list <- purrr::map(rcc_files, parse_exp)
   as.data.frame(dplyr::bind_rows(rcc_parsed_list))
 }
