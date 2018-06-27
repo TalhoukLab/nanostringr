@@ -26,7 +26,12 @@ read_rcc <- function(path = ".", pattern = "\\.RCC$") {
     purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession"))
   exp <- rcc_files %>%
     purrr::map_df(parse_attributes) %>%
-    as.data.frame()
+    as.data.frame() %>%
+    dplyr::mutate_at(c("fov.count", "fov.counted", "binding.density"),
+                     as.numeric) %>%
+    dplyr::mutate_at("nanostring.date",
+                     dplyr::funs(as.character(as.Date(., "%Y%m%d")))) %>%
+    dplyr::mutate_at("File.Name", make.names)
   tibble::lst(raw, exp)
 }
 
@@ -34,7 +39,7 @@ read_rcc <- function(path = ".", pattern = "\\.RCC$") {
 #' @noRd
 parse_counts <- function(file) {
   rcc_file <- readr::read_lines(file)
-  sample_name <- get_sample_name(rcc_file)
+  sample_name <- make.names(get_attr(rcc_file, "^ID,.*[[:alpha:]]"))
   cs_header <- grep("<Code_Summary>", rcc_file) + 1
   cs_last <- grep("</Code_Summary>", rcc_file) - 1
   rcc_parsed <-
@@ -49,29 +54,20 @@ parse_counts <- function(file) {
 #' @noRd
 parse_attributes <- function(file) {
   rcc_file <- readr::read_lines(file)
-  File.Name <- get_sample_name(rcc_file)
-  fov.count <- get_attr(rcc_file, "FovCount")
-  fov.counted <- get_attr(rcc_file, "FovCounted")
-  binding.density <- get_attr(rcc_file, "BindingDensity")
-  tibble::lst(File.Name, fov.count, fov.counted, binding.density)
+  attr_patterns <- c("^ID,.*[[:alpha:]]", "GeneRLF", "Date", "CartridgeID",
+                     "^ID,[[:digit:]]+$", "FovCount", "FovCounted",
+                     "BindingDensity")
+  attr_names <- c("File.Name", "geneRLF", "nanostring.date", "cartridgeID",
+                  "lane.number", "fov.count", "fov.counted", "binding.density")
+  purrr::map(attr_patterns, get_attr, rcc_file = rcc_file) %>%
+    purrr::set_names(attr_names)
 }
 
 #' @param rcc_file RCC file
 #' @param attr name of lane attribute to extract
 #' @noRd
 get_attr <- function(rcc_file, attr) {
-  grep(paste0(attr, ","), rcc_file, value = TRUE) %>%
+  grep(attr, rcc_file, value = TRUE) %>%
     strsplit(split = ",") %>%
-    purrr::pluck(1, 2) %>%
-    as.numeric()
-}
-
-#' @param rcc_file RCC file
-#' @noRd
-get_sample_name <- function(rcc_file) {
-  id <- grep("<Sample_Attributes>", rcc_file) + 1
-  rcc_file[id] %>%
-    strsplit(split = ",") %>%
-    purrr::pluck(1, 2) %>%
-    make.names()
+    purrr::pluck(1, 2)
 }
