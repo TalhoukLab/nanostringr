@@ -22,10 +22,10 @@ read_rcc <- function(path = ".", pattern = "\\.RCC$") {
     ignore.case = TRUE
   )
   raw <- rcc_files %>%
-    purrr::map(parse_counts) %>%
+    purrr::map(parse_counts) %>% # lapply(parse_counts)
     purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession"))
   exp <- rcc_files %>%
-    purrr::map_df(parse_attributes) %>%
+    purrr::map_df(parse_attributes) %>% # lapply(parse_attributes) %>% do.call(rbind, .)
     as.data.frame() %>%
     dplyr::mutate_at(c("fov.count", "fov.counted", "binding.density"),
                      as.numeric) %>%
@@ -38,12 +38,12 @@ read_rcc <- function(path = ".", pattern = "\\.RCC$") {
 #' @param file RCC file path
 #' @noRd
 parse_counts <- function(file) {
-  rcc_file <- readr::read_lines(file)
+  rcc_file <- readr::read_lines(file) # readLines(file)
   sample_name <- make.names(get_attr(rcc_file, "^ID,.*[[:alpha:]]"))
   cs_header <- grep("<Code_Summary>", rcc_file) + 1
   cs_last <- grep("</Code_Summary>", rcc_file) - 1
   rcc_parsed <-
-    rcc_file[purrr::invoke(seq, c(cs_header, cs_last))] %>%
+    rcc_file[purrr::invoke(seq, c(cs_header, cs_last))] %>% # rcc_file[do.call(seq, list(cs_header, cs_last))]
     readr::read_csv() %>%
     dplyr::rename(Code.Class = .data$CodeClass,
                   !!sample_name := .data$Count) %>%
@@ -53,7 +53,7 @@ parse_counts <- function(file) {
 #' @param file RCC file path
 #' @noRd
 parse_attributes <- function(file) {
-  rcc_file <- readr::read_lines(file)
+  rcc_file <- readr::read_lines(file) # readLines(file)
   attr_patterns <- c("^ID,.*[[:alpha:]]", "GeneRLF", "Date", "CartridgeID",
                      "^ID,[[:digit:]]+$", "FovCount", "FovCounted",
                      "BindingDensity")
@@ -69,5 +69,5 @@ parse_attributes <- function(file) {
 get_attr <- function(rcc_file, attr) {
   grep(attr, rcc_file, value = TRUE) %>%
     strsplit(split = ",") %>%
-    purrr::pluck(1, 2)
+    purrr::pluck(1, 2) # `[[`(1) %>% `[[`(2)
 }
