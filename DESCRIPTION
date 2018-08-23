@@ -34,4 +34,5 @@ Suggests:
     tidyr
 VignetteBuilder: knitr
 LazyData: TRUE
-RoxygenNote: 6.0.1
+Encoding: UTF-8
+RoxygenNote: 6.1.0
