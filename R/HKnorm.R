@@ -20,7 +20,7 @@
 HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
   assertthat::assert_that(check_colnames(raw.data))
   assertthat::assert_that(check_genes(raw.data))
-  rawdat <- raw.data[, -(1:3)]
+  rawdat <- raw.data[, -(1:3), drop = FALSE]
   rownames(rawdat) <- raw.data$Name
   hks <- raw.data$Code.Class == "Housekeeping"
   refs <- raw.data$Code.Class != "Endogenous"
