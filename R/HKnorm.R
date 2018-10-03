@@ -26,11 +26,11 @@ HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
   refs <- raw.data$Code.Class != "Endogenous"
   if (is.logged == FALSE) {
     rawdat <- rawdat + corr
-    logHK <- apply(log2(rawdat[hks, ]), 2, mean)
-    logXpr <- log2(rawdat[!refs, ])
+    logHK <- apply(log2(rawdat[hks, , drop = FALSE]), 2, mean)
+    logXpr <- log2(rawdat[!refs, , drop = FALSE])
   } else {
-    logHK <- apply(rawdat[hks, ], 2, mean)
-    logXpr <- rawdat[!refs, ]
+    logHK <- apply(rawdat[hks, , drop = FALSE], 2, mean)
+    logXpr <- rawdat[!refs, , drop = FALSE]
   }
   norm <- t(apply(logXpr, 1, function(x) x - logHK))
   normdat <- cbind(raw.data[!refs, 1:3], norm)
