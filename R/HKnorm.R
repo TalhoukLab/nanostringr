@@ -32,7 +32,11 @@ HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
     logHK <- apply(rawdat[hks, , drop = FALSE], 2, mean)
     logXpr <- rawdat[!refs, , drop = FALSE]
   }
-  norm <- t(apply(logXpr, 1, function(x) x - logHK))
+  if (ncol(logXpr) == 1) {
+    norm <- logXpr - logHK
+  } else {
+    norm <- t(apply(logXpr, 1, function(x) x - logHK))
+  }
   normdat <- cbind(raw.data[!refs, 1:3], norm)
   rownames(normdat) <- raw.data$Name[!refs]
   normdat
