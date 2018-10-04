@@ -16,7 +16,7 @@
 #' @export
 read_rcc <- function(path = ".", pattern = "\\.RCC$") {
   if (!dir.exists(path)) {
-    unzip(zipfile = paste0(path, ".ZIP"), exdir = path)
+    utils::unzip(zipfile = paste0(path, ".ZIP"), exdir = path)
   }
   rcc_files <- list.files(
     path = path,
