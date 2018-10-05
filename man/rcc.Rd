@@ -19,12 +19,27 @@ parse_attributes(file)
 \item{file}{RCC file name}
 }
 \value{
-A tibble with columns "File.Name", "fov.count", "fov.counted",
-  "binding.density".
+\code{read_rcc()} reads in a directory of RCC files and outputs a list
+with two elements:
+\itemize{
+\item \code{raw}: A tibble of parsed counts for multiple RCC files created by calling
+\code{parse_counts()}. Columns include "Code.Class", "Name", "Accession", and a
+column for each sample ID.
+\item \code{exp}: A tibble of parsed attributes for multiple RCC files created by
+calling \code{parse_attributes()}. Columns include "File.Name" (sample ID),
+"geneRLF", "nanostring.date", "cartridgeID", "lane.number", fov.count",
+"fov.counted", "binding.density".
+}
+
+\code{parse_counts()} reads a single RCC file and returns a tibble of
+parsed counts.
+
+\code{parse_attributes()} reads a single RCC file and returns a tibble of
+parsed attributes.
 }
 \description{
-Read directory of RCC files and merge samples into count and attribute
-data.
+Read RCC files and extract count and attribute data. Use \code{read_rcc()} for
+multiple files, and use the \code{parse_*()} functions for single files.
 }
 \details{
 RCC files for a sample are direct outputs from NanoString runs. We can
@@ -33,9 +48,16 @@ ID, GeneRLF, date, cartridge ID, lane number, Fov count, Fov counted, and
 binding density. Both count and attribute data are then merged across
 samples.
 
-If `path` points to a zipped RCC file with multiple samples, the zip file is
-unzipped and a directory of RCC sample files are created with the same name.
+If \code{path} points to a zipped RCC file with multiple samples, the zip file is
+unzipped and a directory of RCC sample files is created with the same name.
 Only file extensions ".RCC" or ".rcc" are allowed.
+}
+\examples{
+\dontrun{
+read_rcc(rcc_path)
+parse_counts(rcc_file)
+parse_attribute(rcc_file)
+}
 }
 \author{
 Derek Chiu

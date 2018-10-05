@@ -1,7 +1,7 @@
 #' Read NanoString RCC files
 #'
-#' Read directory of RCC files and merge samples into count and attribute
-#' data.
+#' Read RCC files and extract count and attribute data. Use `read_rcc()` for
+#' multiple files, and use the `parse_*()` functions for single files.
 #'
 #' RCC files for a sample are direct outputs from NanoString runs. We can
 #' extract counts for each gene in a sample. Sample attributes include sample
@@ -10,16 +10,30 @@
 #' samples.
 #'
 #' If `path` points to a zipped RCC file with multiple samples, the zip file is
-#' unzipped and a directory of RCC sample files are created with the same name.
+#' unzipped and a directory of RCC sample files is created with the same name.
 #' Only file extensions ".RCC" or ".rcc" are allowed.
 #'
 #' @param path directory path for multiple RCC files
 #'
-#' @return A tibble with columns "File.Name", "fov.count", "fov.counted",
-#'   "binding.density".
+#' @return `read_rcc()` reads in a directory of RCC files and outputs a list
+#'   with two elements:
+#' * `raw`: A tibble of parsed counts for multiple RCC files created by calling
+#' `parse_counts()`. Columns include "Code.Class", "Name", "Accession", and a
+#' column for each sample ID.
+#' * `exp`: A tibble of parsed attributes for multiple RCC files created by
+#' calling `parse_attributes()`. Columns include "File.Name" (sample ID),
+#' "geneRLF", "nanostring.date", "cartridgeID", "lane.number", fov.count",
+#' "fov.counted", "binding.density".
+#'
 #' @author Derek Chiu
 #' @name rcc
 #' @export
+#' @examples
+#' \dontrun{
+#' read_rcc(rcc_path)
+#' parse_counts(rcc_file)
+#' parse_attribute(rcc_file)
+#' }
 read_rcc <- function(path = ".") {
   if (!dir.exists(path)) {
     utils::unzip(zipfile = paste0(path, ".ZIP"), exdir = path)
@@ -40,6 +54,8 @@ read_rcc <- function(path = ".") {
 
 #' @param file RCC file name
 #' @name rcc
+#' @return `parse_counts()` reads a single RCC file and returns a tibble of
+#'   parsed counts.
 #' @export
 parse_counts <- function(file) {
   rcc_file <- readr::read_lines(file)
@@ -55,6 +71,8 @@ parse_counts <- function(file) {
 
 #' @inheritParams parse_counts
 #' @name rcc
+#' @return `parse_attributes()` reads a single RCC file and returns a tibble of
+#'   parsed attributes.
 #' @export
 parse_attributes <- function(file) {
   rcc_file <- readr::read_lines(file)
