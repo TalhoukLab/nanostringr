@@ -4,11 +4,11 @@
 #'
 #' @param raw matrix of raw counts obtained from nCounter (rows represent genes,
 #'   columns represent samples). The first three columns must be labeled:
-#'   \code{c("Code.Class", "Name", "Accession")} and contain that information.
+#'   `c("Code.Class", "Name", "Accession")` and contain that information.
 #' @param exp matrix of annotations with rows in the same order as the columns
-#'   of \code{raw}. Requires a column labeled \code{"File.Name"} with entries
-#'   corresponding to sample names in \code{raw}, also needs columns
-#'   \code{c("fov.counted", "fov.count", "binding.density")}.These fields can be
+#'   of `raw`. Requires a column labeled `"File.Name"` with entries
+#'   corresponding to sample names in `raw`, also needs columns
+#'   `c("fov.counted", "fov.count", "binding.density")`.These fields can be
 #'   extracted from the nanostring RCC files.
 #' @param detect threshold of percentage of genes expressed over limit of
 #'   detection (LOD) that we would like to detect (not decimal), defaults to 80

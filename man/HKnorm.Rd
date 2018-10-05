@@ -18,7 +18,7 @@ on log base 2 scale, no need log the data}
 }
 \value{
 A matrix of log normalized data in the same format but without
-  reference genes.
+reference genes.
 }
 \description{
 Normalizes the gene expression of NanoString nCounter data to housekeeping

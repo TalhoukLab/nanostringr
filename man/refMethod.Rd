@@ -19,8 +19,8 @@ and R2 would be reference from batch 2}
 }
 \value{
 The Y data adjusted calibrated to batch 1 (if two batches are
-  presented) or the data with reference sample expression removed if only one
-  data is provided
+presented) or the data with reference sample expression removed if only one
+data is provided
 }
 \description{
 Batch adjustment by considering a measure relative to a reference sample

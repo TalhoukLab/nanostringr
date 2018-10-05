@@ -5,7 +5,7 @@
 #' @param method1 measurements obtained in batch 1 or using method 1
 #' @param method2 measurements obtained in batch 2 or using method 2
 #' @param Ptype type of plot to be outputted c("scatter", "MAplot")
-#' @param metrics if \code{TRUE}, prints Rc, Ca, and R2 to console
+#' @param metrics if `TRUE`, prints Rc, Ca, and R2 to console
 #' @param xlabel x-axis label for scatterplot
 #' @param ylabel y-axis label for scatterplot
 #' @param title title for the main plot
