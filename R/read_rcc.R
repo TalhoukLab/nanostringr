@@ -58,8 +58,8 @@ parse_counts <- function(file) {
   sample_name <- get_attr(rcc_file, "^ID,.*[[:alpha:]]")
   cs_header <- grep("<Code_Summary>", rcc_file) + 1
   cs_last <- grep("</Code_Summary>", rcc_file) - 1
-  rcc_parsed <-
-    rcc_file[purrr::invoke(seq, c(cs_header, cs_last))] %>%
+  rcc_file %>%
+    magrittr::extract(purrr::invoke(seq, c(cs_header, cs_last))) %>%
     paste(collapse = "\n") %>%
     readr::read_csv() %>%
     dplyr::rename(Code.Class = .data$CodeClass, !!sample_name := .data$Count)
