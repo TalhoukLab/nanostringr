@@ -44,11 +44,7 @@ read_rcc <- function(path = ".") {
     purrr::map(parse_counts) %>%
     purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession"))
   exp <- rcc_files %>%
-    purrr::map_df(parse_attributes) %>%
-    dplyr::mutate_at(c("fov.count", "fov.counted", "binding.density"),
-                     as.numeric) %>%
-    dplyr::mutate(!!"nanostring.date" :=
-                    as.character(as.Date(.data$nanostring.date, "%Y%m%d")))
+    purrr::map_df(parse_attributes)
   tibble::lst(raw, exp)
 }
 
@@ -83,7 +79,10 @@ parse_attributes <- function(file) {
                   "lane.number", "fov.count", "fov.counted", "binding.density")
   attr_patterns %>%
     purrr::set_names(attr_names) %>%
-    purrr::map(get_attr, rcc_file = rcc_file)
+    purrr::map(get_attr, rcc_file = rcc_file) %>%
+    purrr::map_at(c("fov.count", "fov.counted", "binding.density"),
+                  as.numeric) %>%
+    purrr::map_at("nanostring.date", ~ as.character(as.Date(., "%Y%m%d")))
 }
 
 #' @param rcc_file RCC file
