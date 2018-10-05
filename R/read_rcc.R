@@ -11,21 +11,21 @@
 #'
 #' If `path` points to a zipped RCC file with multiple samples, the zip file is
 #' unzipped and a directory of RCC sample files are created with the same name.
+#' Only file extensions ".RCC" or ".rcc" are allowed.
 #'
 #' @param path directory path for multiple RCC files
-#' @param pattern pattern for matching file extensions ".RCC" or ".rcc"
 #'
 #' @return A tibble with columns "File.Name", "fov.count", "fov.counted",
 #'   "binding.density".
 #' @author Derek Chiu
 #' @name rcc
 #' @export
-read_rcc <- function(path = ".", pattern = "\\.RCC$") {
+read_rcc <- function(path = ".") {
   if (!dir.exists(path)) {
     utils::unzip(zipfile = paste0(path, ".ZIP"), exdir = path)
   }
   rcc_files <-
-    list.files(path, pattern, full.names = TRUE, ignore.case = TRUE)
+    list.files(path, pattern = "\\.RCC$", full.names = TRUE, ignore.case = TRUE)
   raw <- rcc_files %>%
     purrr::map(parse_counts) %>%
     purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession"))

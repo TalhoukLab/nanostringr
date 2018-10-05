@@ -7,7 +7,7 @@
 \alias{parse_attributes}
 \title{Read NanoString RCC files}
 \usage{
-read_rcc(path = ".", pattern = "\\\\.RCC$")
+read_rcc(path = ".")
 
 parse_counts(file)
 
@@ -15,8 +15,6 @@ parse_attributes(file)
 }
 \arguments{
 \item{path}{directory path for multiple RCC files}
-
-\item{pattern}{pattern for matching file extensions ".RCC" or ".rcc"}
 
 \item{file}{RCC file name}
 }
@@ -37,6 +35,7 @@ samples.
 
 If `path` points to a zipped RCC file with multiple samples, the zip file is
 unzipped and a directory of RCC sample files are created with the same name.
+Only file extensions ".RCC" or ".rcc" are allowed.
 }
 \author{
 Derek Chiu
