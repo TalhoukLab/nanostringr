@@ -33,8 +33,7 @@ read_rcc <- function(path = ".", pattern = "\\.RCC$") {
     dplyr::mutate_at(c("fov.count", "fov.counted", "binding.density"),
                      as.numeric) %>%
     dplyr::mutate_at("nanostring.date",
-                     dplyr::funs(as.character(as.Date(., "%Y%m%d")))) %>%
-    dplyr::mutate_at("File.Name", make.names)
+                     dplyr::funs(as.character(as.Date(., "%Y%m%d"))))
   tibble::lst(raw, exp)
 }
 
@@ -42,7 +41,7 @@ read_rcc <- function(path = ".", pattern = "\\.RCC$") {
 #' @noRd
 parse_counts <- function(file) {
   rcc_file <- readr::read_lines(file)
-  sample_name <- make.names(get_attr(rcc_file, "^ID,.*[[:alpha:]]"))
+  sample_name <- get_attr(rcc_file, "^ID,.*[[:alpha:]]")
   cs_header <- grep("<Code_Summary>", rcc_file) + 1
   cs_last <- grep("</Code_Summary>", rcc_file) - 1
   rcc_parsed <-
@@ -63,8 +62,9 @@ parse_attributes <- function(file) {
                      "BindingDensity")
   attr_names <- c("File.Name", "geneRLF", "nanostring.date", "cartridgeID",
                   "lane.number", "fov.count", "fov.counted", "binding.density")
-  purrr::map(attr_patterns, get_attr, rcc_file = rcc_file) %>%
-    purrr::set_names(attr_names)
+  attr_patterns %>%
+    purrr::set_names(attr_names) %>%
+    purrr::map(get_attr, rcc_file = rcc_file)
 }
 
 #' @param rcc_file RCC file
