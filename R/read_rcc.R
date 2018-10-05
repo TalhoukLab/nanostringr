@@ -18,22 +18,17 @@ read_rcc <- function(path = ".", pattern = "\\.RCC$") {
   if (!dir.exists(path)) {
     utils::unzip(zipfile = paste0(path, ".ZIP"), exdir = path)
   }
-  rcc_files <- list.files(
-    path = path,
-    pattern = pattern,
-    full.names = TRUE,
-    ignore.case = TRUE
-  )
+  rcc_files <-
+    list.files(path, pattern, full.names = TRUE, ignore.case = TRUE)
   raw <- rcc_files %>%
     purrr::map(parse_counts) %>%
     purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession"))
   exp <- rcc_files %>%
     purrr::map_df(parse_attributes) %>%
-    as.data.frame() %>%
     dplyr::mutate_at(c("fov.count", "fov.counted", "binding.density"),
                      as.numeric) %>%
-    dplyr::mutate_at("nanostring.date",
-                     dplyr::funs(as.character(as.Date(., "%Y%m%d"))))
+    dplyr::mutate(!!"nanostring.date" :=
+                    as.character(as.Date(.data$nanostring.date, "%Y%m%d")))
   tibble::lst(raw, exp)
 }
 
@@ -48,9 +43,7 @@ parse_counts <- function(file) {
     rcc_file[purrr::invoke(seq, c(cs_header, cs_last))] %>%
     paste(collapse = "\n") %>%
     readr::read_csv() %>%
-    dplyr::rename(Code.Class = .data$CodeClass,
-                  !!sample_name := .data$Count) %>%
-    as.data.frame()
+    dplyr::rename(Code.Class = .data$CodeClass, !!sample_name := .data$Count)
 }
 
 #' @param file RCC file path
