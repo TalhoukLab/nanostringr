@@ -3,6 +3,8 @@
 export(CCplot)
 export(HKnorm)
 export(NanoStringQC)
+export(parse_attributes)
+export(parse_counts)
 export(read_rcc)
 export(refMethod)
 importFrom(graphics,abline)
