@@ -79,7 +79,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         "Failed", "Passed"), flag.levs),
       QCFlag = factor(ifelse(
         spcFlag == "Failed" | imagingFlag == "Failed" | linFlag == "Failed",
-        "Failed", "Passed"))
+        "Failed", "Passed"), flag.levs)
     ) %>%
     magrittr::set_rownames(rownames(exp)) %>%
     dplyr::select(-ncgMean, -ncgSD)
