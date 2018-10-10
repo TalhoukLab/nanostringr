@@ -28,11 +28,11 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   assertthat::assert_that(check_genes(raw))  # Checks that HK genes are specified
   assertthat::assert_that(ncol(raw) == nrow(exp) + 3)
   cn <- colnames(raw[, -(1:3)])
-  if (all(grepl("[[:digit:]]", substring(cn, 1, 1)))) {
-    assertthat::assert_that(all(substring(cn, 2) == exp$File.Name))
-  } else if (all(grepl("[[:alpha:]]", substring(cn, 1, 1)))) {
-    assertthat::assert_that(all(substring(cn, 1) == exp$File.Name))
-  }
+  # if (all(grepl("[[:digit:]]", substring(cn, 1, 1)))) {
+  #   assertthat::assert_that(all(substring(cn, 2) == exp$File.Name))
+  # } else if (all(grepl("[[:alpha:]]", substring(cn, 1, 1)))) {
+  #   assertthat::assert_that(all(substring(cn, 1) == exp$File.Name))
+  # }
 
   sn.in <- sn
   genes <- raw$Name
