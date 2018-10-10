@@ -59,16 +59,17 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
                        flag.levs),
       perFOV = (fov.counted / fov.count) * 100,
       imagingFlag = factor(ifelse(perFOV < 75, "Failed", "Passed"), flag.levs),
-      ncgMean = purrr::map_dbl(raw[NCgenes, -(1:3)], mean),
-      ncgSD = purrr::map_dbl(raw[NCgenes, -(1:3)], sd),
+      ncgMean = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], mean),
+      ncgSD = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], sd),
       lod = ncgMean + 2 * ncgSD,
       llod = ncgMean - 2 * ncgSD,
       spcFlag = factor(ifelse(
-        t(as.vector(raw["POS_E(0.5)", -(1:3)]) < llod | ncgMean == 0),
+        t(as.vector(raw["POS_E(0.5)", -(1:3), drop = FALSE]) < llod |
+            ncgMean == 0),
         "Failed", "Passed"), flag.levs),
-      gd = apply(raw[!(rownames(raw) %in% Hybgenes), -(1:3)] > lod, 2, sum),
-      pergd = (gd / nrow(raw[!(rownames(raw) %in% Hybgenes), -(1:3)])) * 100,
-      averageHK = exp(purrr::map_dbl(log2(raw[HKgenes, -(1:3)]), mean)),
+      gd = apply(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE] > lod, 2, sum),
+      pergd = (gd / nrow(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE])) * 100,
+      averageHK = exp(purrr::map_dbl(log2(raw[HKgenes, -(1:3), drop = FALSE]), mean)),
       sn = ifelse(lod < 0.001, 0, averageHK / lod),
       bdFlag = factor(ifelse(
         binding.density < 0.05 | binding.density > 2.25,
