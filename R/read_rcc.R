@@ -55,7 +55,7 @@ read_rcc <- function(path = ".") {
 #' @export
 parse_counts <- function(file) {
   rcc_file <- readr::read_lines(file)
-  sample_name <- get_attr(rcc_file, "^ID,.*[[:alpha:]]")
+  sample_name <- get_attr(rcc_file, "^ID,.*[[:alnum:]]")
   cs_header <- grep("<Code_Summary>", rcc_file) + 1
   cs_last <- grep("</Code_Summary>", rcc_file) - 1
   rcc_file %>%
@@ -72,7 +72,7 @@ parse_counts <- function(file) {
 #' @export
 parse_attributes <- function(file) {
   rcc_file <- readr::read_lines(file)
-  attr_patterns <- c("^ID,.*[[:alpha:]]", "GeneRLF", "Date", "CartridgeID",
+  attr_patterns <- c("^ID,.*[[:alnum:]]", "GeneRLF", "Date", "CartridgeID",
                      "^ID,[[:digit:]]+$", "FovCount", "FovCounted",
                      "BindingDensity")
   attr_names <- c("File.Name", "geneRLF", "nanostring.date", "cartridgeID",
