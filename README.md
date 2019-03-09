@@ -18,10 +18,6 @@ To install this package, use `devtools`:
 devtools::install_github("OVCARE/nanostringr", build_vignettes = TRUE)
 ```
 
-Dependencies
-------------
-
-Please note that the package [CHL26predictor](https://github.com/tinyheero/CHL26predictor) is needed to run the Hodgkin Lymphoma predictive model shown in the vignette.
 
 Overview
 --------
@@ -38,9 +34,5 @@ A quick overview of the key functions:
 -   `NanoStringQC`: Computes quality assurance metrics.
 -   `HKnorm`: Performs log (base 2) transformation and normalization to Housekeeping Genes
 -   `refMethod`: Performs batch effect correction using the reference-based strategy
-
-A [vignette](http://htmlpreview.github.io/?https://github.com/OVCARE/nanostringr/blob/master/vignettes/Overview.html) that reproduces most of the analyses in the paper is included. The vignettes can be accessed in R using 
-
-``` r
-browseVignettes("nanostringr")
-```
+-   `parse_counts`: Read RCC files and extract raw counts data
+-   `parse_attributes`: Read RCC files and extract expression annotation data
