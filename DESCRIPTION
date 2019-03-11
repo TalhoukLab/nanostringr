@@ -1,14 +1,24 @@
 Type: Package
 Package: nanostringr
-Title: Performs Quality Control and Data Normalization and Batch Effect Correction for NanoString nCounter Data
+Title: Performs Quality Control and Data Normalization and Batch
+    Effect Correction for NanoString nCounter Data
 Version: 0.2.3
 Date: 2019-03-08
-Authors@R: c(
-    person("Derek", "Chiu", , "dchiu@bccrc.ca", c("aut", "cre")),
-    person("Aline", "Talhouk", , "atalhouk@bccrc.ca", "aut"),
-    person("Samuel", "Leung", , "Samuel.Leung@vch.ca", "aut")
-    )
-Description: QC and batch adjustment operations for NanoString data.
+Authors@R: 
+    c(person(given = "Derek",
+             family = "Chiu",
+             role = c("aut", "cre"),
+             email = "dchiu@bccrc.ca"),
+      person(given = "Aline",
+             family = "Talhouk",
+             role = "aut",
+             email = "atalhouk@bccrc.ca"),
+      person(given = "Samuel",
+             family = "Leung",
+             role = "aut",
+             email = "Samuel.Leung@vch.ca"))
+Description: QC and batch adjustment operations for NanoString
+    data.
 License: MIT + file LICENSE
 Depends: 
     R (>= 3.5.0)
@@ -31,8 +41,9 @@ Suggests:
     stringr,
     testthat,
     tidyr
-VignetteBuilder: knitr
-LazyData: TRUE
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
-RoxygenNote: 6.1.1
+LazyData: TRUE
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
