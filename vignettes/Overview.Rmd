@@ -97,11 +97,11 @@ abline(h = 75, lty = 2, col = "red")
 grid(NULL, NULL, lwd = 1)
 ```
 
-### Postive Controls
+### Positive Controls
     
 #### Linearity of Positive Controls
 
-```{r linPCPlot, fig.cap="Plot of $R^2$ of postive control probes from samples across all cohorts."}
+```{r linPCPlot, fig.cap="Plot of $R^2$ of positive control probes from samples across all cohorts."}
 boxplot(linPC ~ cohort, ylab = expression(R ^ 2), main = "Linearity of Positive Controls by Cohort",
         data = expQC, pch = 20, col = c(COL.HLD, COL.OVD, COL.OVCL, COL.HLO, COL.OVO), ylim = c(0, 1))
 abline(h = 0.95, lty = 2, col = "red")
