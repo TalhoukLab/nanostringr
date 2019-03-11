@@ -64,7 +64,7 @@ multiple files, and use the parse_*() functions for single files." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
 
@@ -143,17 +143,17 @@ multiple files, and use the <code>parse_*()</code> functions for single files.</
     <p><code>read_rcc()</code> reads in a directory of RCC files and outputs a list
 with two elements:</p><ul>
 <li><p><code>raw</code>: A tibble of parsed counts for multiple RCC files created by calling
-<code>parse_counts()</code>. Columns include "Code.Class", "Name", "Accession", and a
-column for each sample ID.</p></li>
+<code>parse_counts()</code> on each sample. Columns include "Code.Class", "Name",
+"Accession", and a column for each sample ID. There is one row per gene.</p></li>
 <li><p><code>exp</code>: A tibble of parsed attributes for multiple RCC files created by
-calling <code>parse_attributes()</code>. Columns include "File.Name" (sample ID),
-"geneRLF", "nanostring.date", "cartridgeID", "lane.number", fov.count",
-"fov.counted", "binding.density".</p></li>
+calling <code>parse_attributes()</code> on each sample. Columns include "File.Name"
+(sample ID), "geneRLF", "nanostring.date", "cartridgeID", "lane.number",
+fov.count", "fov.counted", "binding.density". There is one row per sample.</p></li>
 </ul>
 
 <p><code>parse_counts()</code> reads a single RCC file and returns a tibble of
 parsed counts.</p>
-<p><code>parse_attributes()</code> reads a single RCC file and returns a tibble of
+<p><code>parse_attributes()</code> reads a single RCC file and returns a list of
 parsed attributes.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -161,11 +161,11 @@ parsed attributes.</p>
     <p>RCC files for a sample are direct outputs from NanoString runs. We can
 extract counts for each gene in a sample. Sample attributes include sample
 ID, GeneRLF, date, cartridge ID, lane number, Fov count, Fov counted, and
-binding density. Both count and attribute data are then merged across
+binding density. <code>read_rcc()</code> merges both count and attribute data across
 samples.</p>
 <p>If <code>path</code> points to a zipped RCC file with multiple samples, the zip file is
-unzipped and a directory of RCC sample files is created with the same name.
-Only file extensions ".RCC" or ".rcc" are allowed.</p>
+uncompressed and a directory of RCC sample files is created with the same
+name. Only file extensions ".RCC" or ".rcc" are allowed.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
