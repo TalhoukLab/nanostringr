@@ -23,18 +23,18 @@ parse_attributes(file)
 with two elements:
 \itemize{
 \item \code{raw}: A tibble of parsed counts for multiple RCC files created by calling
-\code{parse_counts()}. Columns include "Code.Class", "Name", "Accession", and a
-column for each sample ID.
+\code{parse_counts()} on each sample. Columns include "Code.Class", "Name",
+"Accession", and a column for each sample ID. There is one row per gene.
 \item \code{exp}: A tibble of parsed attributes for multiple RCC files created by
-calling \code{parse_attributes()}. Columns include "File.Name" (sample ID),
-"geneRLF", "nanostring.date", "cartridgeID", "lane.number", fov.count",
-"fov.counted", "binding.density".
+calling \code{parse_attributes()} on each sample. Columns include "File.Name"
+(sample ID), "geneRLF", "nanostring.date", "cartridgeID", "lane.number",
+fov.count", "fov.counted", "binding.density". There is one row per sample.
 }
 
 \code{parse_counts()} reads a single RCC file and returns a tibble of
 parsed counts.
 
-\code{parse_attributes()} reads a single RCC file and returns a tibble of
+\code{parse_attributes()} reads a single RCC file and returns a list of
 parsed attributes.
 }
 \description{
@@ -45,12 +45,12 @@ multiple files, and use the \code{parse_*()} functions for single files.
 RCC files for a sample are direct outputs from NanoString runs. We can
 extract counts for each gene in a sample. Sample attributes include sample
 ID, GeneRLF, date, cartridge ID, lane number, Fov count, Fov counted, and
-binding density. Both count and attribute data are then merged across
+binding density. \code{read_rcc()} merges both count and attribute data across
 samples.
 
 If \code{path} points to a zipped RCC file with multiple samples, the zip file is
-unzipped and a directory of RCC sample files is created with the same name.
-Only file extensions ".RCC" or ".rcc" are allowed.
+uncompressed and a directory of RCC sample files is created with the same
+name. Only file extensions ".RCC" or ".rcc" are allowed.
 }
 \examples{
 \dontrun{

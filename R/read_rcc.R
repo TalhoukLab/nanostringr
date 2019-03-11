@@ -6,24 +6,24 @@
 #' RCC files for a sample are direct outputs from NanoString runs. We can
 #' extract counts for each gene in a sample. Sample attributes include sample
 #' ID, GeneRLF, date, cartridge ID, lane number, Fov count, Fov counted, and
-#' binding density. Both count and attribute data are then merged across
+#' binding density. `read_rcc()` merges both count and attribute data across
 #' samples.
 #'
 #' If `path` points to a zipped RCC file with multiple samples, the zip file is
-#' unzipped and a directory of RCC sample files is created with the same name.
-#' Only file extensions ".RCC" or ".rcc" are allowed.
+#' uncompressed and a directory of RCC sample files is created with the same
+#' name. Only file extensions ".RCC" or ".rcc" are allowed.
 #'
 #' @param path directory path for multiple RCC files
 #'
 #' @return `read_rcc()` reads in a directory of RCC files and outputs a list
 #'   with two elements:
 #' * `raw`: A tibble of parsed counts for multiple RCC files created by calling
-#' `parse_counts()`. Columns include "Code.Class", "Name", "Accession", and a
-#' column for each sample ID.
+#' `parse_counts()` on each sample. Columns include "Code.Class", "Name",
+#' "Accession", and a column for each sample ID. There is one row per gene.
 #' * `exp`: A tibble of parsed attributes for multiple RCC files created by
-#' calling `parse_attributes()`. Columns include "File.Name" (sample ID),
-#' "geneRLF", "nanostring.date", "cartridgeID", "lane.number", fov.count",
-#' "fov.counted", "binding.density".
+#' calling `parse_attributes()` on each sample. Columns include "File.Name"
+#' (sample ID), "geneRLF", "nanostring.date", "cartridgeID", "lane.number",
+#' fov.count", "fov.counted", "binding.density". There is one row per sample.
 #'
 #' @author Derek Chiu
 #' @name rcc
@@ -67,7 +67,7 @@ parse_counts <- function(file) {
 
 #' @inheritParams parse_counts
 #' @name rcc
-#' @return `parse_attributes()` reads a single RCC file and returns a tibble of
+#' @return `parse_attributes()` reads a single RCC file and returns a list of
 #'   parsed attributes.
 #' @export
 parse_attributes <- function(file) {
