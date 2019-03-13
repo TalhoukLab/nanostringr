@@ -10,6 +10,14 @@
 QC, normalization, and batch adjustment operations for NanoString
     data. Raw NanoString data can be imported in the form of RCC files.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/OVCARE/nanostringr}
+  \item Report bugs at \url{https://github.com/OVCARE/nanostringr/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Derek Chiu \email{dchiu@bccrc.ca}
 

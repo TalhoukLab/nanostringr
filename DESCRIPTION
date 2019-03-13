@@ -20,6 +20,8 @@ Authors@R:
 Description: QC, normalization, and batch adjustment operations for NanoString
     data. Raw NanoString data can be imported in the form of RCC files.
 License: MIT + file LICENSE
+URL: https://github.com/OVCARE/nanostringr
+BugReports: https://github.com/OVCARE/nanostringr/issues
 Depends: 
     R (>= 3.5.0)
 Imports: 
