@@ -2,7 +2,7 @@ Type: Package
 Package: nanostringr
 Title: Performs Quality Control, Data Normalization, and Batch
     Effect Correction for NanoString nCounter Data
-Version: 0.0.0.9001
+Version: 0.1.0
 Date: 2019-03-13
 Authors@R: 
     c(person(given = "Derek",
