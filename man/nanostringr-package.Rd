@@ -14,6 +14,7 @@ QC, normalization, and batch adjustment operations for NanoString
 Useful links:
 \itemize{
   \item \url{https://github.com/OVCARE/nanostringr}
+  \item \url{https://ovcare.github.io/nanostringr}
   \item Report bugs at \url{https://github.com/OVCARE/nanostringr/issues}
 }
 
