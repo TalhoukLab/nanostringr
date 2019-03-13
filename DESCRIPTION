@@ -1,6 +1,6 @@
 Type: Package
 Package: nanostringr
-Title: Performs Quality Control and Data Normalization and Batch
+Title: Performs Quality Control, Data Normalization, and Batch
     Effect Correction for NanoString nCounter Data
 Version: 0.0.0.9001
 Date: 2019-03-13
@@ -17,8 +17,8 @@ Authors@R:
              family = "Leung",
              role = "aut",
              email = "Samuel.Leung@vch.ca"))
-Description: QC and batch adjustment operations for NanoString
-    data.
+Description: QC, normalization, and batch adjustment operations for NanoString
+    data. Raw NanoString data can be imported in the form of RCC files.
 License: MIT + file LICENSE
 Depends: 
     R (>= 3.5.0)
