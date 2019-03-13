@@ -4,9 +4,11 @@
 \name{nanostringr-package}
 \alias{nanostringr}
 \alias{nanostringr-package}
-\title{nanostringr: Performs Quality Control and Data Normalization and Batch Effect Correction for NanoString nCounter Data}
+\title{nanostringr: Performs Quality Control, Data Normalization, and Batch
+    Effect Correction for NanoString nCounter Data}
 \description{
-QC and batch adjustment operations for NanoString data.
+QC, normalization, and batch adjustment operations for NanoString
+    data. Raw NanoString data can be imported in the form of RCC files.
 }
 \author{
 \strong{Maintainer}: Derek Chiu \email{dchiu@bccrc.ca}
