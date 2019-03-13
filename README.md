@@ -8,6 +8,9 @@ nanostringr
 [![CRAN status](https://www.r-pkg.org/badges/version/nanostringr)](https://cran.r-project.org/package=nanostringr)
 <!-- badges: end -->
 
+Overview
+--------
+
 An R Package for quality assurance checking, normalization and batch effects adjustments of NanoString data suitable for single sample processing. This is the companion R package for the paper ["Single-Patient Molecular Testing with NanoString nCounter Data Using a Reference-Based Strategy for Batch Effect Correction"](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153844), published in PLOS ONE.
 
 
@@ -22,7 +25,7 @@ devtools::install_github("OVCARE/nanostringr")
 ```
 
 
-Overview
+Usage
 --------
 
 To see the full list of exported functions:
