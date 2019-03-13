@@ -1,3 +1,5 @@
+^cran-comments\.md$
+^LICENSE\.md$
 ^pkgdown$
 ^_pkgdown\.yml$
 ^docs$
