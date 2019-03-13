@@ -6,6 +6,7 @@ nanostringr
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/OVCARE/nanostringr?branch=master&svg=true)](https://ci.appveyor.com/project/OVCARE/nanostringr)
 [![Codecov test coverage](https://codecov.io/gh/OVCARE/nanostringr/branch/master/graph/badge.svg)](https://codecov.io/gh/OVCARE/nanostringr?branch=master)
 <!-- badges: end -->
+
 An R Package for quality assurance checking, normalization and batch effects adjustments of NanoString data suitable for single sample processing. This is the companion R package for the paper ["Single-Patient Molecular Testing with NanoString nCounter Data Using a Reference-Based Strategy for Batch Effect Correction"](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153844), published in PLOS ONE.
 
 
