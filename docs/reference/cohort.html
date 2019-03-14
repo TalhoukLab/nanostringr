@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • nanostringr</title>
+<title>NanoString Experiment Cohorts — cohort • nanostringr</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="NanoString Experiment Cohorts — cohort" />
+
+<meta property="og:description" content="There were five different cohorts used in NanoString experiments." />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -47,7 +50,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -94,78 +97,80 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>NanoString Experiment Cohorts</h1>
+    <small class="dont-index">Source: <a href='https://github.com/OVCARE/nanostringr/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>cohort.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>There were five different cohorts used in NanoString experiments.</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='no'>hld.r</span>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
+<span class='no'>ovd.r</span>
+
+<span class='no'>ovc.r</span>
+
+<span class='no'>hlo.r</span>
+
+<span class='no'>ovo.r</span></pre>
         
-        <td>
-          <p><code><a href="CCplot.html">CCplot()</a></code> </p>
-        </td>
-        <td><p>Concordance Correlation Plot</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="HKnorm.html">HKnorm()</a></code> </p>
-        </td>
-        <td><p>Normalization to Housekeeping Genes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="NanoStringQC.html">NanoStringQC()</a></code> </p>
-        </td>
-        <td><p>QC metrics for NanoString Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="cohort.html">hld.r</a></code> <code><a href="cohort.html">ovd.r</a></code> <code><a href="cohort.html">ovc.r</a></code> <code><a href="cohort.html">hlo.r</a></code> <code><a href="cohort.html">ovo.r</a></code> </p>
-        </td>
-        <td><p>NanoString Experiment Cohorts</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="expQC.html">expQC</a></code> </p>
-        </td>
-        <td><p>Expression QC data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rcc.html">read_rcc()</a></code> <code><a href="rcc.html">parse_counts()</a></code> <code><a href="rcc.html">parse_attributes()</a></code> </p>
-        </td>
-        <td><p>Read NanoString RCC files</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="refMethod.html">refMethod()</a></code> </p>
-        </td>
-        <td><p>Reference-based approach for batch adjustment</p></td>
-      </tr>
-    </tbody>
-    </table>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <ul>
+<li><p><code>hld.r</code> Hodgkin Lymphoma Clinical Samples: a data frame with 232 rows and
+77 columns</p></li>
+<li><p><code>ovd.r</code> Ovarian Cancer Clinical Samples: a data frame with 133 rows and 261
+columns</p></li>
+<li><p><code>ovc.r</code> Ovarian Cancer Cell Lines: a data frame with 133 rows and 29
+columns</p></li>
+<li><p><code>hlo.r</code> DNA Oligonucleotides for the HL CodeSet: a data frame with 40 rows
+and 71 columns</p></li>
+<li><p><code>ovo.r</code> DNA Oligonucleotides for the OC CodeSet: a data frame with 133 rows
+and 138 columns</p></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p>See Table 1 of
+<a href='https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153844'>https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153844</a>
+for details.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Each data object contains raw expression counts, so no normalization has been
+applied. The format is a data frame with genes as rows, samples as columns.
+Note that the first three columns contain gene metadata and are always
+labelled "Code.Class", "Name", and "Accession", and the rest are sample
+names. Hence, for the <code>hld.r</code> data, the raw counts are contained in 232 genes
+for 77 - 3 = 74 samples. The total number of samples is 74 + 258 + 26 + 68 +
+135 = 561, which matches the number of rows in <a href='expQC.html'>expQC</a>, the expression QC
+data.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='expQC.html'>expQC</a></p></div>
+    
+
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
+      
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
   </div>
 </div>
 

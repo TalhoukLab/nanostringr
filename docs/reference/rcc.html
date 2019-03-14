@@ -162,11 +162,44 @@ name. Only file extensions ".RCC" or ".rcc" are allowed.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>read_rcc</span>(<span class='no'>rcc_path</span>)
-<span class='fu'>parse_counts</span>(<span class='no'>rcc_file</span>)
-<span class='fu'>parse_attribute</span>(<span class='no'>rcc_file</span>)
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='no'>rcc_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"example.RCC"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"nanostringr"</span>)
+<span class='fu'>parse_counts</span>(<span class='no'>rcc_file</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 354 x 4</span><span>
+#&gt;    Code.Class Name    Accession      `TAOC00241-N1`
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Endogenous COL1A1  NM_000088.3             </span><span style='text-decoration: underline;'>47</span><span>179
+#&gt; </span><span style='color: #555555;'> 2</span><span> Endogenous ADAM12  NM_003474.4               158
+#&gt; </span><span style='color: #555555;'> 3</span><span> Endogenous BRCA2   NM_000059.3                32
+#&gt; </span><span style='color: #555555;'> 4</span><span> Endogenous GTF2H5  NM_207118.2               117
+#&gt; </span><span style='color: #555555;'> 5</span><span> Endogenous SLC7A11 NM_014331.3                33
+#&gt; </span><span style='color: #555555;'> 6</span><span> Endogenous HIF1A   NM_001530.2               691
+#&gt; </span><span style='color: #555555;'> 7</span><span> Endogenous DCN     NM_001920.3              </span><span style='text-decoration: underline;'>2</span><span>431
+#&gt; </span><span style='color: #555555;'> 8</span><span> Endogenous SVIL    NM_003174.2               335
+#&gt; </span><span style='color: #555555;'> 9</span><span> Endogenous HBB     NM_000518.4               292
+#&gt; </span><span style='color: #555555;'>10</span><span> Endogenous MRPS27  NM_001286748.1             91
+#&gt; </span><span style='color: #555555;'># … with 344 more rows</span><span></div><div class='input'><span class='fu'>parse_attributes</span>(<span class='no'>rcc_file</span>)</div><div class='output co'>#&gt; $File.Name
+#&gt; [1] "TAOC00241-N1"
+#&gt; 
+#&gt; $geneRLF
+#&gt; [1] "OTTA2017_C6082"
+#&gt; 
+#&gt; $nanostring.date
+#&gt; [1] "2018-07-24"
+#&gt; 
+#&gt; $cartridgeID
+#&gt; [1] "OTTA2-108-SYD-20H"
+#&gt; 
+#&gt; $lane.number
+#&gt; [1] "4"
+#&gt; 
+#&gt; $fov.count
+#&gt; [1] 555
+#&gt; 
+#&gt; $fov.counted
+#&gt; [1] 542
+#&gt; 
+#&gt; $binding.density
+#&gt; [1] 0.27
+#&gt; </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
