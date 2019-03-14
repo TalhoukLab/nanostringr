@@ -53,8 +53,7 @@ uncompressed and a directory of RCC sample files is created with the same
 name. Only file extensions ".RCC" or ".rcc" are allowed.
 }
 \examples{
-rcc_file <- system.file("extdata", "example.RCC", package = "nanostringr",
-mustWork = TRUE)
+rcc_file <- system.file("extdata", "example.RCC", package = "nanostringr")
 parse_counts(rcc_file)
 parse_attributes(rcc_file)
 }
