@@ -29,11 +29,9 @@
 #' @name rcc
 #' @export
 #' @examples
-#' \dontrun{
-#' read_rcc(rcc_path)
+#' rcc_file <- system.file("extdata", "example.RCC", package = "nanostringr")
 #' parse_counts(rcc_file)
-#' parse_attribute(rcc_file)
-#' }
+#' parse_attributes(rcc_file)
 read_rcc <- function(path = ".") {
   if (!dir.exists(path)) {
     utils::unzip(zipfile = paste0(path, ".ZIP"), exdir = path)
