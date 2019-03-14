@@ -3,7 +3,14 @@
 \name{expQC}
 \alias{expQC}
 \title{Expression QC data}
-\format{A data frame with 561 observations and 23 variables}
+\format{A data frame with 561 rows and 23 columns.}
 \description{
-Expression QC data
+Quality control metrics for the five cohorts analyzed in NanoString
+experiments.
+}
+\details{
+The total number of samples from the five cohorts is 561.
+}
+\seealso{
+\link{cohort}
 }
