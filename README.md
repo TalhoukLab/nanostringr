@@ -17,10 +17,16 @@ An R Package for quality assurance checking, normalization and batch effects adj
 Installation
 ------------
 
-To install this package, use `devtools`:
+You can install `nanostringr` from CRAN with:
 
 ``` r
-# install.packages(devtools)
+install.packages("nanostringr")
+```
+
+Or get the latest development version from GitHub:
+
+``` r
+# install.packages("devtools")
 devtools::install_github("OVCARE/nanostringr")
 ```
 
