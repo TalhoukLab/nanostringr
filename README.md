@@ -48,3 +48,5 @@ A quick overview of the key functions:
 -   `refMethod`: Performs batch effect correction using the reference-based strategy
 -   `parse_counts`: Read RCC files and extract raw counts data
 -   `parse_attributes`: Read RCC files and extract expression annotation data
+
+Please see `citation("nanostringr")` for information on how to cite the PLOS ONE paper when using this package in publications.
