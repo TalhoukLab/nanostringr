@@ -1,0 +1,19 @@
+citHeader("To cite nanostringr in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Single-Patient Molecular Testing with NanoString nCounter Data Using a Reference-Based Strategy for Batch Effect Correction",
+  author   = "Aline Talhouk, Stefan Kommoss, Robertson Mackenzie, Martin Cheung, Samuel Leung, Derek S. Chiu, Steve E. Kalloger, David G. Huntsman, Stephanie Chen, Maria Intermaggio, Jacek Gronwald, Fong C. Chan, Susan J. Ramus, Michael S. Anglesio",
+  journal  = "PLOS ONE",
+  publisher = "Public Library of Science",
+  year     = "2016",
+  volume   = "11",
+  number   = "4",
+  pages    = "1-18",
+  doi      = "10.1371/journal.pone.0153844",
+  textVersion = paste(
+    "Talhouk, A. et al. (2016).",
+    "Single-Patient Molecular Testing with NanoString nCounter Data Using a Reference-Based Strategy for Batch Effect Correction.",
+    "PLOS ONE, 11(4), 1-18. doi:10.1371/journal.pone.0153844"
+  )
+)
