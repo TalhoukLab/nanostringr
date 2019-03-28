@@ -37,7 +37,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   if (!all(grepl("[[:digit:]]", PCgenes))) {
     stop("Positive controls must have concentrations in brackets: ex POS_A(128)")
   }
-  PCconc <- as.numeric(sub("\\).*", "", sub(".*\\(", "", PCgenes)))
+  PCconc <- as.numeric(gsub(".*\\((.*)\\).*", "\\1", PCgenes))
   flag.levs <- c("Failed", "Passed")
   exp %>%
     dplyr::mutate(
