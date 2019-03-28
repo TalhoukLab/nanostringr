@@ -42,12 +42,11 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   linFlag <- fov.counted <- fov.count <- perFOV <- ncgMean <-
     ncgSD <- llod <- lod <- gd <- averageHK <- binding.density <- pergd <-
     spcFlag <- normFlag <- imagingFlag <- linFlag <- rn <- NULL
-  linPC <- raw[PCgenes, -(1:3), drop = FALSE] %>%
-    purrr::map_dbl(~ summary(lm(. ~ PCconc))$r.squared) %>%
-    round(2)
   exp %>%
     dplyr::mutate(
-      linPC = linPC,
+      linPC = raw[PCgenes, -(1:3), drop = FALSE] %>%
+        purrr::map_dbl(~ summary(lm(. ~ PCconc))$r.squared) %>%
+        round(2),
       linFlag = factor(ifelse(linPC < 0.95 | is.na(linPC), "Failed", "Passed"),
                        flag.levs),
       perFOV = (fov.counted / fov.count) * 100,
