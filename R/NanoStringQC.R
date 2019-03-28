@@ -39,40 +39,37 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   }
   PCconc <- as.numeric(sub("\\).*", "", sub(".*\\(", "", PCgenes)))
   flag.levs <- c("Failed", "Passed")
-  linFlag <- fov.counted <- fov.count <- perFOV <- ncgMean <-
-    ncgSD <- llod <- lod <- gd <- averageHK <- binding.density <- pergd <-
-    spcFlag <- normFlag <- imagingFlag <- linFlag <- rn <- NULL
   exp %>%
     dplyr::mutate(
       linPC = raw[PCgenes, -(1:3), drop = FALSE] %>%
         purrr::map_dbl(~ summary(lm(. ~ PCconc))$r.squared) %>%
         round(2),
-      linFlag = factor(ifelse(linPC < 0.95 | is.na(linPC), "Failed", "Passed"),
+      linFlag = factor(ifelse(.data$linPC < 0.95 | is.na(.data$linPC), "Failed", "Passed"),
                        flag.levs),
-      perFOV = (fov.counted / fov.count) * 100,
-      imagingFlag = factor(ifelse(perFOV < 75, "Failed", "Passed"), flag.levs),
+      perFOV = (.data$fov.counted / .data$fov.count) * 100,
+      imagingFlag = factor(ifelse(.data$perFOV < 75, "Failed", "Passed"), flag.levs),
       ncgMean = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], mean),
       ncgSD = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], sd),
-      lod = ncgMean + 2 * ncgSD,
-      llod = ncgMean - 2 * ncgSD,
+      lod = .data$ncgMean + 2 * .data$ncgSD,
+      llod = .data$ncgMean - 2 * .data$ncgSD,
       spcFlag = factor(ifelse(
-        t(as.vector(raw["POS_E(0.5)", -(1:3), drop = FALSE]) < llod |
-            ncgMean == 0),
+        t(as.vector(raw["POS_E(0.5)", -(1:3), drop = FALSE]) < .data$llod |
+            .data$ncgMean == 0),
         "Failed", "Passed"), flag.levs),
-      gd = apply(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE] > lod, 2, sum),
-      pergd = (gd / nrow(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE])) * 100,
+      gd = apply(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE] > .data$lod, 2, sum),
+      pergd = (.data$gd / nrow(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE])) * 100,
       averageHK = exp(purrr::map_dbl(log2(raw[HKgenes, -(1:3), drop = FALSE]), mean)),
-      sn = ifelse(lod < 0.001, 0, averageHK / lod),
+      sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = factor(ifelse(
-        binding.density < 0.05 | binding.density > 2.25,
+        .data$binding.density < 0.05 | .data$binding.density > 2.25,
         "Failed", "Passed"), flag.levs),
       normFlag = factor(ifelse(
-        sn < sn.in | pergd < detect,
+        .data$sn < sn.in | .data$pergd < detect,
         "Failed", "Passed"), flag.levs),
       QCFlag = factor(ifelse(
-        spcFlag == "Failed" | imagingFlag == "Failed" | linFlag == "Failed",
+        .data$spcFlag == "Failed" | .data$imagingFlag == "Failed" | .data$linFlag == "Failed",
         "Failed", "Passed"), flag.levs)
     ) %>%
     magrittr::set_rownames(rownames(exp)) %>%
-    dplyr::select(-ncgMean, -ncgSD)
+    dplyr::select(-c(.data$ncgMean, .data$ncgSD))
 }
