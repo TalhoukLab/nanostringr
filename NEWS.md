@@ -1,3 +1,5 @@
+# nanostringr (development version)
+
 # nanostringr 0.1.1
 
 * update citation to link to PLOS paper
