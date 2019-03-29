@@ -29,11 +29,7 @@ HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
     logHK <- colMeans(hkdat)
     logXpr <- gxdat
   }
-  if (ncol(logXpr) == 1) {
-    norm <- logXpr - logHK
-  } else {
-    norm <- t(apply(logXpr, 1, function(x) x - logHK))
-  }
+  norm <- purrr::map2_df(logXpr, logHK, `-`)
   normdat <- cbind(raw.data[raw.data$Code.Class == "Endogenous", 1:3], norm)
   rownames(normdat) <- normdat$Name
   normdat
