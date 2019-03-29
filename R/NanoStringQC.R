@@ -27,11 +27,14 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   assertthat::assert_that(check_genes(raw))  # Checks HK genes are specified
   assertthat::assert_that(ncol(raw) == nrow(exp) + 3)  # Checks data dimensions
 
+  # Extract PC gene concentrations
   PCgenes <- subset(raw, Code.Class == "Positive", "Name", drop = TRUE)
   if (!all(grepl("[[:digit:]]", PCgenes))) {
     stop("Positive controls must have concentrations in brackets: ex POS_A(128)")
   }
   PCconc <- as.numeric(gsub(".*\\((.*)\\).*", "\\1", PCgenes))
+
+  # Code QC measures and flags
   flag.levs <- c("Failed", "Passed")
   exp %>%
     dplyr::mutate(
@@ -49,7 +52,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         subset(raw, Name == "POS_E(0.5)", -1:-3, drop = TRUE) < .data$llod | .data$ncgMean == 0,
         "Failed", "Passed"),
       gd = colSums(subset(raw, Code.Class == "Endogenous", -1:-3) > .data$lod),
-      pergd = (.data$gd / nrow(subset(raw, Code.Class == "Endogenous", -1:-3))) * 100,
+      pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
       averageHK = exp(purrr::map_dbl(log2(subset(raw, Code.Class == "Housekeeping", -1:-3)), mean)),
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = ifelse(
