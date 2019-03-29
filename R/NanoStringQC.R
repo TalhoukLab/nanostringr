@@ -29,7 +29,6 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
 
   sn.in <- sn
   genes <- raw$Name
-  rownames(raw) <- genes
   HKgenes <- genes[raw$Code.Class == "Housekeeping"]
   PCgenes <- genes[raw$Code.Class == "Positive"]
   NCgenes <- genes[raw$Code.Class == "Negative"]
@@ -55,8 +54,8 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         t(as.vector(raw["POS_E(0.5)", -(1:3), drop = FALSE]) < .data$llod |
             .data$ncgMean == 0),
         "Failed", "Passed"),
-      gd = apply(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE] > .data$lod, 2, sum),
-      pergd = (.data$gd / nrow(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE])) * 100,
+      gd = apply(raw[!(genes %in% Hybgenes), -(1:3), drop = FALSE] > .data$lod, 2, sum),
+      pergd = (.data$gd / nrow(raw[!(genes %in% Hybgenes), -(1:3), drop = FALSE])) * 100,
       averageHK = exp(purrr::map_dbl(log2(raw[HKgenes, -(1:3), drop = FALSE]), mean)),
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = ifelse(
@@ -69,7 +68,6 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         .data$spcFlag == "Failed" | .data$imagingFlag == "Failed" | .data$linFlag == "Failed",
         "Failed", "Passed")
     ) %>%
-    dplyr::mutate_if(grepl("Flag", names(.)), factor, levels = flag.levs) %>%
-    magrittr::set_rownames(rownames(exp)) %>%
+    dplyr::mutate_if(grepl("Flag", names(.)), factor, levels = flag.levs)
     dplyr::select(-c(.data$ncgMean, .data$ncgSD))
 }
