@@ -44,32 +44,32 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
       linPC = raw[PCgenes, -(1:3), drop = FALSE] %>%
         purrr::map_dbl(~ summary(lm(. ~ PCconc))$r.squared) %>%
         round(2),
-      linFlag = factor(ifelse(.data$linPC < 0.95 | is.na(.data$linPC), "Failed", "Passed"),
-                       flag.levs),
+      linFlag = ifelse(.data$linPC < 0.95 | is.na(.data$linPC), "Failed", "Passed"),
       perFOV = (.data$fov.counted / .data$fov.count) * 100,
-      imagingFlag = factor(ifelse(.data$perFOV < 75, "Failed", "Passed"), flag.levs),
+      imagingFlag = ifelse(.data$perFOV < 75, "Failed", "Passed"),
       ncgMean = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], mean),
       ncgSD = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
-      spcFlag = factor(ifelse(
+      spcFlag = ifelse(
         t(as.vector(raw["POS_E(0.5)", -(1:3), drop = FALSE]) < .data$llod |
             .data$ncgMean == 0),
-        "Failed", "Passed"), flag.levs),
+        "Failed", "Passed"),
       gd = apply(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE] > .data$lod, 2, sum),
       pergd = (.data$gd / nrow(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE])) * 100,
       averageHK = exp(purrr::map_dbl(log2(raw[HKgenes, -(1:3), drop = FALSE]), mean)),
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
-      bdFlag = factor(ifelse(
+      bdFlag = ifelse(
         .data$binding.density < 0.05 | .data$binding.density > 2.25,
-        "Failed", "Passed"), flag.levs),
-      normFlag = factor(ifelse(
+        "Failed", "Passed"),
+      normFlag = ifelse(
         .data$sn < sn.in | .data$pergd < detect,
-        "Failed", "Passed"), flag.levs),
-      QCFlag = factor(ifelse(
+        "Failed", "Passed"),
+      QCFlag = ifelse(
         .data$spcFlag == "Failed" | .data$imagingFlag == "Failed" | .data$linFlag == "Failed",
-        "Failed", "Passed"), flag.levs)
+        "Failed", "Passed")
     ) %>%
+    dplyr::mutate_if(grepl("Flag", names(.)), factor, levels = flag.levs) %>%
     magrittr::set_rownames(rownames(exp)) %>%
     dplyr::select(-c(.data$ncgMean, .data$ncgSD))
 }
