@@ -20,16 +20,15 @@
 HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
   assertthat::assert_that(check_colnames(raw.data))
   assertthat::assert_that(check_genes(raw.data))
-  hkdat <- raw.data[raw.data$Code.Class == "Housekeeping", -1:-3, drop = FALSE]
   gxdat <- raw.data[raw.data$Code.Class == "Endogenous", -1:-3, drop = FALSE]
-  if (!is.logged) {
-    logHK <- colMeans(log2(hkdat + corr))
-    logXpr <- log2(gxdat + corr)
+  hkdat <- raw.data[raw.data$Code.Class == "Housekeeping", -1:-3, drop = FALSE]
+  if (is.logged) {
+    hkmeans <- colMeans(hkdat)
   } else {
-    logHK <- colMeans(hkdat)
-    logXpr <- gxdat
+    gxdat <- log2(gxdat + corr)
+    hkmeans <- colMeans(log2(hkdat + corr))
   }
-  norm <- purrr::map2_df(logXpr, logHK, `-`)
+  norm <- purrr::map2_df(gxdat, hkmeans, `-`)
   normdat <- cbind(raw.data[raw.data$Code.Class == "Endogenous", 1:3], norm)
   rownames(normdat) <- normdat$Name
   normdat
