@@ -54,7 +54,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = .data$binding.density < 0.05 | .data$binding.density > 2.25,
       normFlag = .data$sn < sn | .data$pergd < detect,
-      QCFlag = .data$spcFlag | .data$imagingFlag | .data$linFlag,
+      QCFlag = .data$spcFlag | .data$imagingFlag | .data$linFlag
     ) %>%
     dplyr::mutate_if(grepl("Flag", names(.)),
                      factor,
