@@ -20,24 +20,21 @@
 HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
   assertthat::assert_that(check_colnames(raw.data))
   assertthat::assert_that(check_genes(raw.data))
-  rawdat <- raw.data[, -1:-3, drop = FALSE]
-  rownames(rawdat) <- raw.data$Name
-  hks <- raw.data$Code.Class == "Housekeeping"
-  refs <- raw.data$Code.Class != "Endogenous"
+  hkdat <- raw.data[raw.data$Code.Class == "Housekeeping", -1:-3, drop = FALSE]
+  gxdat <- raw.data[raw.data$Code.Class == "Endogenous", -1:-3, drop = FALSE]
   if (!is.logged) {
-    rawdat <- rawdat + corr
-    logHK <- apply(log2(rawdat[hks, , drop = FALSE]), 2, mean)
-    logXpr <- log2(rawdat[!refs, , drop = FALSE])
+    logHK <- colMeans(log2(hkdat + corr))
+    logXpr <- log2(gxdat + corr)
   } else {
-    logHK <- apply(rawdat[hks, , drop = FALSE], 2, mean)
-    logXpr <- rawdat[!refs, , drop = FALSE]
+    logHK <- colMeans(hkdat)
+    logXpr <- gxdat
   }
   if (ncol(logXpr) == 1) {
     norm <- logXpr - logHK
   } else {
     norm <- t(apply(logXpr, 1, function(x) x - logHK))
   }
-  normdat <- cbind(raw.data[!refs, 1:3], norm)
-  rownames(normdat) <- raw.data$Name[!refs]
+  normdat <- cbind(raw.data[raw.data$Code.Class == "Endogenous", 1:3], norm)
+  rownames(normdat) <- normdat$Name
   normdat
 }
