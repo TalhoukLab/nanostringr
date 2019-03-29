@@ -35,36 +35,30 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   PCconc <- as.numeric(gsub(".*\\((.*)\\).*", "\\1", PCgenes))
 
   # Code QC measures and flags
-  flag.levs <- c("Failed", "Passed")
   exp %>%
     dplyr::mutate(
       linPC = subset(raw, Code.Class == "Positive", -1:-3) %>%
         purrr::map_dbl(~ summary(lm(. ~ PCconc))$r.squared) %>%
         round(2),
-      linFlag = ifelse(.data$linPC < 0.95 | is.na(.data$linPC), "Failed", "Passed"),
+      linFlag = .data$linPC < 0.95 | is.na(.data$linPC),
       perFOV = (.data$fov.counted / .data$fov.count) * 100,
-      imagingFlag = ifelse(.data$perFOV < 75, "Failed", "Passed"),
+      imagingFlag = .data$perFOV < 75,
       ncgMean = purrr::map_dbl(subset(raw, Code.Class == "Negative", -1:-3), mean),
       ncgSD = purrr::map_dbl(subset(raw, Code.Class == "Negative", -1:-3), sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
-      spcFlag = ifelse(
-        subset(raw, Name == "POS_E(0.5)", -1:-3, drop = TRUE) < .data$llod | .data$ncgMean == 0,
-        "Failed", "Passed"),
+      spcFlag = subset(raw, Name == "POS_E(0.5)", -1:-3, drop = TRUE) < .data$llod | .data$ncgMean == 0,
       gd = colSums(subset(raw, Code.Class == "Endogenous", -1:-3) > .data$lod),
       pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
       averageHK = exp(purrr::map_dbl(log2(subset(raw, Code.Class == "Housekeeping", -1:-3)), mean)),
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
-      bdFlag = ifelse(
-        .data$binding.density < 0.05 | .data$binding.density > 2.25,
-        "Failed", "Passed"),
-      normFlag = ifelse(
-        .data$sn < sn | .data$pergd < detect,
-        "Failed", "Passed"),
-      QCFlag = ifelse(
-        .data$spcFlag == "Failed" | .data$imagingFlag == "Failed" | .data$linFlag == "Failed",
-        "Failed", "Passed")
+      bdFlag = .data$binding.density < 0.05 | .data$binding.density > 2.25,
+      normFlag = .data$sn < sn | .data$pergd < detect,
+      QCFlag = .data$spcFlag | .data$imagingFlag | .data$linFlag,
     ) %>%
-    dplyr::mutate_if(grepl("Flag", names(.)), factor, levels = flag.levs) %>%
+    dplyr::mutate_if(grepl("Flag", names(.)),
+                     factor,
+                     levels = c(TRUE, FALSE),
+                     labels = c("Failed", "Passed")) %>%
     dplyr::select(-c(.data$ncgMean, .data$ncgSD))
 }
