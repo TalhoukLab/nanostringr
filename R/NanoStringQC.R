@@ -28,7 +28,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   assertthat::assert_that(ncol(raw) == nrow(exp) + 3)  # Checks data dimensions
 
   # Extract PC gene concentrations
-  PCgenes <- subset(raw, Code.Class == "Positive", "Name", drop = TRUE)
+  PCgenes <- raw[raw$Code.Class == "Positive", "Name"]
   if (!all(grepl("[[:digit:]]", PCgenes))) {
     stop("Positive controls must have concentrations in brackets: ex POS_A(128)")
   }
@@ -37,20 +37,19 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   # Code QC measures and flags
   exp %>%
     dplyr::mutate(
-      linPC = subset(raw, Code.Class == "Positive", -1:-3) %>%
-        purrr::map_dbl(~ summary(lm(. ~ PCconc))$r.squared) %>%
-        round(2),
+      linPC = raw[raw$Code.Class == "Positive", -1:-3] %>%
+        purrr::map_dbl(~ round(summary(lm(. ~ PCconc))$r.squared, 2)),
       linFlag = .data$linPC < 0.95 | is.na(.data$linPC),
       perFOV = (.data$fov.counted / .data$fov.count) * 100,
       imagingFlag = .data$perFOV < 75,
-      ncgMean = purrr::map_dbl(subset(raw, Code.Class == "Negative", -1:-3), mean),
-      ncgSD = purrr::map_dbl(subset(raw, Code.Class == "Negative", -1:-3), sd),
+      ncgMean = colMeans(raw[raw$Code.Class == "Negative", -1:-3]),
+      ncgSD = purrr::map_dbl(raw[raw$Code.Class == "Negative", -1:-3], sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
-      spcFlag = subset(raw, Name == "POS_E(0.5)", -1:-3, drop = TRUE) < .data$llod | .data$ncgMean == 0,
-      gd = colSums(subset(raw, Code.Class == "Endogenous", -1:-3) > .data$lod),
+      spcFlag = raw[raw$Name == "POS_E(0.5)", -1:-3, drop = TRUE] < .data$llod | .data$ncgMean == 0,
+      gd = colSums(raw[raw$Code.Class == "Endogenous", -1:-3] > .data$lod),
       pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
-      averageHK = exp(purrr::map_dbl(log2(subset(raw, Code.Class == "Housekeeping", -1:-3)), mean)),
+      averageHK = exp(colMeans(log2(raw[raw$Code.Class == "Housekeeping", -1:-3]))),
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = .data$binding.density < 0.05 | .data$binding.density > 2.25,
       normFlag = .data$sn < sn | .data$pergd < detect,
