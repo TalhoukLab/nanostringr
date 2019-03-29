@@ -27,7 +27,6 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   assertthat::assert_that(check_genes(raw))  # Checks HK genes are specified
   assertthat::assert_that(ncol(raw) == nrow(exp) + 3)  # Checks data dimensions
 
-  sn.in <- sn
   PCgenes <- subset(raw, Code.Class == "Positive", "Name", drop = TRUE)
   if (!all(grepl("[[:digit:]]", PCgenes))) {
     stop("Positive controls must have concentrations in brackets: ex POS_A(128)")
@@ -57,7 +56,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         .data$binding.density < 0.05 | .data$binding.density > 2.25,
         "Failed", "Passed"),
       normFlag = ifelse(
-        .data$sn < sn.in | .data$pergd < detect,
+        .data$sn < sn | .data$pergd < detect,
         "Failed", "Passed"),
       QCFlag = ifelse(
         .data$spcFlag == "Failed" | .data$imagingFlag == "Failed" | .data$linFlag == "Failed",
