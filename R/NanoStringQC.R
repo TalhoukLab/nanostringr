@@ -28,11 +28,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   assertthat::assert_that(ncol(raw) == nrow(exp) + 3)  # Checks data dimensions
 
   sn.in <- sn
-  genes <- raw$Name
-  HKgenes <- genes[raw$Code.Class == "Housekeeping"]
-  PCgenes <- genes[raw$Code.Class == "Positive"]
-  NCgenes <- genes[raw$Code.Class == "Negative"]
-  Hybgenes <- genes[raw$Code.Class != "Endogenous"]
+  PCgenes <- subset(raw, Code.Class == "Positive", "Name", drop = TRUE)
   if (!all(grepl("[[:digit:]]", PCgenes))) {
     stop("Positive controls must have concentrations in brackets: ex POS_A(128)")
   }
@@ -40,23 +36,22 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   flag.levs <- c("Failed", "Passed")
   exp %>%
     dplyr::mutate(
-      linPC = raw[PCgenes, -(1:3), drop = FALSE] %>%
+      linPC = subset(raw, Code.Class == "Positive", -1:-3) %>%
         purrr::map_dbl(~ summary(lm(. ~ PCconc))$r.squared) %>%
         round(2),
       linFlag = ifelse(.data$linPC < 0.95 | is.na(.data$linPC), "Failed", "Passed"),
       perFOV = (.data$fov.counted / .data$fov.count) * 100,
       imagingFlag = ifelse(.data$perFOV < 75, "Failed", "Passed"),
-      ncgMean = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], mean),
-      ncgSD = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], sd),
+      ncgMean = purrr::map_dbl(subset(raw, Code.Class == "Negative", -1:-3), mean),
+      ncgSD = purrr::map_dbl(subset(raw, Code.Class == "Negative", -1:-3), sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
       spcFlag = ifelse(
-        t(as.vector(raw["POS_E(0.5)", -(1:3), drop = FALSE]) < .data$llod |
-            .data$ncgMean == 0),
+        subset(raw, Name == "POS_E(0.5)", -1:-3, drop = TRUE) < .data$llod | .data$ncgMean == 0,
         "Failed", "Passed"),
-      gd = apply(raw[!(genes %in% Hybgenes), -(1:3), drop = FALSE] > .data$lod, 2, sum),
-      pergd = (.data$gd / nrow(raw[!(genes %in% Hybgenes), -(1:3), drop = FALSE])) * 100,
-      averageHK = exp(purrr::map_dbl(log2(raw[HKgenes, -(1:3), drop = FALSE]), mean)),
+      gd = colSums(subset(raw, Code.Class == "Endogenous", -1:-3) > .data$lod),
+      pergd = (.data$gd / nrow(subset(raw, Code.Class == "Endogenous", -1:-3))) * 100,
+      averageHK = exp(purrr::map_dbl(log2(subset(raw, Code.Class == "Housekeeping", -1:-3)), mean)),
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = ifelse(
         .data$binding.density < 0.05 | .data$binding.density > 2.25,
@@ -68,6 +63,6 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         .data$spcFlag == "Failed" | .data$imagingFlag == "Failed" | .data$linFlag == "Failed",
         "Failed", "Passed")
     ) %>%
-    dplyr::mutate_if(grepl("Flag", names(.)), factor, levels = flag.levs)
+    dplyr::mutate_if(grepl("Flag", names(.)), factor, levels = flag.levs) %>%
     dplyr::select(-c(.data$ncgMean, .data$ncgSD))
 }
