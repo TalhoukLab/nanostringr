@@ -1,4 +1,8 @@
-# nanostringr (development version)
+# nanostringr 0.1.1.9000
+
+* use tidy evaluation in `NanostringQC()`
+
+* use `vapply()` over `sapply()` for input checking functions
 
 # nanostringr 0.1.1
 

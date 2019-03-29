@@ -22,65 +22,44 @@
 #' exp.OVD <- subset(expQC, OVD == "Yes")
 #' expOVD <- NanoStringQC(ovd.r, exp.OVD)
 NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
-
-  # Run a bunch of checks to make sure the data is in the right order
+  # Run checks to make sure the data is in the right order
   assertthat::assert_that(check_colnames(raw))  # Checks format of raw counts
-  assertthat::assert_that(check_genes(raw))  # Checks that HK genes are specified
-  assertthat::assert_that(ncol(raw) == nrow(exp) + 3)
-  cn <- colnames(raw[, -(1:3)])
-  # if (all(grepl("[[:digit:]]", substring(cn, 1, 1)))) {
-  #   assertthat::assert_that(all(substring(cn, 2) == exp$File.Name))
-  # } else if (all(grepl("[[:alpha:]]", substring(cn, 1, 1)))) {
-  #   assertthat::assert_that(all(substring(cn, 1) == exp$File.Name))
-  # }
+  assertthat::assert_that(check_genes(raw))  # Checks HK genes are specified
+  assertthat::assert_that(ncol(raw) == nrow(exp) + 3)  # Checks data dimensions
 
-  sn.in <- sn
-  genes <- raw$Name
-  rownames(raw) <- genes
-  HKgenes <- genes[raw$Code.Class == "Housekeeping"]
-  PCgenes <- genes[raw$Code.Class == "Positive"]
-  NCgenes <- genes[raw$Code.Class == "Negative"]
-  Hybgenes <- genes[raw$Code.Class != "Endogenous"]
+  # Extract PC gene concentrations
+  PCgenes <- raw[raw$Code.Class == "Positive", "Name"]
   if (!all(grepl("[[:digit:]]", PCgenes))) {
     stop("Positive controls must have concentrations in brackets: ex POS_A(128)")
   }
-  PCconc <- as.numeric(sub("\\).*", "", sub(".*\\(", "", PCgenes)))
-  flag.levs <- c("Failed", "Passed")
-  linFlag <- fov.counted <- fov.count <- perFOV <- ncgMean <-
-    ncgSD <- llod <- lod <- gd <- averageHK <- binding.density <- pergd <-
-    spcFlag <- normFlag <- imagingFlag <- linFlag <- rn <- NULL
-  linPC <- raw[PCgenes, -(1:3), drop = FALSE] %>%
-    purrr::map_dbl(~ summary(lm(. ~ PCconc))$r.squared) %>%
-    round(2)
+  PCconc <- as.numeric(gsub(".*\\((.*)\\).*", "\\1", PCgenes))
+
+  # Code QC measures and flags
   exp %>%
     dplyr::mutate(
-      linPC = linPC,
-      linFlag = factor(ifelse(linPC < 0.95 | is.na(linPC), "Failed", "Passed"),
-                       flag.levs),
-      perFOV = (fov.counted / fov.count) * 100,
-      imagingFlag = factor(ifelse(perFOV < 75, "Failed", "Passed"), flag.levs),
-      ncgMean = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], mean),
-      ncgSD = purrr::map_dbl(raw[NCgenes, -(1:3), drop = FALSE], sd),
-      lod = ncgMean + 2 * ncgSD,
-      llod = ncgMean - 2 * ncgSD,
-      spcFlag = factor(ifelse(
-        t(as.vector(raw["POS_E(0.5)", -(1:3), drop = FALSE]) < llod |
-            ncgMean == 0),
-        "Failed", "Passed"), flag.levs),
-      gd = apply(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE] > lod, 2, sum),
-      pergd = (gd / nrow(raw[!(rownames(raw) %in% Hybgenes), -(1:3), drop = FALSE])) * 100,
-      averageHK = exp(purrr::map_dbl(log2(raw[HKgenes, -(1:3), drop = FALSE]), mean)),
-      sn = ifelse(lod < 0.001, 0, averageHK / lod),
-      bdFlag = factor(ifelse(
-        binding.density < 0.05 | binding.density > 2.25,
-        "Failed", "Passed"), flag.levs),
-      normFlag = factor(ifelse(
-        sn < sn.in | pergd < detect,
-        "Failed", "Passed"), flag.levs),
-      QCFlag = factor(ifelse(
-        spcFlag == "Failed" | imagingFlag == "Failed" | linFlag == "Failed",
-        "Failed", "Passed"), flag.levs)
+      linPC = raw[raw$Code.Class == "Positive", -1:-3] %>%
+        purrr::map_dbl(~ round(summary(lm(. ~ PCconc))$r.squared, 2)),
+      linFlag = .data$linPC < 0.95 | is.na(.data$linPC),
+      perFOV = (.data$fov.counted / .data$fov.count) * 100,
+      imagingFlag = .data$perFOV < 75,
+      ncgMean = colMeans(raw[raw$Code.Class == "Negative", -1:-3]),
+      ncgSD = purrr::map_dbl(raw[raw$Code.Class == "Negative", -1:-3], sd),
+      lod = .data$ncgMean + 2 * .data$ncgSD,
+      llod = .data$ncgMean - 2 * .data$ncgSD,
+      spcFlag = raw[raw$Name == "POS_E(0.5)", -1:-3, drop = TRUE] < .data$llod |
+        .data$ncgMean == 0,
+      gd = colSums(raw[raw$Code.Class == "Endogenous", -1:-3] > .data$lod),
+      pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
+      averageHK = raw[raw$Code.Class == "Housekeeping", -1:-3] %>%
+        purrr::map_dbl(~ exp(mean(log2(.)))),
+      sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
+      bdFlag = .data$binding.density < 0.05 | .data$binding.density > 2.25,
+      normFlag = .data$sn < sn | .data$pergd < detect,
+      QCFlag = .data$linFlag | .data$imagingFlag | .data$spcFlag | .data$normFlag
     ) %>%
-    magrittr::set_rownames(rownames(exp)) %>%
-    dplyr::select(-ncgMean, -ncgSD)
+    dplyr::mutate_if(grepl("Flag", names(.)),
+                     factor,
+                     levels = c(TRUE, FALSE),
+                     labels = c("Failed", "Passed")) %>%
+    dplyr::select(-c(.data$ncgMean, .data$ncgSD))
 }
