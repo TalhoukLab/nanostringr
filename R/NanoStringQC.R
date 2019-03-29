@@ -46,10 +46,12 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
       ncgSD = purrr::map_dbl(raw[raw$Code.Class == "Negative", -1:-3], sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
-      spcFlag = raw[raw$Name == "POS_E(0.5)", -1:-3, drop = TRUE] < .data$llod | .data$ncgMean == 0,
+      spcFlag = raw[raw$Name == "POS_E(0.5)", -1:-3, drop = TRUE] < .data$llod |
+        .data$ncgMean == 0,
       gd = colSums(raw[raw$Code.Class == "Endogenous", -1:-3] > .data$lod),
       pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
-      averageHK = exp(colMeans(log2(raw[raw$Code.Class == "Housekeeping", -1:-3]))),
+      averageHK = raw[raw$Code.Class == "Housekeeping", -1:-3] %>%
+        purrr::map_dbl(~ exp(mean(log2(.)))),
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = .data$binding.density < 0.05 | .data$binding.density > 2.25,
       normFlag = .data$sn < sn | .data$pergd < detect,
