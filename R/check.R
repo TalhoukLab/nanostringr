@@ -1,37 +1,42 @@
 # Verifies that the input data have the correct column names
 check_colnames <- function(...) {
-  ind <- sapply(list(...), function(x) names(x)[1:3]) ==
-    c("Code.Class", "Name", "Accession")
-  if (all(ind))
+  ind <- vapply(list(...), function(x) names(x)[1:3] ==
+                  c("Code.Class", "Name", "Accession"), logical(3))
+  if (all(ind)) {
     return(TRUE)
-  else
-    stop(paste(sapply(match.call()[-1], deparse)[
-      which(!apply(ind, 2, function(x) all(x == TRUE)))],
-      "does not have the correct column names.\n"))
+  } else{
+    args <- vapply(match.call()[-1], deparse, character(1))
+    stop(paste("\n", args[apply(ind, 2, function(x) !all(x))],
+               "does not have the correct column names."))
+  }
 }
 
 # Verifies that the input data for ratioMethod are valid
 check_data <- function(...) {
-  ind <- sapply(list(...), function(x) class(x) %in% c("matrix", "data.frame"))
-  if (all(ind))
+  ind <- vapply(list(...), inherits, what = c("matrix", "data.frame"),
+                logical(1))
+  if (all(ind)) {
     return(TRUE)
-  else
-    stop(paste(sapply(match.call()[-1], deparse)[which(!ind)],
-               "is not of class 'matrix' or 'data.frame'.\n"))
+  } else {
+    args <- vapply(match.call()[-1], deparse, character(1))
+    stop(paste("\n", args[!ind], "is not of class 'matrix' or 'data.frame'."))
+  }
 }
 
 # Verifies that the Code.Class includes Endogenous and Housekeeping genes
 check_genes <- function(x) {
-  if (all(c("Endogenous", "Housekeeping") %in% x$Code.Class))
+  if (all(c("Endogenous", "Housekeeping") %in% x$Code.Class)) {
     return(TRUE)
-  else
+  } else {
     stop("There are no Housekeeping genes in Code.Class.")
+  }
 }
 
 # Verifies that all input data have the same number of columns
 check_ncol <- function(...) {
-  if (length(unique(sapply(list(...), ncol))) == 1)
+  if (length(unique(vapply(list(...), ncol, integer(1)))) == 1) {
     return(TRUE)
-  else
+  } else {
     stop('All input data must have the same number of columns.')
+  }
 }
