@@ -1,5 +1,7 @@
 # nanostringr 0.1.1.9000
 
+* tidy up code in `HKnorm()`
+
 * use tidy evaluation in `NanostringQC()`
 
 * use `vapply()` over `sapply()` for input checking functions
