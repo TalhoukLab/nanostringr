@@ -30,7 +30,6 @@ HKnorm <- function(raw.data, is.logged = FALSE, corr = 0.0001) {
   }
   norm <- purrr::map2_df(gxdat, hkmeans, `-`)
   normdat <- raw.data[raw.data$Code.Class == "Endogenous", 1:3] %>%
-    cbind(norm) %>%
-    magrittr::set_rownames(NULL)
+    dplyr::bind_cols(norm)
   normdat
 }
