@@ -1,4 +1,4 @@
-# nanostringr 0.1.1.9000
+# nanostringr 0.1.2
 
 * sort sample names in HLD and OVD cohorts by numeric order, not lexicographic order
 
