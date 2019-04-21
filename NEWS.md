@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* fix bug using `NanoStringQC()` for single sample data
+
 # nanostringr 0.1.2
 
 * sort sample names in HLD and OVD cohorts by numeric order, not lexicographic order

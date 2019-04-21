@@ -37,20 +37,20 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   # Code QC measures and flags
   exp %>%
     dplyr::mutate(
-      linPC = raw[raw$Code.Class == "Positive", -1:-3] %>%
+      linPC = raw[raw$Code.Class == "Positive", -1:-3, drop = FALSE] %>%
         purrr::map_dbl(~ round(summary(lm(. ~ PCconc))$r.squared, 2)),
       linFlag = .data$linPC < 0.95 | is.na(.data$linPC),
       perFOV = (.data$fov.counted / .data$fov.count) * 100,
       imagingFlag = .data$perFOV < 75,
-      ncgMean = colMeans(raw[raw$Code.Class == "Negative", -1:-3]),
-      ncgSD = purrr::map_dbl(raw[raw$Code.Class == "Negative", -1:-3], sd),
+      ncgMean = colMeans(raw[raw$Code.Class == "Negative", -1:-3, drop = FALSE]),
+      ncgSD = purrr::map_dbl(raw[raw$Code.Class == "Negative", -1:-3, drop = FALSE], sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
       spcFlag = raw[raw$Name == "POS_E(0.5)", -1:-3, drop = TRUE] < .data$llod |
         .data$ncgMean == 0,
-      gd = colSums(raw[raw$Code.Class == "Endogenous", -1:-3] > .data$lod),
+      gd = colSums(raw[raw$Code.Class == "Endogenous", -1:-3, drop = FALSE] > .data$lod),
       pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
-      averageHK = raw[raw$Code.Class == "Housekeeping", -1:-3] %>%
+      averageHK = raw[raw$Code.Class == "Housekeeping", -1:-3, drop = FALSE] %>%
         purrr::map_dbl(~ exp(mean(log2(.)))),
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = .data$binding.density < 0.05 | .data$binding.density > 2.25,
