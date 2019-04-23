@@ -65,7 +65,7 @@ multiple files, and use the parse_*() functions for single files." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -163,7 +163,7 @@ name. Only file extensions ".RCC" or ".rcc" are allowed.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>rcc_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"example.RCC"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"nanostringr"</span>)
+    <pre class="examples"><div class='input'><span class='no'>rcc_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"example.RCC"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"nanostringr"</span>)
 <span class='fu'>parse_counts</span>(<span class='no'>rcc_file</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 354 x 4</span><span>
 #&gt;    Code.Class Name    Accession      `TAOC00241-N1`
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>

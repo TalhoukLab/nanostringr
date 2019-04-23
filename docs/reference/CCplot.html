@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
 
     <pre class="usage"><span class='fu'>CCplot</span>(<span class='no'>method1</span>, <span class='no'>method2</span>, <span class='kw'>Ptype</span> <span class='kw'>=</span> <span class='st'>"None"</span>, <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>xlabel</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>ylabel</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xrange</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>yrange</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>MArange</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>3.5</span>, <span class='fl'>5.5</span>))</pre>
+  <span class='kw'>xrange</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>yrange</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>MArange</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>3.5</span>, <span class='fl'>5.5</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,25 +171,25 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Simulate normally distributed data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>12</span>)
-<span class='no'>a1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>20</span>) + <span class='fl'>2</span>
-<span class='no'>a2</span> <span class='kw'>&lt;-</span> <span class='no'>a1</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.15</span>)
-<span class='no'>a3</span> <span class='kw'>&lt;-</span> <span class='no'>a1</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.15</span>) + <span class='fl'>1.4</span>
-<span class='no'>a4</span> <span class='kw'>&lt;-</span> <span class='fl'>1.5</span> * <span class='no'>a1</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.15</span>)
-<span class='no'>a5</span> <span class='kw'>&lt;-</span> <span class='fl'>1.3</span> * <span class='no'>a1</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.15</span>) + <span class='fl'>1</span>
-<span class='no'>a6</span> <span class='kw'>&lt;-</span> <span class='no'>a1</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.8</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>12</span>)
+<span class='no'>a1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>) + <span class='fl'>2</span>
+<span class='no'>a2</span> <span class='kw'>&lt;-</span> <span class='no'>a1</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.15</span>)
+<span class='no'>a3</span> <span class='kw'>&lt;-</span> <span class='no'>a1</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.15</span>) + <span class='fl'>1.4</span>
+<span class='no'>a4</span> <span class='kw'>&lt;-</span> <span class='fl'>1.5</span> * <span class='no'>a1</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.15</span>)
+<span class='no'>a5</span> <span class='kw'>&lt;-</span> <span class='fl'>1.3</span> * <span class='no'>a1</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.15</span>) + <span class='fl'>1</span>
+<span class='no'>a6</span> <span class='kw'>&lt;-</span> <span class='no'>a1</span> + <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>, <span class='fl'>0</span>, <span class='fl'>0.8</span>)
 
 <span class='co'># One scatterplot</span>
 <span class='fu'>CCplot</span>(<span class='no'>a1</span>, <span class='no'>a2</span>, <span class='kw'>Ptype</span> <span class='kw'>=</span> <span class='st'>"scatter"</span>)</div><div class='img'><img src='CCplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>a1</span>, <span class='no'>a2</span>, <span class='no'>a3</span>, <span class='no'>a4</span>, <span class='no'>a5</span>, <span class='no'>a6</span>)
-<span class='no'>mains</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Perfect Agreement"</span>, <span class='st'>"Very Good Agreement"</span>, <span class='st'>"Location Shift"</span>,
+<span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>a1</span>, <span class='no'>a2</span>, <span class='no'>a3</span>, <span class='no'>a4</span>, <span class='no'>a5</span>, <span class='no'>a6</span>)
+<span class='no'>mains</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Perfect Agreement"</span>, <span class='st'>"Very Good Agreement"</span>, <span class='st'>"Location Shift"</span>,
            <span class='st'>"Scale Shift"</span>, <span class='st'>"Location and Scale Shift"</span>, <span class='st'>"Measurement Error"</span>)
 <span class='no'>subs</span> <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>6</span>]
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5.1</span>, <span class='fl'>4.1</span>, <span class='fl'>1.5</span>, <span class='fl'>1.5</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5.1</span>, <span class='fl'>4.1</span>, <span class='fl'>1.5</span>, <span class='fl'>1.5</span>))
 
 <span class='co'># Scatterplots</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mapply'>mapply</a></span>(<span class='kw'>function</span>(<span class='no'>y</span>, <span class='no'>t</span>, <span class='no'>s</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span>(<span class='kw'>function</span>(<span class='no'>y</span>, <span class='no'>t</span>, <span class='no'>s</span>)
   <span class='fu'>CCplot</span>(<span class='kw'>method1</span> <span class='kw'>=</span> <span class='no'>a1</span>, <span class='kw'>method2</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>Ptype</span> <span class='kw'>=</span> <span class='st'>"scatter"</span>,
          <span class='kw'>xlabel</span> <span class='kw'>=</span> <span class='st'>"X"</span>, <span class='kw'>ylabel</span> <span class='kw'>=</span> <span class='st'>"Y"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='no'>t</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='no'>s</span>),
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>m2</span>, <span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>mains</span>, <span class='kw'>s</span> <span class='kw'>=</span> <span class='no'>subs</span>)</div><div class='img'><img src='CCplot-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; [[1]]
@@ -211,7 +211,7 @@
 #&gt; NULL
 #&gt; </div><div class='input'>
 <span class='co'># MAplots and show metrics</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mapply'>mapply</a></span>(<span class='kw'>function</span>(<span class='no'>y</span>, <span class='no'>t</span>, <span class='no'>s</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span>(<span class='kw'>function</span>(<span class='no'>y</span>, <span class='no'>t</span>, <span class='no'>s</span>)
   <span class='fu'>CCplot</span>(<span class='kw'>method1</span> <span class='kw'>=</span> <span class='no'>a1</span>, <span class='kw'>method2</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>Ptype</span> <span class='kw'>=</span> <span class='st'>"MAplot"</span>,
          <span class='kw'>title</span> <span class='kw'>=</span> <span class='no'>t</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='no'>s</span>, <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>m2</span>, <span class='kw'>t</span> <span class='kw'>=</span> <span class='no'>mains</span>, <span class='kw'>s</span> <span class='kw'>=</span> <span class='no'>subs</span>)</div><div class='img'><img src='CCplot-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;    [,1] [,2] [,3] [,4] [,5] [,6]
