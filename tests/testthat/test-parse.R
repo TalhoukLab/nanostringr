@@ -2,6 +2,14 @@ context("Parse RCC files")
 
 rcc_file <- system.file("extdata", "example.RCC", package = "nanostringr")
 
+test_that("reading from directory outputs list of counts and attributes", {
+  rcc_dir <- dirname(rcc_file)
+  rcc_list <- read_rcc(rcc_dir)
+  expect_type(rcc_list, "list")
+  expect_named(rcc_list, c("raw", "exp"))
+  expect_length(rcc_list, 2)
+})
+
 test_that("counts data has right dimension", {
   counts <- parse_counts(rcc_file)
   expect_equal(nrow(counts), 354)

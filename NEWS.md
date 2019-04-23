@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* unit tests for `read_rcc()`
+
 * fix bug using `NanoStringQC()` for single sample data
 
 # nanostringr 0.1.2
