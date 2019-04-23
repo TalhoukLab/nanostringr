@@ -1,4 +1,4 @@
-# nanostringr (development version)
+# nanostringr 0.1.3
 
 * check for presence of "Positive" and "Negative" genes in `NanoStringQC()`
 
