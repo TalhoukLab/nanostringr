@@ -31,10 +31,16 @@ test_that("Error if non-standard column names", {
   expect_error(NanoStringQC(hlo.r.2, expQC[expQC$geneRLF == "HL1", ]))
 })
 
-test_that("Error if missing endogenous or housekeeping genes", {
+test_that("Error if missing any gene types", {
   hlo.r.3 <- dplyr::filter(hlo.r, Code.Class != "Housekeeping")
   expect_error(NanoStringQC(hlo.r.3, expQC[expQC$geneRLF == "HL1", ]))
 
   hlo.r.4 <- dplyr::filter(hlo.r, Code.Class != "Endogenous")
   expect_error(NanoStringQC(hlo.r.4, expQC[expQC$geneRLF == "HL1", ]))
+
+  hlo.r.5 <- dplyr::filter(hlo.r, Code.Class != "Negative")
+  expect_error(NanoStringQC(hlo.r.5, expQC[expQC$geneRLF == "HL1", ]))
+
+  hlo.r.6 <- dplyr::filter(hlo.r, Code.Class != "Positive")
+  expect_error(NanoStringQC(hlo.r.6, expQC[expQC$geneRLF == "HL1", ]))
 })

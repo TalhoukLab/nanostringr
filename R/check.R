@@ -23,12 +23,15 @@ check_data <- function(...) {
   }
 }
 
-# Verifies that the Code.Class includes Endogenous and Housekeeping genes
+# Verifies that the Code.Class includes all 4 types of genes
 check_genes <- function(x) {
-  if (all(c("Endogenous", "Housekeeping") %in% x$Code.Class)) {
+  code_classes <- c("Endogenous", "Housekeeping", "Negative", "Positive")
+  genes_present <- code_classes %in% x$Code.Class
+  if (all(genes_present)) {
     return(TRUE)
   } else {
-    stop("There are no Housekeeping genes in Code.Class.")
+    stop("Gene types missing: ",
+         paste(shQuote(code_classes[!genes_present]), collapse = ", "))
   }
 }
 

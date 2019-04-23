@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* check for presence of "Positive" and "Negative" genes in `NanoStringQC()`
+
 * remove most code lints
 
 * unit tests for `read_rcc()` and internal functions `check_colnames()`, `check_genes()`
