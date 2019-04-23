@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* remove most code lints
+
 * unit tests for `read_rcc()` and internal functions `check_colnames()`, `check_genes()`
 
 * fix bug using `NanoStringQC()` for single sample data

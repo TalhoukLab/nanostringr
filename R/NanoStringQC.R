@@ -30,7 +30,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   # Extract PC gene concentrations
   PCgenes <- raw[raw$Code.Class == "Positive", "Name"]
   if (!all(grepl("[[:digit:]]", PCgenes))) {
-    stop("Positive controls must have concentrations in brackets: ex POS_A(128)")
+    stop("Positive controls need parenthesized concentrations: ex POS_A(128)")
   }
   PCconc <- as.numeric(gsub(".*\\((.*)\\).*", "\\1", PCgenes))
 
@@ -42,20 +42,25 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
       linFlag = .data$linPC < 0.95 | is.na(.data$linPC),
       perFOV = (.data$fov.counted / .data$fov.count) * 100,
       imagingFlag = .data$perFOV < 75,
-      ncgMean = colMeans(raw[raw$Code.Class == "Negative", -1:-3, drop = FALSE]),
-      ncgSD = purrr::map_dbl(raw[raw$Code.Class == "Negative", -1:-3, drop = FALSE], sd),
+      ncgMean = raw[raw$Code.Class == "Negative", -1:-3, drop = FALSE] %>%
+        colMeans(),
+      ncgSD = raw[raw$Code.Class == "Negative", -1:-3, drop = FALSE] %>%
+        purrr::map_dbl(sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
       spcFlag = raw[raw$Name == "POS_E(0.5)", -1:-3, drop = TRUE] < .data$llod |
         .data$ncgMean == 0,
-      gd = colSums(raw[raw$Code.Class == "Endogenous", -1:-3, drop = FALSE] > .data$lod),
+      gd = raw[raw$Code.Class == "Endogenous", -1:-3, drop = FALSE] %>%
+        magrittr::is_greater_than(.data$lod) %>%
+        colSums(),
       pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
       averageHK = raw[raw$Code.Class == "Housekeeping", -1:-3, drop = FALSE] %>%
         purrr::map_dbl(~ exp(mean(log2(.)))),
       sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = .data$binding.density < 0.05 | .data$binding.density > 2.25,
       normFlag = .data$sn < sn | .data$pergd < detect,
-      QCFlag = .data$linFlag | .data$imagingFlag | .data$spcFlag | .data$normFlag
+      QCFlag = .data$linFlag | .data$imagingFlag | .data$spcFlag |
+        .data$normFlag
     ) %>%
     dplyr::mutate_if(grepl("Flag", names(.)),
                      factor,

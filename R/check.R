@@ -37,6 +37,6 @@ check_ncol <- function(...) {
   if (length(unique(vapply(list(...), ncol, integer(1)))) == 1) {
     return(TRUE)
   } else {
-    stop('All input data must have the same number of columns.')
+    stop("All input data must have the same number of columns.")
   }
 }

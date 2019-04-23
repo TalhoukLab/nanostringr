@@ -71,7 +71,8 @@ CCplot <- function(method1, method2, Ptype = "None", metrics = FALSE,
   }
   xrange <- xrange %||% range(method1)
   yrange <- yrange %||% range(method2)
-  if (Ptype == "scatter") {  # Scatter Plot
+  if (Ptype == "scatter") {
+    # Scatter Plot
     plot(method1, method2, xlab = xlabel, xlim = xrange, ylim = yrange,
          ylab = ylabel, main = title, pch = 16, sub = sub)
     abline(a = 0, b = 1, lty = 2)
@@ -83,7 +84,8 @@ CCplot <- function(method1, method2, Ptype = "None", metrics = FALSE,
     text(0.5, 0.12, Acc, adj = 0)
     text(0.5, 0.05, cclab, adj = 0)
     par(usr = usr)	# restore original user coordinates
-  } else if (Ptype == "MAplot") {  # Bland-Altman or MAplot
+  } else if (Ptype == "MAplot") {
+    # Bland-Altman or MAplot
     plot(tmp.ccc$blalt$mean, tmp.ccc$blalt$delta, pch = 16, xlab = "Average",
          ylab = "Difference", main = title, sub = sub, ylim = MArange)
     abline(h = tmp.mean, lty = 1, col = "gray")

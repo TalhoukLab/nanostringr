@@ -32,9 +32,9 @@ test_that("Error if non-standard column names", {
 })
 
 test_that("Error if missing endogenous or housekeeping genes", {
-  hlo.r.3 <- hlo.r[hlo.r$Code.Class %in% c("Endogenous", "Negative", "Positive"), ]
+  hlo.r.3 <- dplyr::filter(hlo.r, Code.Class != "Housekeeping")
   expect_error(NanoStringQC(hlo.r.3, expQC[expQC$geneRLF == "HL1", ]))
 
-  hlo.r.4 <- hlo.r[hlo.r$Code.Class %in% c("Housekeeping", "Negative", "Positive"), ]
+  hlo.r.4 <- dplyr::filter(hlo.r, Code.Class != "Endogenous")
   expect_error(NanoStringQC(hlo.r.4, expQC[expQC$geneRLF == "HL1", ]))
 })
