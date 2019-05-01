@@ -28,7 +28,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   assertthat::assert_that(ncol(raw) == nrow(exp) + 3)  # Checks data dimensions
 
   # Extract PC gene concentrations
-  PCgenes <- raw[raw$Code.Class == "Positive", "Name"]
+  PCgenes <- raw[raw$Code.Class == "Positive", "Name", drop = TRUE]
   if (!all(grepl("[[:digit:]]", PCgenes))) {
     stop("Positive controls need parenthesized concentrations: ex POS_A(128)")
   }
@@ -48,8 +48,10 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         purrr::map_dbl(sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
-      spcFlag = raw[raw$Name == "POS_E(0.5)", -1:-3, drop = TRUE] < .data$llod |
-        .data$ncgMean == 0,
+      spcFlag = raw[raw$Name == "POS_E(0.5)", -1:-3] %>%
+        purrr::flatten() %>%
+        magrittr::is_less_than(.data$llod) %>%
+        magrittr::or(.data$ncgMean == 0),
       gd = raw[raw$Code.Class == "Endogenous", -1:-3, drop = FALSE] %>%
         magrittr::is_greater_than(.data$lod) %>%
         colSums(),

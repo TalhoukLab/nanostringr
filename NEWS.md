@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* `raw` parameter in `NanoStringQC()` now accepts tibbles
+
 # nanostringr 0.1.3
 
 * check for presence of "Positive" and "Negative" genes in `NanoStringQC()`
