@@ -4,21 +4,21 @@
 \alias{HKnorm}
 \title{Normalization to Housekeeping Genes}
 \usage{
-HKnorm(raw.data, is.logged = FALSE, corr = 1e-04)
+HKnorm(raw, is.logged = FALSE, corr = 1e-04)
 }
 \arguments{
-\item{raw.data}{matrix of raw counts obtained from nCounter (rows are genes).
-The first three columns must be labeled: c("Code.Class", "Name",
-"Accession") and contain that information.}
+\item{raw}{data frame of raw counts obtained from nCounter (rows represent
+genes, columns represent samples). The first three columns must be labeled:
+\code{c("Code.Class", "Name", "Accession")} and contain that information.}
 
-\item{is.logged}{logical; If \code{TRUE}, normalization has already been done
-on log base 2 scale, no need log the data}
+\item{is.logged}{logical; If \code{TRUE}, normalization has already been done on
+log base 2 scale, no need log the data}
 
 \item{corr}{small correction to avoid error}
 }
 \value{
-A matrix of log normalized data in the same format but without
-reference genes.
+data frame of log normalized data in the same format but without
+reference genes
 }
 \description{
 Normalizes the gene expression of NanoString nCounter data to housekeeping
@@ -30,5 +30,5 @@ HKnorm(ovd.r)
 HKnorm(ovd.r, is.logged = TRUE)
 }
 \author{
-Aline Talhouk
+Aline Talhouk, Derek Chiu
 }
