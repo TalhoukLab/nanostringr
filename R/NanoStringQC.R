@@ -2,11 +2,11 @@
 #'
 #' Computes and returns NanoString quality control metrics and flags.
 #'
-#' @param raw matrix of raw counts obtained from nCounter (rows represent genes,
-#'   columns represent samples). The first three columns must be labeled:
+#' @param raw data frame of raw counts obtained from nCounter (rows represent
+#'   genes, columns represent samples). The first three columns must be labeled:
 #'   `c("Code.Class", "Name", "Accession")` and contain that information.
-#' @param exp matrix of annotations with rows in the same order as the columns
-#'   of `raw`. Requires a column labeled `"File.Name"` with entries
+#' @param exp data frame of annotations with rows in the same order as the
+#'   columns of `raw`. Requires a column labeled `"File.Name"` with entries
 #'   corresponding to sample names in `raw`, also needs columns
 #'   `c("fov.counted", "fov.count", "binding.density")`.These fields can be
 #'   extracted from the nanostring RCC files.
@@ -15,7 +15,7 @@
 #'   percent.
 #' @param sn signal to noise ratio of the housekeeping genes we are willing to
 #'   tolerate, defaults to 150.
-#' @return matrix of annotations updated with normalization parameters
+#' @return data frame of annotations updated with normalization parameters
 #' @author Aline Talhouk, Derek Chiu
 #' @export
 #' @examples

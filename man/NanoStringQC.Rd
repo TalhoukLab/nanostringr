@@ -7,12 +7,12 @@
 NanoStringQC(raw, exp, detect = 80, sn = 150)
 }
 \arguments{
-\item{raw}{matrix of raw counts obtained from nCounter (rows represent genes,
-columns represent samples). The first three columns must be labeled:
+\item{raw}{data frame of raw counts obtained from nCounter (rows represent
+genes, columns represent samples). The first three columns must be labeled:
 \code{c("Code.Class", "Name", "Accession")} and contain that information.}
 
-\item{exp}{matrix of annotations with rows in the same order as the columns
-of \code{raw}. Requires a column labeled \code{"File.Name"} with entries
+\item{exp}{data frame of annotations with rows in the same order as the
+columns of \code{raw}. Requires a column labeled \code{"File.Name"} with entries
 corresponding to sample names in \code{raw}, also needs columns
 \code{c("fov.counted", "fov.count", "binding.density")}.These fields can be
 extracted from the nanostring RCC files.}
@@ -25,7 +25,7 @@ percent.}
 tolerate, defaults to 150.}
 }
 \value{
-matrix of annotations updated with normalization parameters
+data frame of annotations updated with normalization parameters
 }
 \description{
 Computes and returns NanoString quality control metrics and flags.
