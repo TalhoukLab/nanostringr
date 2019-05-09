@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* reduce package dependencies from Imports
+
 * remove old packages from Suggests
 
 * performance gains in `refMethod()`
