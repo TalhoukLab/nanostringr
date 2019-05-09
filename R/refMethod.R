@@ -22,6 +22,6 @@
 #' refMethod(A, B, C)
 refMethod <- function(Y, R1, R2) {
   assertthat::assert_that(check_data(Y, R1, R2), check_ncol(Y, R1, R2))
-  m <- apply(R1, 2, mean) - apply(R2, 2, mean)
-  t(apply(Y, 1, function(x) x + m))
+  m <- colMeans(R1) - colMeans(R2)
+  t(apply(Y, 1, `+`, m))
 }
