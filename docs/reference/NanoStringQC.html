@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
       </span>
     </div>
 
@@ -118,14 +118,14 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>raw</th>
-      <td><p>matrix of raw counts obtained from nCounter (rows represent genes,
-columns represent samples). The first three columns must be labeled:
+      <td><p>data frame of raw counts obtained from nCounter (rows represent
+genes, columns represent samples). The first three columns must be labeled:
 <code><a href='https://rdrr.io/r/base/c.html'>c("Code.Class", "Name", "Accession")</a></code> and contain that information.</p></td>
     </tr>
     <tr>
       <th>exp</th>
-      <td><p>matrix of annotations with rows in the same order as the columns
-of <code>raw</code>. Requires a column labeled <code>"File.Name"</code> with entries
+      <td><p>data frame of annotations with rows in the same order as the
+columns of <code>raw</code>. Requires a column labeled <code>"File.Name"</code> with entries
 corresponding to sample names in <code>raw</code>, also needs columns
 <code><a href='https://rdrr.io/r/base/c.html'>c("fov.counted", "fov.count", "binding.density")</a></code>.These fields can be
 extracted from the nanostring RCC files.</p></td>
@@ -145,7 +145,7 @@ tolerate, defaults to 150.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>matrix of annotations updated with normalization parameters</p>
+    <p>data frame of annotations updated with normalization parameters</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

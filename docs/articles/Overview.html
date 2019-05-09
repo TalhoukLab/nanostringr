@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
       </span>
     </div>
 
@@ -68,7 +68,7 @@
     <div class="page-header toc-ignore">
       <h1>nanostringr Package</h1>
             
-            <h4 class="date">2019-04-29</h4>
+            <h4 class="date">2019-05-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/OVCARE/nanostringr/blob/master/vignettes/Overview.Rmd"><code>vignettes/Overview.Rmd</code></a></small>
       <div class="hidden name"><code>Overview.Rmd</code></div>
@@ -101,7 +101,7 @@
 </ul>
 </li>
 <li>
-<strong>Ovarian Cancer Cell Lines (OVCL)</strong> TOTAL 26
+<strong>Ovarian Cancer Cell Lines (OVCL)</strong> TOTAL 26 samples
 <ul>
 <li>OC1 n=13 Unique</li>
 <li>OC2 n=13 Replicates of OC1 samples</li>
@@ -120,11 +120,9 @@
 <li>
 <strong>DNA Oligonucleotides for the OC CodeSet (OVO)</strong> TOTAL 135 OVO pool run at different concentrations
 <ul>
-<li>OC1 n=47
-<ul>
-<li>OC2 n=88</li>
-</ul>
+<li>OC1 n=47<br>
 </li>
+<li>OC2 n=88</li>
 </ul>
 </li>
 </ul>
@@ -143,14 +141,17 @@
 <a class="sourceLine" id="cb1-5" title="5">expHLD &lt;-<span class="st"> </span><span class="kw"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span>(hld.r, <span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(expQC, HLD <span class="op">==</span><span class="st"> "Yes"</span>))</a>
 <a class="sourceLine" id="cb1-6" title="6">expHLO &lt;-<span class="st"> </span><span class="kw"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span>(hlo.r, <span class="kw"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(expQC, HLO <span class="op">==</span><span class="st"> "Yes"</span>))</a>
 <a class="sourceLine" id="cb1-7" title="7">expQC &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(expHLD, expOVD, expHLO, expOVO, expOVCL)</a>
-<a class="sourceLine" id="cb1-8" title="8">expQC<span class="op">$</span>cohort &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"HLD"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expHLD)), </a>
-<a class="sourceLine" id="cb1-9" title="9">                <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"OVD"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expOVD)), <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"HLO"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expHLO)),</a>
-<a class="sourceLine" id="cb1-10" title="10">                <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"OVO"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expOVO)), <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"OVCL"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expOVCL))))</a>
-<a class="sourceLine" id="cb1-11" title="11">expQC &lt;-<span class="st"> </span>expQC <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cohort =</span> <span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span>(cohort,</a>
-<a class="sourceLine" id="cb1-13" title="13">                                                  <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"HLD"</span> =<span class="st"> "HL"</span>,</a>
-<a class="sourceLine" id="cb1-14" title="14">                                                    <span class="st">"OVD"</span> =<span class="st"> "OC"</span>)),</a>
-<a class="sourceLine" id="cb1-15" title="15">                         <span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"HL"</span>, <span class="st">"OC"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span>)))</a></code></pre></div>
+<a class="sourceLine" id="cb1-8" title="8">expQC<span class="op">$</span>cohort &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(</a>
+<a class="sourceLine" id="cb1-9" title="9">  <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
+<a class="sourceLine" id="cb1-10" title="10">    <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"HLD"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expHLD)),</a>
+<a class="sourceLine" id="cb1-11" title="11">    <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"OVD"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expOVD)),</a>
+<a class="sourceLine" id="cb1-12" title="12">    <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"HLO"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expHLO)),</a>
+<a class="sourceLine" id="cb1-13" title="13">    <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"OVO"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expOVO)),</a>
+<a class="sourceLine" id="cb1-14" title="14">    <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"OVCL"</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(expOVCL))</a>
+<a class="sourceLine" id="cb1-15" title="15">  ),</a>
+<a class="sourceLine" id="cb1-16" title="16">  <span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"HLD"</span>, <span class="st">"OVD"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span>),</a>
+<a class="sourceLine" id="cb1-17" title="17">  <span class="dt">labels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"HL"</span>, <span class="st">"OC"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span>)</a>
+<a class="sourceLine" id="cb1-18" title="18">)</a></code></pre></div>
 <div id="metrics-for-quality-assurance" class="section level3">
 <h3 class="hasAnchor">
 <a href="#metrics-for-quality-assurance" class="anchor"></a>Metrics for Quality Assurance</h3>
@@ -282,7 +283,7 @@ Signal to Noise versus % Gene Detected by cohort zoomed in to the area of possib
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">expHLD0<span class="op">$</span>sampleID[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(expHLD0<span class="op">$</span>QCFlag <span class="op">==</span><span class="st"> "Failed"</span>)]</a></code></pre></div>
 <p>[1] “HL1_3” “HL1_4” “HL1_10” “HL1_11” “HL1_13” “HL1_17” “HL1_18” [8] “HL1_19” “HL1_20” “HL1_21” “HL1_32” “HL2_3”</p>
 <p>Since these are matched samples we must remove both pairs from the annotation data frame and from the gene expression data frame.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">expHLD &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(expHLD0, sampleID <span class="op">!=</span><span class="st"> "HL1_18"</span> <span class="op">&amp;</span><span class="st"> </span>sampleID <span class="op">!=</span><span class="st"> "HL2_18"</span>)</a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">expHLD &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(expHLD0, sampleID <span class="op">!=</span><span class="st"> "HL1_18"</span> <span class="op">&amp;</span><span class="st"> </span>sampleID <span class="op">!=</span><span class="st"> "HL2_18"</span>)</a>
 <a class="sourceLine" id="cb11-2" title="2">hld &lt;-<span class="st"> </span>hld.r[, <span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(hld.r) <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"HL1_18"</span>, <span class="st">"HL2_18"</span>)]</a></code></pre></div>
 <p>We now normalize the resulting gene expression data</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># If data already log normalized</span></a>
