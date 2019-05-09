@@ -35,6 +35,7 @@ Imports:
     assertthat,
     ccaPP,
     dplyr,
+    epiR,
     magrittr,
     purrr,
     readr,
@@ -42,7 +43,6 @@ Imports:
     tibble
 Suggests: 
     covr,
-    epiR,
     ggplot2,
     knitr,
     pander,
