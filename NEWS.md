@@ -1,4 +1,4 @@
-# nanostringr (development version)
+# nanostringr 0.1.4
 
 * reduce package dependencies from Imports
 
