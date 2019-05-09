@@ -79,11 +79,12 @@ expQC <- rbind(expHLD, expOVD, expHLO, expOVO, expOVCL)
 expQC$cohort <- factor(c(rep("HLD", nrow(expHLD)), 
                 rep("OVD", nrow(expOVD)), rep("HLO", nrow(expHLO)),
                 rep("OVO", nrow(expOVO)), rep("OVCL", nrow(expOVCL))))
-expQC <- expQC %>% 
-  mutate(cohort = factor(stringr::str_replace_all(cohort,
-                                                  c("HLD" = "HL",
-                                                    "OVD" = "OC")),
-                         levels = c("HL", "OC", "OVCL", "HLO", "OVO")))
+expQC <- expQC %>%
+  mutate(cohort = factor(
+    cohort,
+    levels = c("HLD", "OVD", "OVCL", "HLO", "OVO"),
+    labels = c("HL", "OC", "OVCL", "HLO", "OVO")
+  ))
 ```
 
 ### Metrics for Quality Assurance

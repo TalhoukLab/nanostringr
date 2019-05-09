@@ -45,7 +45,6 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    stringr,
     testthat
 VignetteBuilder: 
     knitr
