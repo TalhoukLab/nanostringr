@@ -38,27 +38,27 @@ This vignette provides a guide to reproduce the analyses in the paper and docume
 # The Data
 Included in this package are several datasets that are described in detail in the manuscript and that are annotated in expQC, the annotation data frame for all of the experiments, run in different CodeSets, including:
 
-- **Hodgkin Lymphoma Clinical Samples (HL)** 	TOTAL 	74 samples	
-    - HL1	n=32	Unique Samples
-    - HL2	n=32	Replicates of HL1 samples
-    - HL3	n=10	Replicates (subset of HL1 samples)
+- **Hodgkin Lymphoma Clinical Samples (HL)**  TOTAL 74 samples	
+    - HL1 n=32 Unique Samples
+    - HL2 n=32 Replicates of HL1 samples
+    - HL3 n=10 Replicates (subset of HL1 samples)
 
-- **Ovarian Cancer Clinical Samples (OC)**		TOTAL	258	samples
-    - OC1	n=129	Unique
-    - OC2	n=129	Replicates of OC1 samples
+- **Ovarian Cancer Clinical Samples (OC)**  TOTAL 258 samples
+    - OC1 n=129 Unique
+    - OC2 n=129 Replicates of OC1 samples
 	    
-- **Ovarian Cancer Cell Lines (OVCL)**	TOTAL	26 
-    - OC1	n=13	Unique
-    - OC2	n=13	Replicates of OC1 samples
+- **Ovarian Cancer Cell Lines (OVCL)**  TOTAL 26 samples
+    - OC1 n=13 Unique
+    - OC2 n=13 Replicates of OC1 samples
 	
-- **DNA Oligonucleotides for the HL CodeSet (HLO)**	TOTAL	68 HLO pool run at different concentrations
-    - HL1	n=36	
-    - HL2	n=30	
-    - HL3	n=2	
+- **DNA Oligonucleotides for the HL CodeSet (HLO)** TOTAL 68 HLO pool run at different concentrations
+    - HL1 n=36	
+    - HL2 n=30	
+    - HL3 n=2	
     
-- **DNA Oligonucleotides for the OC CodeSet (OVO)**		TOTAL	135	OVO pool run at different concentrations
-    - OC1	n=47	
-	  - OC2	n=88	
+- **DNA Oligonucleotides for the OC CodeSet (OVO)** TOTAL 135 OVO pool run at different concentrations
+    - OC1 n=47	
+    - OC2 n=88	
 
 # The Functions
 
