@@ -43,13 +43,10 @@ Imports:
     tibble
 Suggests: 
     covr,
-    ggplot2,
     knitr,
-    pander,
     rmarkdown,
     stringr,
-    testthat,
-    tidyr
+    testthat
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

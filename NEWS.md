@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* remove old packages from Suggests
+
 * performance gains in `refMethod()`
 
 * `raw` parameter in `NanoStringQC()` now accepts tibbles
