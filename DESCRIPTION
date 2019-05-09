@@ -38,7 +38,6 @@ Imports:
     epiR,
     magrittr,
     purrr,
-    readr,
     rlang,
     tibble
 Suggests: 

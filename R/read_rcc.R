@@ -52,14 +52,15 @@ read_rcc <- function(path = ".") {
 #'   parsed counts.
 #' @export
 parse_counts <- function(file) {
-  rcc_file <- readr::read_lines(file)
+  rcc_file <- readLines(file)
   sample_name <- get_attr(rcc_file, "^ID,.*[[:alnum:]]")
   cs_header <- grep("<Code_Summary>", rcc_file) + 1
   cs_last <- grep("</Code_Summary>", rcc_file) - 1
   rcc_file[cs_header:cs_last] %>%
     paste(collapse = "\n") %>%
-    readr::read_csv() %>%
-    dplyr::rename(Code.Class = .data$CodeClass, !!sample_name := .data$Count)
+    read.csv(stringsAsFactors = FALSE, text = .) %>%
+    dplyr::rename(Code.Class = .data$CodeClass, !!sample_name := .data$Count) %>%
+    tibble::as_tibble()
 }
 
 #' @inheritParams parse_counts
@@ -68,7 +69,7 @@ parse_counts <- function(file) {
 #'   parsed attributes.
 #' @export
 parse_attributes <- function(file) {
-  rcc_file <- readr::read_lines(file)
+  rcc_file <- readLines(file)
   attr_patterns <- c("^ID,.*[[:alnum:]]", "GeneRLF", "Date", "CartridgeID",
                      "^ID,[[:digit:]]+$", "FovCount", "FovCounted",
                      "BindingDensity")
