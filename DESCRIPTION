@@ -38,8 +38,7 @@ Imports:
     epiR,
     magrittr,
     purrr,
-    rlang,
-    tibble
+    rlang
 Suggests: 
     covr,
     knitr,

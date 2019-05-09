@@ -43,7 +43,7 @@ read_rcc <- function(path = ".") {
     purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession"))
   exp <- rcc_files %>%
     purrr::map_df(parse_attributes)
-  tibble::lst(raw, exp)
+  dplyr::lst(raw, exp)
 }
 
 #' @param file RCC file name
@@ -60,7 +60,7 @@ parse_counts <- function(file) {
     paste(collapse = "\n") %>%
     utils::read.csv(stringsAsFactors = FALSE, text = .) %>%
     dplyr::rename(Code.Class = .data$CodeClass, !!sample_name := .data$Count) %>%
-    tibble::as_tibble()
+    dplyr::as_tibble()
 }
 
 #' @inheritParams parse_counts
