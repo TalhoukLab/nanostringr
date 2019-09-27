@@ -16,4 +16,4 @@ navbar:
     href: news/index.html
   right:
   - icon: fa-github
-    href: https://github.com/OVCARE/nanostringr
+    href: https://github.com/TalhoukLab/nanostringr
