@@ -2,9 +2,9 @@ nanostringr
 ===========
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/OVCARE/nanostringr.svg?branch=master)](https://travis-ci.org/OVCARE/nanostringr)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/OVCARE/nanostringr?branch=master&svg=true)](https://ci.appveyor.com/project/OVCARE/nanostringr)
-[![Codecov test coverage](https://codecov.io/gh/OVCARE/nanostringr/branch/master/graph/badge.svg)](https://codecov.io/gh/OVCARE/nanostringr?branch=master)
+[![Travis build status](https://travis-ci.org/TalhoukLab/nanostringr.svg?branch=master)](https://travis-ci.org/TalhoukLab/nanostringr)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/TalhoukLab/nanostringr?branch=master&svg=true)](https://ci.appveyor.com/project/TalhoukLab/nanostringr)
+[![Codecov test coverage](https://codecov.io/gh/TalhoukLab/nanostringr/branch/master/graph/badge.svg)](https://codecov.io/gh/TalhoukLab/nanostringr?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/nanostringr)](https://cran.r-project.org/package=nanostringr)
 <!-- badges: end -->
 
@@ -27,7 +27,7 @@ Or get the latest development version from GitHub:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("OVCARE/nanostringr")
+devtools::install_github("TalhoukLab/nanostringr")
 ```
 
 
