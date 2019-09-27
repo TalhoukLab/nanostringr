@@ -3,7 +3,6 @@ Package: nanostringr
 Title: Performs Quality Control, Data Normalization, and Batch
     Effect Correction for 'NanoString nCounter' Data
 Version: 0.1.4.9000
-Date: 2019-04-23
 Authors@R: 
     c(person(given = "Derek",
              family = "Chiu",
