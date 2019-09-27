@@ -9,10 +9,12 @@
 <title>nanostringr: Performs Quality Control, Data Normalization, and Batch
     Effect Correction for 'NanoString nCounter' Data — nanostringr-package • nanostringr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -23,8 +25,9 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,9 +35,9 @@
 
 
 
+
 <meta property="og:title" content="nanostringr: Performs Quality Control, Data Normalization, and Batch
     Effect Correction for 'NanoString nCounter' Data — nanostringr-package" />
-
 <meta property="og:description" content="Provides quality control (QC), normalization, and
     batch effect correction operations for 'NanoString nCounter' data,
     Talhouk et al. (2016) &amp;lt;doi:10.1371/journal.pone.0153844&amp;gt;.  Various
@@ -47,6 +50,7 @@
 
 
 
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -55,6 +59,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -73,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4.9000</span>
       </span>
     </div>
 
@@ -89,7 +94,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/OVCARE/nanostringr">
@@ -104,6 +108,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -111,12 +116,11 @@
     <div class="page-header">
     <h1>nanostringr: Performs Quality Control, Data Normalization, and Batch
     Effect Correction for 'NanoString nCounter' Data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/OVCARE/nanostringr/blob/master/R/nanostringr-package.R'><code>R/nanostringr-package.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/TalhoukLab/nanostringr/blob/master/R/nanostringr-package.R'><code>R/nanostringr-package.R</code></a></small>
     <div class="hidden name"><code>nanostringr-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p>Provides quality control (QC), normalization, and
     batch effect correction operations for 'NanoString nCounter' data,
     Talhouk et al. (2016) &lt;doi:10.1371/journal.pone.0153844&gt;.  Various
@@ -125,26 +129,25 @@
     reference-based approach is used to adjust for batch effects.  Raw
     NanoString data can be imported in the form of Reporter Code Count
     (RCC) files.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/OVCARE/nanostringr'>https://github.com/OVCARE/nanostringr</a></p></li>
-<li><p><a href='https://ovcare.github.io/nanostringr'>https://ovcare.github.io/nanostringr</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/OVCARE/nanostringr/issues'>https://github.com/OVCARE/nanostringr/issues</a></p></li>
-</ul></div>
-    
+<li><p><a href='https://github.com/TalhoukLab/nanostringr'>https://github.com/TalhoukLab/nanostringr</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/TalhoukLab/nanostringr/issues'>https://github.com/TalhoukLab/nanostringr/issues</a></p></li>
+</ul>
+
+</div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#see-also">See also</a></li>
-          </ul>
+    </ul>
 
     <h2>Author</h2>
     <p><strong>Maintainer</strong>: Derek Chiu <a href='mailto:dchiu@bccrc.ca'>dchiu@bccrc.ca</a></p>
@@ -157,19 +160,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Derek Chiu, Aline Talhouk, Samuel Leung.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
