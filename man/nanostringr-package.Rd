@@ -20,6 +20,7 @@ Provides quality control (QC), normalization, and
 Useful links:
 \itemize{
   \item \url{https://github.com/TalhoukLab/nanostringr}
+  \item \url{http://talhouklab.github.io/nanostringr/}
   \item Report bugs at \url{https://github.com/TalhoukLab/nanostringr/issues}
 }
 
