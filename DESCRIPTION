@@ -26,9 +26,8 @@ Description: Provides quality control (QC), normalization, and
     NanoString data can be imported in the form of Reporter Code Count
     (RCC) files.
 License: MIT + file LICENSE
-URL: https://github.com/OVCARE/nanostringr,
-    https://ovcare.github.io/nanostringr
-BugReports: https://github.com/OVCARE/nanostringr/issues
+URL: https://github.com/TalhoukLab/nanostringr
+BugReports: https://github.com/TalhoukLab/nanostringr/issues
 Depends: 
     R (>= 3.5.0)
 Imports: 
