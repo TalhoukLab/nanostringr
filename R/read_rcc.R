@@ -43,7 +43,7 @@ read_rcc <- function(path = ".") {
     purrr::map(parse_counts) %>%
     purrr::imap(~ `names<-`(.x, c(names(.x)[-4], .y))) %>%
     purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession")) %>%
-    dplyr::mutate(Name := ifelse(Name == "CD3E", "CD3e", .data$Name)) %>%
+    dplyr::mutate(!!"Name" := ifelse(.data$Name == "CD3E", "CD3e", .data$Name)) %>%
     as.data.frame()
   exp <- rcc_files %>%
     purrr::map_df(parse_attributes, .id = "File.Name") %>%
