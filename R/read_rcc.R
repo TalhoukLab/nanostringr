@@ -68,7 +68,6 @@ parse_counts <- function(file) {
     dplyr::as_tibble()
 }
 
-#' @inheritParams parse_counts
 #' @name rcc
 #' @return `parse_attributes()` reads a single RCC file and returns a list of
 #'   parsed attributes.

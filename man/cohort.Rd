@@ -9,7 +9,8 @@
 \alias{hlo.r}
 \alias{ovo.r}
 \title{NanoString Experiment Cohorts}
-\format{\itemize{
+\format{
+\itemize{
 \item \code{hld.r} Hodgkin Lymphoma Clinical Samples: a data frame with 232 rows and
 77 columns
 \item \code{ovd.r} Ovarian Cancer Clinical Samples: a data frame with 133 rows and 261
@@ -20,7 +21,18 @@ columns
 and 71 columns
 \item \code{ovo.r} DNA Oligonucleotides for the OC CodeSet: a data frame with 133 rows
 and 138 columns
-}}
+}
+
+An object of class \code{data.frame} with 232 rows and 77 columns.
+
+An object of class \code{data.frame} with 133 rows and 261 columns.
+
+An object of class \code{data.frame} with 133 rows and 29 columns.
+
+An object of class \code{data.frame} with 40 rows and 71 columns.
+
+An object of class \code{data.frame} with 133 rows and 138 columns.
+}
 \source{
 See Table 1 of
 \url{https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153844}
