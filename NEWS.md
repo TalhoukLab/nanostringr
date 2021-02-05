@@ -1,5 +1,11 @@
 # nanostringr (development version)
 
+* use RCC file names in parsed data of `read_rcc()`. Also rename gene name CD3E to CD3e for compatibility purposes
+
+* update roxygen
+
+* remove Rplots.pdf generated from tests, removed deprecated `context()`
+
 # nanostringr 0.1.4
 
 * reduce package dependencies from Imports
