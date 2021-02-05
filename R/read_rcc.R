@@ -37,12 +37,17 @@ read_rcc <- function(path = ".") {
     utils::unzip(zipfile = paste0(path, ".ZIP"), exdir = path)
   }
   rcc_files <-
-    list.files(path, pattern = "\\.RCC$", full.names = TRUE, ignore.case = TRUE)
+    list.files(path, pattern = "\\.RCC$", full.names = TRUE, ignore.case = TRUE) %>%
+    purrr::set_names(tools::file_path_sans_ext(basename(.)))
   raw <- rcc_files %>%
     purrr::map(parse_counts) %>%
-    purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession"))
+    purrr::imap(~ `names<-`(.x, c(names(.x)[-4], .y))) %>%
+    purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession")) %>%
+    dplyr::mutate(Name = ifelse(Name == "CD3E", "CD3e", Name)) %>%
+    as.data.frame()
   exp <- rcc_files %>%
-    purrr::map_df(parse_attributes)
+    purrr::map_df(parse_attributes, .id = "File.Name") %>%
+    as.data.frame()
   dplyr::lst(raw, exp)
 }
 
