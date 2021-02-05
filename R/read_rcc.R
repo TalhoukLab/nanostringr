@@ -38,7 +38,7 @@ read_rcc <- function(path = ".") {
   }
   rcc_files <-
     list.files(path, pattern = "\\.RCC$", full.names = TRUE, ignore.case = TRUE) %>%
-    rlang:::set_names(tools::file_path_sans_ext(basename(.)))
+    rlang::set_names(tools::file_path_sans_ext(basename(.)))
   raw <- rcc_files %>%
     purrr::map(parse_counts) %>%
     purrr::imap(~ `names<-`(.x, c(names(.x)[-4], .y))) %>%
