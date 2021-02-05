@@ -38,12 +38,12 @@ read_rcc <- function(path = ".") {
   }
   rcc_files <-
     list.files(path, pattern = "\\.RCC$", full.names = TRUE, ignore.case = TRUE) %>%
-    purrr::set_names(tools::file_path_sans_ext(basename(.)))
+    rlang:::set_names(tools::file_path_sans_ext(basename(.)))
   raw <- rcc_files %>%
     purrr::map(parse_counts) %>%
     purrr::imap(~ `names<-`(.x, c(names(.x)[-4], .y))) %>%
     purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession")) %>%
-    dplyr::mutate(Name = ifelse(Name == "CD3E", "CD3e", Name)) %>%
+    dplyr::mutate(Name := ifelse(Name == "CD3E", "CD3e", .data$Name)) %>%
     as.data.frame()
   exp <- rcc_files %>%
     purrr::map_df(parse_attributes, .id = "File.Name") %>%
