@@ -1,5 +1,3 @@
-context("refMethod")
-
 set.seed(12)
 A <- matrix(rnorm(120), ncol = 10)
 B <- matrix(rnorm(80), ncol = 10)

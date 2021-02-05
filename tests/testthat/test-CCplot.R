@@ -1,5 +1,3 @@
-context("CCplot")
-
 set.seed(12)
 a1 <- rnorm(20)
 a2 <- rnorm(20) + 2
