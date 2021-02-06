@@ -39,7 +39,7 @@ parsed attributes.
 }
 \description{
 Read RCC files and extract count and attribute data. Use \code{read_rcc()} for
-multiple files, and use the \code{parse_*()} functions for single files.
+multiple files, and use the \verb{parse_*()} functions for single files.
 }
 \details{
 RCC files for a sample are direct outputs from NanoString runs. We can

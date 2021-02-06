@@ -1,5 +1,3 @@
-context("Parse RCC files")
-
 rcc_file <- system.file("extdata", "example.RCC", package = "nanostringr")
 
 test_that("reading from directory outputs list of counts and attributes", {

@@ -37,12 +37,17 @@ read_rcc <- function(path = ".") {
     utils::unzip(zipfile = paste0(path, ".ZIP"), exdir = path)
   }
   rcc_files <-
-    list.files(path, pattern = "\\.RCC$", full.names = TRUE, ignore.case = TRUE)
+    list.files(path, pattern = "\\.RCC$", full.names = TRUE, ignore.case = TRUE) %>%
+    rlang::set_names(tools::file_path_sans_ext(basename(.)))
   raw <- rcc_files %>%
     purrr::map(parse_counts) %>%
-    purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession"))
+    purrr::imap(~ `names<-`(.x, c(names(.x)[-4], .y))) %>%
+    purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession")) %>%
+    dplyr::mutate(!!"Name" := ifelse(.data$Name == "CD3E", "CD3e", .data$Name)) %>%
+    as.data.frame()
   exp <- rcc_files %>%
-    purrr::map_df(parse_attributes)
+    purrr::map_df(parse_attributes, .id = "File.Name") %>%
+    as.data.frame()
   dplyr::lst(raw, exp)
 }
 
@@ -63,7 +68,6 @@ parse_counts <- function(file) {
     dplyr::as_tibble()
 }
 
-#' @inheritParams parse_counts
 #' @name rcc
 #' @return `parse_attributes()` reads a single RCC file and returns a list of
 #'   parsed attributes.

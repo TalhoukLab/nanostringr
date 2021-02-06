@@ -1,5 +1,3 @@
-context("NanoStringQC")
-
 data("expQC", "hld.r", "hlo.r", "ovc.r", "ovd.r", "ovo.r")
 
 test_that("Error if raw and exp different number of columns", {

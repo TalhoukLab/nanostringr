@@ -1,5 +1,3 @@
-context("CCplot")
-
 set.seed(12)
 a1 <- rnorm(20)
 a2 <- rnorm(20) + 2
@@ -20,3 +18,7 @@ test_that("Metrics have correct structure", {
   expect_is(m, "numeric")
   expect_length(m, 3)
 })
+
+dev.off()
+if (file.exists("Rplots.pdf")) file.remove("Rplots.pdf")
+

@@ -1,5 +1,3 @@
-context("HKnorm")
-
 data(ovd.r)
 
 test_that("No error on either scale", {

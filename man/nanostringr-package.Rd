@@ -19,8 +19,8 @@ Provides quality control (QC), normalization, and
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/TalhoukLab/nanostringr}
-  \item \url{https://talhouklab.github.io/nanostringr}
+  \item \url{https://github.com/TalhoukLab/nanostringr/}
+  \item \url{https://talhouklab.github.io/nanostringr/}
   \item Report bugs at \url{https://github.com/TalhoukLab/nanostringr/issues}
 }
 

@@ -1,7 +1,4 @@
-
-context("Orderings")
-
-library(dplyr)
+library(magrittr)
 set.seed(1)
 logXpr <- replicate(5, rnorm(6))
 dim(logXpr)
