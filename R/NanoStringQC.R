@@ -30,9 +30,9 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   # Extract PC gene concentrations
   PCgenes <- raw[raw$Code.Class == "Positive", "Name", drop = TRUE]
   if (!all(grepl("[[:digit:]]", PCgenes))) {
-    stop("Positive controls need parenthesized concentrations: ex POS_A(128)")
+    stop("Positive controls need numeric concentrations: e.g. POS_A(128)")
   }
-  PCconc <- as.numeric(gsub(".*\\((.*)\\).*", "\\1", PCgenes))
+  PCconc <- as.numeric(regmatches(PCgenes, regexpr("\\d+\\.*\\d*", PCgenes)))
 
   # Code QC measures and flags
   exp %>%
