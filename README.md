@@ -2,10 +2,9 @@ nanostringr
 ===========
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/TalhoukLab/nanostringr.svg?branch=master)](https://travis-ci.org/TalhoukLab/nanostringr)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/TalhoukLab/nanostringr?branch=master&svg=true)](https://ci.appveyor.com/project/TalhoukLab/nanostringr)
-[![Codecov test coverage](https://codecov.io/gh/TalhoukLab/nanostringr/branch/master/graph/badge.svg)](https://codecov.io/gh/TalhoukLab/nanostringr?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/nanostringr)](https://cran.r-project.org/package=nanostringr)
+[![R-CMD-check](https://github.com/TalhoukLab/nanostringr/workflows/R-CMD-check/badge.svg)](https://github.com/TalhoukLab/nanostringr/actions)
+[![Codecov test coverage](https://codecov.io/gh/TalhoukLab/nanostringr/branch/master/graph/badge.svg)](https://codecov.io/gh/TalhoukLab/nanostringr?branch=master)
 <!-- badges: end -->
 
 Overview
