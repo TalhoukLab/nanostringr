@@ -1,5 +1,9 @@
 # nanostringr (development version)
 
+* add gene label "PC_1" for checking smallest positive control
+
+* more robust extraction of numeric concentrations from PC gene labels
+
 # nanostringr 0.2.0
 
 * use RCC file names in parsed data of `read_rcc()`. Also rename gene name CD3E to CD3e for compatibility purposes
