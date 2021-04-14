@@ -48,7 +48,7 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         purrr::map_dbl(sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
-      spcFlag = raw[raw$Name == "POS_E(0.5)", -1:-3] %>%
+      spcFlag = raw[raw$Name %in% c("POS_E(0.5)", "POS_1"), -1:-3] %>%
         purrr::flatten() %>%
         magrittr::is_less_than(.data$llod) %>%
         magrittr::or(.data$ncgMean == 0),
