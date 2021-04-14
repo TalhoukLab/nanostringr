@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* use GitHub Actions for CI, replacing Travis and Appveyor
+
 * add gene label "PC_1" for checking smallest positive control
 
 * more robust extraction of numeric concentrations from PC gene labels
