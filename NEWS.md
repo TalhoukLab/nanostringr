@@ -1,4 +1,6 @@
-# nanostringr (development version)
+# nanostringr 0.3.0
+
+* fix calculation of genes detected so that the limit of detection is compared in parallel to each sample's counts instead of being recycled, #20
 
 * use GitHub Actions for CI, replacing Travis and Appveyor
 
