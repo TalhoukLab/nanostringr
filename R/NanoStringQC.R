@@ -52,9 +52,11 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
         purrr::flatten() %>%
         magrittr::is_less_than(.data$llod) %>%
         magrittr::or(.data$ncgMean == 0),
-      gd = raw[raw$Code.Class == "Endogenous", -1:-3, drop = FALSE] %>%
-        magrittr::is_greater_than(.data$lod) %>%
-        colSums(),
+      gd = purrr::map2_int(
+        raw[raw$Code.Class == "Endogenous", -1:-3, drop = FALSE],
+        .data$lod,
+        ~ sum(.x > .y)
+      ),
       pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
       averageHK = raw[raw$Code.Class == "Housekeeping", -1:-3, drop = FALSE] %>%
         purrr::map_dbl(~ exp(mean(log2(.)))),
