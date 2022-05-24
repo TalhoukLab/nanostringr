@@ -81,6 +81,4 @@ mapply(function(y, t, s)
 }
 \author{
 Aline Talhouk
-
-Aline Talhouk
 }

@@ -4,17 +4,9 @@
 \name{nanostringr-package}
 \alias{nanostringr}
 \alias{nanostringr-package}
-\title{nanostringr: Performs Quality Control, Data Normalization, and Batch
-    Effect Correction for 'NanoString nCounter' Data}
+\title{nanostringr: Performs Quality Control, Data Normalization, and Batch Effect Correction for 'NanoString nCounter' Data}
 \description{
-Provides quality control (QC), normalization, and
-    batch effect correction operations for 'NanoString nCounter' data,
-    Talhouk et al. (2016) <doi:10.1371/journal.pone.0153844>.  Various
-    metrics are used to determine which samples passed or failed QC.  Gene
-    expression should first be normalized to housekeeping genes, before a
-    reference-based approach is used to adjust for batch effects.  Raw
-    NanoString data can be imported in the form of Reporter Code Count
-    (RCC) files.
+Provides quality control (QC), normalization, and batch effect correction operations for 'NanoString nCounter' data, Talhouk et al. (2016) \doi{10.1371/journal.pone.0153844}. Various metrics are used to determine which samples passed or failed QC. Gene expression should first be normalized to housekeeping genes, before a reference-based approach is used to adjust for batch effects. Raw NanoString data can be imported in the form of Reporter Code Count (RCC) files.
 }
 \seealso{
 Useful links:
