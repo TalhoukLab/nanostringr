@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -49,8 +51,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/TalhoukLab/nanostringr">
-    <span class="fas fa-github"></span>
+  <a href="https://github.com/TalhoukLab/nanostringr" class="external-link">
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
@@ -64,30 +66,40 @@
 
       
 
-      </header><script src="Overview_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>nanostringr Package</h1>
             
-            <h4 class="date">2021-02-08</h4>
+            <h4 data-toc-skip class="date">2022-05-24</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/TalhoukLab/nanostringr/blob/master/vignettes/Overview.Rmd"><code>vignettes/Overview.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/TalhoukLab/nanostringr/blob/HEAD/vignettes/Overview.Rmd" class="external-link"><code>vignettes/Overview.Rmd</code></a></small>
       <div class="hidden name"><code>Overview.Rmd</code></div>
 
     </div>
 
     
     
-<p>The <code>nanostringr</code> R package is a companion R package to the manuscript:</p>
-<p>A. Talhouk, S. Kommoss, R. Mackenzie, M. Cheung, S. Leung, D. Chiu, S. Kalloger, D. Huntsman, S. Chen, M. Intermaggio, J. Gronwald, F. Chan, S. Ramus, C. Steidl, D. Scott, M. Anglesio. (2016). Single-patient molecular testing with NanoString nCounter Data using a reference-based strategy for batch effect correction. <em>PLos ONE</em>.</p>
-<p>This vignette provides a guide to reproduce the analyses in the paper and document the use of some of the functions.</p>
-<div id="the-data" class="section level1">
-<h1 class="hasAnchor">
-<a href="#the-data" class="anchor"></a>The Data</h1>
-<p>Included in this package are several datasets that are described in detail in the manuscript and that are annotated in expQC, the annotation data frame for all of the experiments, run in different CodeSets, including:</p>
+<p>The <code>nanostringr</code> R package is a companion R package to
+the manuscript:</p>
+<p>A. Talhouk, S. Kommoss, R. Mackenzie, M. Cheung, S. Leung, D. Chiu,
+S. Kalloger, D. Huntsman, S. Chen, M. Intermaggio, J. Gronwald, F. Chan,
+S. Ramus, C. Steidl, D. Scott, M. Anglesio. (2016). Single-patient
+molecular testing with NanoString nCounter Data using a reference-based
+strategy for batch effect correction. <em>PLos ONE</em>.</p>
+<p>This vignette provides a guide to reproduce the analyses in the paper
+and document the use of some of the functions.</p>
+<div class="section level2">
+<h2 id="the-data">The Data<a class="anchor" aria-label="anchor" href="#the-data"></a>
+</h2>
+<p>Included in this package are several datasets that are described in
+detail in the manuscript and that are annotated in expQC, the annotation
+data frame for all of the experiments, run in different CodeSets,
+including:</p>
 <ul>
 <li>
-<strong>Hodgkin Lymphoma Clinical Samples (HL)</strong> TOTAL 74 samples
+<strong>Hodgkin Lymphoma Clinical Samples (HL)</strong> TOTAL 74
+samples
 <ul>
 <li>HL1 n=32 Unique Samples</li>
 <li>HL2 n=32 Replicates of HL1 samples</li>
@@ -95,7 +107,8 @@
 </ul>
 </li>
 <li>
-<strong>Ovarian Cancer Clinical Samples (OC)</strong> TOTAL 258 samples
+<strong>Ovarian Cancer Clinical Samples (OC)</strong> TOTAL 258
+samples
 <ul>
 <li>OC1 n=129 Unique</li>
 <li>OC2 n=129 Replicates of OC1 samples</li>
@@ -109,7 +122,8 @@
 </ul>
 </li>
 <li>
-<strong>DNA Oligonucleotides for the HL CodeSet (HLO)</strong> TOTAL 68 HLO pool run at different concentrations
+<strong>DNA Oligonucleotides for the HL CodeSet (HLO)</strong> TOTAL
+68 HLO pool run at different concentrations
 <ul>
 <li>HL1 n=36<br>
 </li>
@@ -119,7 +133,8 @@
 </ul>
 </li>
 <li>
-<strong>DNA Oligonucleotides for the OC CodeSet (OVO)</strong> TOTAL 135 OVO pool run at different concentrations
+<strong>DNA Oligonucleotides for the OC CodeSet (OVO)</strong> TOTAL
+135 OVO pool run at different concentrations
 <ul>
 <li>OC1 n=47<br>
 </li>
@@ -128,175 +143,188 @@
 </li>
 </ul>
 </div>
-<div id="the-functions" class="section level1">
-<h1 class="hasAnchor">
-<a href="#the-functions" class="anchor"></a>The Functions</h1>
-<div id="nanostringqc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#nanostringqc" class="anchor"></a>NanoStringQC</h2>
-<p>The NanoStringQC function computes several QC metrics and appends them to the annotation matrix. Care should be taken to ensure that the data is in the proper format. The function returns different QC metric flags that can be used to filter out samples that fail QC.</p>
+<div class="section level2">
+<h2 id="the-functions">The Functions<a class="anchor" aria-label="anchor" href="#the-functions"></a>
+</h2>
+<div class="section level3">
+<h3 id="nanostringqc">NanoStringQC<a class="anchor" aria-label="anchor" href="#nanostringqc"></a>
+</h3>
+<p>The NanoStringQC function computes several QC metrics and appends
+them to the annotation matrix. Care should be taken to ensure that the
+data is in the proper format. The function returns different QC metric
+flags that can be used to filter out samples that fail QC.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/TalhoukLab/nanostringr/">nanostringr</a></span><span class="op">)</span>
-<span class="va">expOVD</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">ovd.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">OVD</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">expOVO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">ovo.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">OVO</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">expOVCL</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">ovc.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">OVCL</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">expHLD</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">hld.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">HLD</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">expHLO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">hlo.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">HLO</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">expQC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">expHLD</span>, <span class="va">expOVD</span>, <span class="va">expHLO</span>, <span class="va">expOVO</span>, <span class="va">expOVCL</span><span class="op">)</span>
-<span class="va">expQC</span><span class="op">$</span><span class="va">cohort</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span>
-  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"HLD"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">expHLD</span><span class="op">)</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"OVD"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">expOVD</span><span class="op">)</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"HLO"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">expHLO</span><span class="op">)</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"OVO"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">expOVO</span><span class="op">)</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"OVCL"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">expOVCL</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/TalhoukLab/nanostringr/" class="external-link">nanostringr</a></span><span class="op">)</span>
+<span class="va">expOVD</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">ovd.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">OVD</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">expOVO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">ovo.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">OVO</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">expOVCL</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">ovc.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">OVCL</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">expHLD</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">hld.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">HLD</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">expHLO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/NanoStringQC.html">NanoStringQC</a></span><span class="op">(</span><span class="va">hlo.r</span>, <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">HLO</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">expQC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">expHLD</span>, <span class="va">expOVD</span>, <span class="va">expHLO</span>, <span class="va">expOVO</span>, <span class="va">expOVCL</span><span class="op">)</span>
+<span class="va">expQC</span><span class="op">$</span><span class="va">cohort</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span>
+  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"HLD"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">expHLD</span><span class="op">)</span><span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"OVD"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">expOVD</span><span class="op">)</span><span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"HLO"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">expHLO</span><span class="op">)</span><span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"OVO"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">expOVO</span><span class="op">)</span><span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"OVCL"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">expOVCL</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span>,
-  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HLD"</span>, <span class="st">"OVD"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span><span class="op">)</span>,
-  labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HL"</span>, <span class="st">"OC"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span><span class="op">)</span>
+  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HLD"</span>, <span class="st">"OVD"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span><span class="op">)</span>,
+  labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HL"</span>, <span class="st">"OC"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<div id="metrics-for-quality-assurance" class="section level3">
-<h3 class="hasAnchor">
-<a href="#metrics-for-quality-assurance" class="anchor"></a>Metrics for Quality Assurance</h3>
+<div class="section level4">
+<h4 id="metrics-for-quality-assurance">Metrics for Quality Assurance<a class="anchor" aria-label="anchor" href="#metrics-for-quality-assurance"></a>
+</h4>
 </div>
-<div id="fields-of-view-fov" class="section level3">
-<h3 class="hasAnchor">
-<a href="#fields-of-view-fov" class="anchor"></a>Fields Of View (FOV)</h3>
+<div class="section level4">
+<h4 id="fields-of-view-fov">Fields Of View (FOV)<a class="anchor" aria-label="anchor" href="#fields-of-view-fov"></a>
+</h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">perFOV</span> <span class="op">~</span> <span class="va">cohort</span>, ylab <span class="op">=</span> <span class="st">"% FOV"</span>, main <span class="op">=</span> <span class="st">"% FOV by Cohort"</span>, data <span class="op">=</span> <span class="va">expQC</span>, pch <span class="op">=</span> <span class="fl">20</span>,
-        col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">75</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">perFOV</span> <span class="op">~</span> <span class="va">cohort</span>, ylab <span class="op">=</span> <span class="st">"% FOV"</span>, main <span class="op">=</span> <span class="st">"% FOV by Cohort"</span>, data <span class="op">=</span> <span class="va">expQC</span>, pch <span class="op">=</span> <span class="fl">20</span>,
+        col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">75</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="Overview_files/figure-html/perFOVPlot-1.png" alt="Samples that failed imaging QC based on percent fields of view (FOV) counted across cohorts." width="672"><p class="caption">
-Samples that failed imaging QC based on percent fields of view (FOV) counted across cohorts.
+Samples that failed imaging QC based on percent fields of view (FOV)
+counted across cohorts.
 </p>
 </div>
 </div>
-<div id="positive-controls" class="section level3">
-<h3 class="hasAnchor">
-<a href="#positive-controls" class="anchor"></a>Positive Controls</h3>
-<div id="linearity-of-positive-controls" class="section level4">
-<h4 class="hasAnchor">
-<a href="#linearity-of-positive-controls" class="anchor"></a>Linearity of Positive Controls</h4>
+<div class="section level4">
+<h4 id="positive-controls">Positive Controls<a class="anchor" aria-label="anchor" href="#positive-controls"></a>
+</h4>
+<div class="section level5">
+<h5 id="linearity-of-positive-controls">Linearity of Positive Controls<a class="anchor" aria-label="anchor" href="#linearity-of-positive-controls"></a>
+</h5>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">linPC</span> <span class="op">~</span> <span class="va">cohort</span>, ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">R</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Linearity of Positive Controls by Cohort"</span>,
-        data <span class="op">=</span> <span class="va">expQC</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0.95</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">linPC</span> <span class="op">~</span> <span class="va">cohort</span>, ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">R</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Linearity of Positive Controls by Cohort"</span>,
+        data <span class="op">=</span> <span class="va">expQC</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0.95</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="Overview_files/figure-html/linPCPlot-1.png" alt="Plot of $R^2$ of positive control probes from samples across all cohorts." width="672"><p class="caption">
-Plot of <span class="math inline">\(R^2\)</span> of positive control probes from samples across all cohorts.
+Plot of <span class="math inline">\(R^2\)</span> of positive control
+probes from samples across all cohorts.
 </p>
 </div>
 </div>
 </div>
-<div id="signal-to-noise-ratio-snr" class="section level3">
-<h3 class="hasAnchor">
-<a href="#signal-to-noise-ratio-snr" class="anchor"></a>Signal to Noise Ratio (SNR)</h3>
-<div id="level-of-housekeeping-genes" class="section level4">
-<h4 class="hasAnchor">
-<a href="#level-of-housekeeping-genes" class="anchor"></a>Level of Housekeeping Genes</h4>
+<div class="section level4">
+<h4 id="signal-to-noise-ratio-snr">Signal to Noise Ratio (SNR)<a class="anchor" aria-label="anchor" href="#signal-to-noise-ratio-snr"></a>
+</h4>
+<div class="section level5">
+<h5 id="level-of-housekeeping-genes">Level of Housekeeping Genes<a class="anchor" aria-label="anchor" href="#level-of-housekeeping-genes"></a>
+</h5>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">averageHK</span> <span class="op">~</span> <span class="va">cohort</span>, ylab <span class="op">=</span> <span class="st">"Average log HK expression"</span>,
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">averageHK</span> <span class="op">~</span> <span class="va">cohort</span>, ylab <span class="op">=</span> <span class="st">"Average log HK expression"</span>,
         main <span class="op">=</span> <span class="st">"Average log expression of Housekeeping genes by Cohort"</span>, data <span class="op">=</span> <span class="va">expQC</span>, pch <span class="op">=</span> <span class="fl">20</span>,
-        col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">50</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+        col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">50</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="Overview_files/figure-html/averageHKPlot-1.png" alt="Average log expression of Housekeeping genes by Cohort." width="672"><p class="caption">
 Average log expression of Housekeeping genes by Cohort.
 </p>
 </div>
 </div>
-<div id="limit-of-detection-lod" class="section level4">
-<h4 class="hasAnchor">
-<a href="#limit-of-detection-lod" class="anchor"></a>Limit of Detection (LOD)</h4>
+<div class="section level5">
+<h5 id="limit-of-detection-lod">Limit of Detection (LOD)<a class="anchor" aria-label="anchor" href="#limit-of-detection-lod"></a>
+</h5>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">lod</span> <span class="op">~</span> <span class="va">cohort</span>, ylab <span class="op">=</span> <span class="st">"LOD"</span>, main <span class="op">=</span> <span class="st">"Limit of detection (LOD) by Cohort"</span>,
-        data <span class="op">=</span> <span class="va">expQC</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">50</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">lod</span> <span class="op">~</span> <span class="va">cohort</span>, ylab <span class="op">=</span> <span class="st">"LOD"</span>, main <span class="op">=</span> <span class="st">"Limit of detection (LOD) by Cohort"</span>,
+        data <span class="op">=</span> <span class="va">expQC</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">50</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="Overview_files/figure-html/lodPlot-1.png" alt="Limit of detection by cohort." width="672"><p class="caption">
 Limit of detection by cohort.
 </p>
 </div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">pergd</span> <span class="op">~</span> <span class="va">cohort</span>, data <span class="op">=</span> <span class="va">expQC</span>, border <span class="op">=</span> <span class="st">"white"</span>,
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">pergd</span> <span class="op">~</span> <span class="va">cohort</span>, data <span class="op">=</span> <span class="va">expQC</span>, border <span class="op">=</span> <span class="st">"white"</span>,
        ylab <span class="op">=</span> <span class="st">"% Genes Detected"</span>, 
        main <span class="op">=</span> <span class="st">"Percent of Genes Detected Above \n the Limit of Detection"</span>, 
-       pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">50</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/stripchart.html">stripchart</a></span><span class="op">(</span><span class="va">pergd</span> <span class="op">~</span> <span class="va">cohort</span>, data <span class="op">=</span> <span class="va">expQC</span>, 
+       pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">50</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html" class="external-link">grid</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="cn">NULL</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/stripchart.html" class="external-link">stripchart</a></span><span class="op">(</span><span class="va">pergd</span> <span class="op">~</span> <span class="va">cohort</span>, data <span class="op">=</span> <span class="va">expQC</span>, 
            vertical <span class="op">=</span> <span class="cn">TRUE</span>, method <span class="op">=</span> <span class="st">"jitter"</span>,  
            pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.4</span> , col <span class="op">=</span> <span class="st">"#3A6EE3"</span>, 
            add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </code></pre></div>
 <div class="figure">
 <img src="Overview_files/figure-html/pergdPlot-1.png" alt="Percent genes of total (excluding controls) detected above the limit of detection." width="672"><p class="caption">
-Percent genes of total (excluding controls) detected above the limit of detection.
+Percent genes of total (excluding controls) detected above the limit of
+detection.
 </p>
 </div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sn</span> <span class="op">&lt;-</span> <span class="fl">100</span>
 <span class="va">detect</span> <span class="op">&lt;-</span> <span class="fl">60</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">expOVD</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVD</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVD</span>, xaxt <span class="op">=</span> <span class="st">"n"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">expOVD</span><span class="op">$</span><span class="va">sn</span><span class="op">)</span>,
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">expOVD</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVD</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVD</span>, xaxt <span class="op">=</span> <span class="st">"n"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">expOVD</span><span class="op">$</span><span class="va">sn</span><span class="op">)</span>,
      xlab <span class="op">=</span> <span class="st">"Signal to Noise Ratio"</span>, ylab <span class="op">=</span> <span class="st">"% Genes Detected"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">expOVO</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVO</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVO</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">expOVCL</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVCL</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVCL</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">expHLD</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expHLD</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.HLD</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">expHLO</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expHLO</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.HLO</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">expQC</span><span class="op">$</span><span class="va">sn</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>, <span class="fl">300</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">sn</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">detect</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span><span class="st">"Signal to Noise vs \n Ratio of Genes Detected"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HL"</span>, <span class="st">"OC"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">20</span>, bty <span class="op">=</span> <span class="st">'n'</span>,
-       col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">expOVO</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVO</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVO</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">expOVCL</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVCL</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVCL</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">expHLD</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expHLD</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.HLD</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">expHLO</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expHLO</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.HLO</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">expQC</span><span class="op">$</span><span class="va">sn</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>, <span class="fl">300</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">sn</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">detect</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">"Signal to Noise vs \n Ratio of Genes Detected"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HL"</span>, <span class="st">"OC"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">20</span>, bty <span class="op">=</span> <span class="st">'n'</span>,
+       col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="Overview_files/figure-html/snPlot-1.png" alt="Signal to Noise versus % Gene Detected by cohort." width="672"><p class="caption">
 Signal to Noise versus % Gene Detected by cohort.
 </p>
 </div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">expOVD</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVD</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVD</span>, xaxt <span class="op">=</span> <span class="st">"n"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">6000</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">expOVD</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVD</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVD</span>, xaxt <span class="op">=</span> <span class="st">"n"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">6000</span><span class="op">)</span>,
      xlab <span class="op">=</span> <span class="st">"Signal to Noise Ratio "</span>, ylab <span class="op">=</span> <span class="st">"Ratio of Genes Detected"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">expOVO</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVO</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVO</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">expOVCL</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVCL</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVCL</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">expHLD</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expHLD</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.HLD</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">expHLO</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expHLO</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.HLO</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">expQC</span><span class="op">$</span><span class="va">sn</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>, <span class="fl">300</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">expOVO</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVO</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVO</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">expOVCL</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expOVCL</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.OVCL</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">expHLD</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expHLD</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.HLD</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">expHLO</span><span class="op">$</span><span class="va">sn</span>, <span class="va">expHLO</span><span class="op">$</span><span class="va">pergd</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">COL.HLO</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></span><span class="op">(</span><span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">expQC</span><span class="op">$</span><span class="va">sn</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>, <span class="fl">300</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">sn</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">detect</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/title.html">title</a></span><span class="op">(</span><span class="st">"Signal to Noise vs \n Ratio of Genes Detected (Zooming-in)"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HL"</span>, <span class="st">"OC"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">20</span>, bty <span class="op">=</span> <span class="st">'n'</span>,
-       col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="va">sn</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">detect</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span><span class="st">"Signal to Noise vs \n Ratio of Genes Detected (Zooming-in)"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HL"</span>, <span class="st">"OC"</span>, <span class="st">"OVCL"</span>, <span class="st">"HLO"</span>, <span class="st">"OVO"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">20</span>, bty <span class="op">=</span> <span class="st">'n'</span>,
+       col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">COL.HLD</span>, <span class="va">COL.OVD</span>, <span class="va">COL.OVCL</span>, <span class="va">COL.HLO</span>, <span class="va">COL.OVO</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="Overview_files/figure-html/snZoom-1.png" alt="Signal to Noise versus % Gene Detected by cohort zoomed in to the area of possible failures." width="672"><p class="caption">
-Signal to Noise versus % Gene Detected by cohort zoomed in to the area of possible failures.
+Signal to Noise versus % Gene Detected by cohort zoomed in to the area
+of possible failures.
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id="hknorm" class="section level2">
-<h2 class="hasAnchor">
-<a href="#hknorm" class="anchor"></a>HKnorm</h2>
-<p>The HKnorm function does a simple normalization to log transformed (base 2) gene expression data data to housekeeping genes. This is done by subtracting the average log housekeeping gene expression level from the expression level of every gene in each sample.</p>
-<p>As an example, here we check the QC metrics of the Hodgkin Lymphoma data and normalize it to housekeeping genes:</p>
+<div class="section level3">
+<h3 id="hknorm">HKnorm<a class="anchor" aria-label="anchor" href="#hknorm"></a>
+</h3>
+<p>The HKnorm function does a simple normalization to log transformed
+(base 2) gene expression data data to housekeeping genes. This is done
+by subtracting the average log housekeeping gene expression level from
+the expression level of every gene in each sample.</p>
+<p>As an example, here we check the QC metrics of the Hodgkin Lymphoma
+data and normalize it to housekeeping genes:</p>
 <p>We can check to see if any samples failed QC metrics</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">expHLD0</span> <span class="op">&lt;-</span> <span class="va">expHLD</span>
-<span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">expHLD0</span><span class="op">$</span><span class="va">QCFlag</span> <span class="op">==</span> <span class="st">"Failed"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="va">expHLD0</span><span class="op">$</span><span class="va">QCFlag</span> <span class="op">==</span> <span class="st">"Failed"</span><span class="op">)</span></code></pre></div>
 <p>[1] TRUE</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">expHLD0</span><span class="op">$</span><span class="va">sampleID</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">expHLD0</span><span class="op">$</span><span class="va">QCFlag</span> <span class="op">==</span> <span class="st">"Failed"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<p>[1] “HL1_3” “HL1_4” “HL1_10” “HL1_11” “HL1_13” “HL1_17” “HL1_18” “HL1_19” [9] “HL1_20” “HL1_21” “HL1_32” “HL2_3”</p>
-<p>Since these are matched samples we must remove both pairs from the annotation data frame and from the gene expression data frame.</p>
+<code class="sourceCode R"><span class="va">expHLD0</span><span class="op">$</span><span class="va">sampleID</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">expHLD0</span><span class="op">$</span><span class="va">QCFlag</span> <span class="op">==</span> <span class="st">"Failed"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<p>[1] “HL1_3” “HL1_4” “HL1_10” “HL1_11” “HL1_13” “HL1_17” “HL1_18”
+“HL1_19” [9] “HL1_20” “HL1_21” “HL1_32” “HL2_3”</p>
+<p>Since these are matched samples we must remove both pairs from the
+annotation data frame and from the gene expression data frame.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">expHLD</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">expHLD0</span>, <span class="va">sampleID</span> <span class="op">!=</span> <span class="st">"HL1_18"</span> <span class="op">&amp;</span> <span class="va">sampleID</span> <span class="op">!=</span> <span class="st">"HL2_18"</span><span class="op">)</span>
-<span class="va">hld</span> <span class="op">&lt;-</span> <span class="va">hld.r</span><span class="op">[</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">hld.r</span><span class="op">)</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HL1_18"</span>, <span class="st">"HL2_18"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span class="va">expHLD</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">expHLD0</span>, <span class="va">sampleID</span> <span class="op">!=</span> <span class="st">"HL1_18"</span> <span class="op">&amp;</span> <span class="va">sampleID</span> <span class="op">!=</span> <span class="st">"HL2_18"</span><span class="op">)</span>
+<span class="va">hld</span> <span class="op">&lt;-</span> <span class="va">hld.r</span><span class="op">[</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">hld.r</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"HL1_18"</span>, <span class="st">"HL2_18"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
 <p>We now normalize the resulting gene expression data</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># If data already log normalized</span>
@@ -304,36 +332,38 @@ Signal to Noise versus % Gene Detected by cohort zoomed in to the area of possib
 
 <span class="co"># Otherwise, normalize to HK </span>
 <span class="va">hld.n</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HKnorm.html">HKnorm</a></span><span class="op">(</span><span class="va">hld</span><span class="op">)</span>
-<span class="va">hld1</span> <span class="op">&lt;-</span> <span class="va">hld.n</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span><span class="op">(</span><span class="st">"HL1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">hld.n</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
-<span class="va">exp.hld1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">expHLD</span>, <span class="va">geneRLF</span> <span class="op">==</span> <span class="st">"HL1"</span><span class="op">)</span>
+<span class="va">hld1</span> <span class="op">&lt;-</span> <span class="va">hld.n</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"HL1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">hld.n</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
+<span class="va">exp.hld1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">expHLD</span>, <span class="va">geneRLF</span> <span class="op">==</span> <span class="st">"HL1"</span><span class="op">)</span>
 
-<span class="va">hld2</span> <span class="op">&lt;-</span> <span class="va">hld.n</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span><span class="op">(</span><span class="st">"HL2"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">hld.n</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
-<span class="va">exp.hld2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">expHLD</span>, <span class="va">geneRLF</span> <span class="op">==</span> <span class="st">"HL2"</span><span class="op">)</span></code></pre></div>
+<span class="va">hld2</span> <span class="op">&lt;-</span> <span class="va">hld.n</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"HL2"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">hld.n</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
+<span class="va">exp.hld2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">expHLD</span>, <span class="va">geneRLF</span> <span class="op">==</span> <span class="st">"HL2"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="refmethod" class="section level2">
-<h2 class="hasAnchor">
-<a href="#refmethod" class="anchor"></a>refMethod</h2>
-<p>This function does batch adjustment using a reference-based strategy.</p>
+<div class="section level3">
+<h3 id="refmethod">refMethod<a class="anchor" aria-label="anchor" href="#refmethod"></a>
+</h3>
+<p>This function does batch adjustment using a reference-based
+strategy.</p>
 <p>Below is how this would work for the HL data:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fl">3</span> <span class="co"># The number of references to use</span>
-<span class="va">choice.refs</span> <span class="op">&lt;-</span> <span class="va">exp.hld1</span><span class="op">$</span><span class="va">sampleID</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">exp.hld1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="va">r</span>, replace <span class="op">=</span> <span class="cn">F</span><span class="op">)</span><span class="op">]</span> <span class="co"># select reference samples randomly</span>
-<span class="va">R1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">[</span>, <span class="va">choice.refs</span><span class="op">]</span><span class="op">)</span>
-<span class="va">R2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">hld2</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"HL2"</span>, <span class="fu">getNum</span><span class="op">(</span><span class="va">choice.refs</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">hld2</span><span class="op">[</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">hld2</span><span class="op">)</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"HL2"</span>, <span class="fu">getNum</span><span class="op">(</span><span class="va">choice.refs</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="va">S2.r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="fu"><a href="../reference/refMethod.html">refMethod</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">R1</span>, <span class="va">R2</span><span class="op">)</span><span class="op">)</span> <span class="co"># Data from CodeSet 2 now calibrated for CodeSet 1</span></code></pre></div>
-<p>We can check the result by selecting a random gene and plotting the expression values from both CodeSets</p>
+<span class="va">choice.refs</span> <span class="op">&lt;-</span> <span class="va">exp.hld1</span><span class="op">$</span><span class="va">sampleID</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">exp.hld1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="va">r</span>, replace <span class="op">=</span> <span class="cn">F</span><span class="op">)</span><span class="op">]</span> <span class="co"># select reference samples randomly</span>
+<span class="va">R1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">[</span>, <span class="va">choice.refs</span><span class="op">]</span><span class="op">)</span>
+<span class="va">R2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">hld2</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"HL2"</span>, <span class="fu">getNum</span><span class="op">(</span><span class="va">choice.refs</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">hld2</span><span class="op">[</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">hld2</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"HL2"</span>, <span class="fu">getNum</span><span class="op">(</span><span class="va">choice.refs</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="va">S2.r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="../reference/refMethod.html">refMethod</a></span><span class="op">(</span><span class="va">Y</span>, <span class="va">R1</span>, <span class="va">R2</span><span class="op">)</span><span class="op">)</span> <span class="co"># Data from CodeSet 2 now calibrated for CodeSet 1</span></code></pre></div>
+<p>We can check the result by selecting a random gene and plotting the
+expression values from both CodeSets</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2016</span><span class="op">)</span>
-<span class="va">gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">[</span><span class="va">gene</span>, <span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">hld2</span><span class="op">[</span><span class="va">gene</span>, <span class="op">]</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"HL1"</span>, ylab <span class="op">=</span> <span class="st">"HL2"</span>,
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2016</span><span class="op">)</span>
+<span class="va">gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">[</span><span class="va">gene</span>, <span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">hld2</span><span class="op">[</span><span class="va">gene</span>, <span class="op">]</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"HL1"</span>, ylab <span class="op">=</span> <span class="st">"HL2"</span>,
      main <span class="op">=</span> <span class="st">"No Correction"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">[</span><span class="va">gene</span>, <span class="op">!</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">)</span> <span class="op">%in%</span> <span class="va">choice.refs</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">S2.r</span><span class="op">[</span><span class="va">gene</span>, <span class="op">]</span><span class="op">)</span>,
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">[</span><span class="va">gene</span>, <span class="op">!</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">hld1</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">choice.refs</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">S2.r</span><span class="op">[</span><span class="va">gene</span>, <span class="op">]</span><span class="op">)</span>,
      xlab <span class="op">=</span> <span class="st">"HL1"</span>, ylab <span class="op">=</span> <span class="st">"HL2"</span>, main <span class="op">=</span> <span class="st">"Corrected"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="Overview_files/figure-html/plot_gene-1.png" width="672"></p>
 <!-- # Downstream Analysis -->
 <!-- In the previous analysis we compared the gene expression value of an individual gene. Below is the impact on a downstream analysis. We use the HL prognostic model as an example. For additional information on this model, the reader is referred to the [paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153844). -->
@@ -430,11 +460,13 @@ Signal to Noise versus % Gene Detected by cohort zoomed in to the area of possib
 
 
       <footer><div class="copyright">
-  <p>Developed by Derek Chiu, Aline Talhouk, Samuel Leung.</p>
+  <p></p>
+<p>Developed by Derek Chiu, Aline Talhouk, Samuel Leung.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
@@ -442,6 +474,8 @@ Signal to Noise versus % Gene Detected by cohort zoomed in to the area of possib
 
   
 
+
+  
 
   </body>
 </html>
