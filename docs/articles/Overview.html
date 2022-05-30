@@ -71,7 +71,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>nanostringr Package</h1>
             
-            <h4 data-toc-skip class="date">2022-05-24</h4>
+            <h4 data-toc-skip class="date">2022-05-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/TalhoukLab/nanostringr/blob/HEAD/vignettes/Overview.Rmd" class="external-link"><code>vignettes/Overview.Rmd</code></a></small>
       <div class="hidden name"><code>Overview.Rmd</code></div>
@@ -318,8 +318,7 @@ data and normalize it to housekeeping genes:</p>
 <p>[1] TRUE</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">expHLD0</span><span class="op">$</span><span class="va">sampleID</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">expHLD0</span><span class="op">$</span><span class="va">QCFlag</span> <span class="op">==</span> <span class="st">"Failed"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<p>[1] “HL1_3” “HL1_4” “HL1_10” “HL1_11” “HL1_13” “HL1_17” “HL1_18”
-“HL1_19” [9] “HL1_20” “HL1_21” “HL1_32” “HL2_3”</p>
+<p>[1] “HL1_3” “HL1_13” “HL1_17” “HL1_18” “HL2_3”</p>
 <p>Since these are matched samples we must remove both pairs from the
 annotation data frame and from the gene expression data frame.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
