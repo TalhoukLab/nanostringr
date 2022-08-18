@@ -1,3 +1,7 @@
+# nanostringr (development version)
+
+* new `normalize_random()` function to use randomly selected samples as the reference for `refMethod()`
+
 # nanostringr 0.3.0
 
 * fix calculation of genes detected so that the limit of detection is compared in parallel to each sample's counts instead of being recycled, #20
