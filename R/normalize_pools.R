@@ -34,17 +34,17 @@ normalize_pools <- function(x, ref, x_pools, ref_pools, p = 3, weigh = TRUE) {
     tibble::enframe(rowMeans(ref_pools), name = "Name", value = "ref_exp")
 
   x_val <- x %>%
-    dplyr::select(Name, setdiff(names(.), names(x_pools)))
+    dplyr::select(.data$Name, setdiff(names(.), names(x_pools)))
   x_norm <- x_val %>%
     tidyr::pivot_longer(cols = where(is.numeric),
                         names_to = "FileName",
                         values_to = "exp") %>%
     dplyr::inner_join(x_pools_mgx, by = "Name") %>%
     dplyr::inner_join(ref_pools_mgx, by = "Name") %>%
-    dplyr::mutate(be = x_exp - ref_exp) %>%
-    dplyr::transmute(Name = forcats::fct_inorder(Name),
-                     FileName,
-                     exp = be + exp) %>%
+    dplyr::mutate(be = .data$x_exp - .data$ref_exp) %>%
+    dplyr::transmute(Name = forcats::fct_inorder(.data$Name),
+                     .data$FileName,
+                     exp = .data$be + exp) %>%
     tidyr::pivot_wider(names_from = "Name", values_from = "exp")
   return(x_norm)
 }
