@@ -1,5 +1,6 @@
 # magrittr placeholder
 globalVariables(".")
+globalVariables("where")
 
 #' Join grouping variable to CodeSet
 #'
