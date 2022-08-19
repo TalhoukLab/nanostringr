@@ -35,10 +35,12 @@ Imports:
     ccaPP,
     dplyr,
     epiR,
+    forcats,
     magrittr,
     purrr,
     rlang,
-    tibble
+    tibble,
+    tidyr
 Suggests: 
     covr,
     knitr,
