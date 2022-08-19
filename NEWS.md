@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* new `normalize_pools()` function to use common pool samples to correct for batch effects
+when normalizing
 * new `normalize_random()` function to use randomly selected samples as the reference for `refMethod()`
 
 # nanostringr 0.3.0
