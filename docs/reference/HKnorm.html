@@ -19,7 +19,7 @@ expression from the expression level of every gene in each sample."><!-- mathjax
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0.9000</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@ expression from the expression level of every gene in each sample.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">HKnorm</span><span class="op">(</span><span class="va">raw</span>, is.logged <span class="op">=</span> <span class="cn">FALSE</span>, corr <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">HKnorm</span><span class="op">(</span><span class="va">raw</span>, is.logged <span class="op">=</span> <span class="cn">FALSE</span>, corr <span class="op">=</span> <span class="fl">1e-04</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -69,15 +69,22 @@ expression from the expression level of every gene in each sample.</p>
 <dd><p>data frame of raw counts obtained from nCounter (rows represent
 genes, columns represent samples). The first three columns must be labeled:
 <code>c("Code.Class", "Name", "Accession")</code> and contain that information.</p></dd>
+
+
 <dt>is.logged</dt>
 <dd><p>logical; If <code>TRUE</code>, normalization has already been done on
 log base 2 scale, no need log the data</p></dd>
+
+
 <dt>corr</dt>
 <dd><p>small correction to avoid error</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>data frame of log normalized data in the same format but without
+    
+
+<p>data frame of log normalized data in the same format but without
 reference genes</p>
     </div>
     <div id="author">
@@ -87,7 +94,7 @@ reference genes</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">HKnorm</span><span class="op">(</span><span class="va">ovd.r</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">HKnorm</span><span class="op">(</span><span class="va">ovd.r</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Code.Class      Name      Accession       CS1_1      CS1_2      CS1_3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene1   Endogenous   Gene 1    Accession 1  -2.97732856 -3.2798380 -2.8489541</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene2   Endogenous   Gene 2    Accession 2  -2.64740788 -3.4318410 -3.2285975</span>
@@ -5953,7 +5960,7 @@ reference genes</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene131 -6.21787625  -6.62829023</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene132 -5.43736342  -6.01685690</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene133 -4.57216051  -5.27465572</span>
-<span class="r-in"><span class="fu">HKnorm</span><span class="op">(</span><span class="va">ovd.r</span>, is.logged <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">HKnorm</span><span class="op">(</span><span class="va">ovd.r</span>, is.logged <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Code.Class      Name      Accession   CS1_1   CS1_2   CS1_3    CS1_4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene1   Endogenous   Gene 1    Accession 1  -3893.2 -7251.2 -6309.6 -23043.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Gene2   Endogenous   Gene 2    Accession 2  -3856.2 -7266.2 -6368.6 -22952.6</span>
@@ -9763,7 +9770,7 @@ reference genes</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

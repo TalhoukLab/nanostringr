@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0.9000</span>
       </span>
     </div>
 
@@ -56,49 +56,72 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">CCplot</span><span class="op">(</span>
-  <span class="va">method1</span>,
-  <span class="va">method2</span>,
-  Ptype <span class="op">=</span> <span class="st">"None"</span>,
-  metrics <span class="op">=</span> <span class="cn">FALSE</span>,
-  xlabel <span class="op">=</span> <span class="st">""</span>,
-  ylabel <span class="op">=</span> <span class="st">""</span>,
-  title <span class="op">=</span> <span class="st">""</span>,
-  subtitle <span class="op">=</span> <span class="cn">NULL</span>,
-  xrange <span class="op">=</span> <span class="cn">NULL</span>,
-  yrange <span class="op">=</span> <span class="cn">NULL</span>,
-  MArange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3.5</span>, <span class="fl">5.5</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CCplot</span><span class="op">(</span></span>
+<span>  <span class="va">method1</span>,</span>
+<span>  <span class="va">method2</span>,</span>
+<span>  Ptype <span class="op">=</span> <span class="st">"None"</span>,</span>
+<span>  metrics <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  xlabel <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  ylabel <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xrange <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  yrange <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  MArange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3.5</span>, <span class="fl">5.5</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>method1</dt>
 <dd><p>measurements obtained in batch 1 or using method 1</p></dd>
+
+
 <dt>method2</dt>
 <dd><p>measurements obtained in batch 2 or using method 2</p></dd>
+
+
 <dt>Ptype</dt>
 <dd><p>type of plot to be outputted c("scatter", "MAplot")</p></dd>
+
+
 <dt>metrics</dt>
 <dd><p>if <code>TRUE</code>, prints Rc, Ca, and R2 to console</p></dd>
+
+
 <dt>xlabel</dt>
 <dd><p>x-axis label for scatterplot</p></dd>
+
+
 <dt>ylabel</dt>
 <dd><p>y-axis label for scatterplot</p></dd>
+
+
 <dt>title</dt>
 <dd><p>title for the main plot</p></dd>
+
+
 <dt>subtitle</dt>
 <dd><p>subtitle of plot</p></dd>
+
+
 <dt>xrange</dt>
 <dd><p>range of x axis</p></dd>
+
+
 <dt>yrange</dt>
 <dd><p>range of y axis</p></dd>
+
+
 <dt>MArange</dt>
 <dd><p>MA range</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Either a scatterplot or MA plot showing concordance correlation.</p>
+    
+
+<p>Either a scatterplot or MA plot showing concordance correlation.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -107,31 +130,31 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Simulate normally distributed data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span> <span class="op">+</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="va">a2</span> <span class="op">&lt;-</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">a3</span> <span class="op">&lt;-</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1.4</span></span>
-<span class="r-in"><span class="va">a4</span> <span class="op">&lt;-</span> <span class="fl">1.5</span> <span class="op">*</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.15</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">a5</span> <span class="op">&lt;-</span> <span class="fl">1.3</span> <span class="op">*</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span class="r-in"><span class="va">a6</span> <span class="op">&lt;-</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># One scatterplot</span></span>
-<span class="r-in"><span class="fu">CCplot</span><span class="op">(</span><span class="va">a1</span>, <span class="va">a2</span>, Ptype <span class="op">=</span> <span class="st">"scatter"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Simulate normally distributed data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span> <span class="op">+</span> <span class="fl">2</span></span></span>
+<span class="r-in"><span><span class="va">a2</span> <span class="op">&lt;-</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.15</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a3</span> <span class="op">&lt;-</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1.4</span></span></span>
+<span class="r-in"><span><span class="va">a4</span> <span class="op">&lt;-</span> <span class="fl">1.5</span> <span class="op">*</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.15</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a5</span> <span class="op">&lt;-</span> <span class="fl">1.3</span> <span class="op">*</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.15</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="va">a6</span> <span class="op">&lt;-</span> <span class="va">a1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># One scatterplot</span></span></span>
+<span class="r-in"><span><span class="fu">CCplot</span><span class="op">(</span><span class="va">a1</span>, <span class="va">a2</span>, Ptype <span class="op">=</span> <span class="st">"scatter"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="CCplot-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">a1</span>, <span class="va">a2</span>, <span class="va">a3</span>, <span class="va">a4</span>, <span class="va">a5</span>, <span class="va">a6</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mains</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Perfect Agreement"</span>, <span class="st">"Very Good Agreement"</span>, <span class="st">"Location Shift"</span>,</span>
-<span class="r-in">           <span class="st">"Scale Shift"</span>, <span class="st">"Location and Scale Shift"</span>, <span class="st">"Measurement Error"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">subs</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Scatterplots</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">y</span>, <span class="va">t</span>, <span class="va">s</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">CCplot</span><span class="op">(</span>method1 <span class="op">=</span> <span class="va">a1</span>, method2 <span class="op">=</span> <span class="va">y</span>, Ptype <span class="op">=</span> <span class="st">"scatter"</span>,</span>
-<span class="r-in">         xlabel <span class="op">=</span> <span class="st">"X"</span>, ylabel <span class="op">=</span> <span class="st">"Y"</span>, title <span class="op">=</span> <span class="va">t</span>, subtitle <span class="op">=</span> <span class="va">s</span><span class="op">)</span>,</span>
-<span class="r-in">  y <span class="op">=</span> <span class="va">m2</span>, t <span class="op">=</span> <span class="va">mains</span>, s <span class="op">=</span> <span class="va">subs</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">a1</span>, <span class="va">a2</span>, <span class="va">a3</span>, <span class="va">a4</span>, <span class="va">a5</span>, <span class="va">a6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mains</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Perfect Agreement"</span>, <span class="st">"Very Good Agreement"</span>, <span class="st">"Location Shift"</span>,</span></span>
+<span class="r-in"><span>           <span class="st">"Scale Shift"</span>, <span class="st">"Location and Scale Shift"</span>, <span class="st">"Measurement Error"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">subs</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Scatterplots</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">y</span>, <span class="va">t</span>, <span class="va">s</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">CCplot</span><span class="op">(</span>method1 <span class="op">=</span> <span class="va">a1</span>, method2 <span class="op">=</span> <span class="va">y</span>, Ptype <span class="op">=</span> <span class="st">"scatter"</span>,</span></span>
+<span class="r-in"><span>         xlabel <span class="op">=</span> <span class="st">"X"</span>, ylabel <span class="op">=</span> <span class="st">"Y"</span>, title <span class="op">=</span> <span class="va">t</span>, subtitle <span class="op">=</span> <span class="va">s</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y <span class="op">=</span> <span class="va">m2</span>, t <span class="op">=</span> <span class="va">mains</span>, s <span class="op">=</span> <span class="va">subs</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="CCplot-2.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
@@ -151,12 +174,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[6]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># MAplots and show metrics</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">y</span>, <span class="va">t</span>, <span class="va">s</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">CCplot</span><span class="op">(</span>method1 <span class="op">=</span> <span class="va">a1</span>, method2 <span class="op">=</span> <span class="va">y</span>, Ptype <span class="op">=</span> <span class="st">"MAplot"</span>,</span>
-<span class="r-in">         title <span class="op">=</span> <span class="va">t</span>, subtitle <span class="op">=</span> <span class="va">s</span>, metrics <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">  y <span class="op">=</span> <span class="va">m2</span>, t <span class="op">=</span> <span class="va">mains</span>, s <span class="op">=</span> <span class="va">subs</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># MAplots and show metrics</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">y</span>, <span class="va">t</span>, <span class="va">s</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">CCplot</span><span class="op">(</span>method1 <span class="op">=</span> <span class="va">a1</span>, method2 <span class="op">=</span> <span class="va">y</span>, Ptype <span class="op">=</span> <span class="st">"MAplot"</span>,</span></span>
+<span class="r-in"><span>         title <span class="op">=</span> <span class="va">t</span>, subtitle <span class="op">=</span> <span class="va">s</span>, metrics <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  y <span class="op">=</span> <span class="va">m2</span>, t <span class="op">=</span> <span class="va">mains</span>, s <span class="op">=</span> <span class="va">subs</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="CCplot-3.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [,1] [,2] [,3] [,4] [,5] [,6]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Rc    1 0.99 0.42 0.70 0.44 0.70</span>
@@ -176,7 +199,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

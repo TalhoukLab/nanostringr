@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0.9000</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">NanoStringQC</span><span class="op">(</span><span class="va">raw</span>, <span class="va">exp</span>, detect <span class="op">=</span> <span class="fl">80</span>, sn <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">NanoStringQC</span><span class="op">(</span><span class="va">raw</span>, <span class="va">exp</span>, detect <span class="op">=</span> <span class="fl">80</span>, sn <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -65,23 +65,32 @@
 <dd><p>data frame of raw counts obtained from nCounter (rows represent
 genes, columns represent samples). The first three columns must be labeled:
 <code>c("Code.Class", "Name", "Accession")</code> and contain that information.</p></dd>
+
+
 <dt>exp</dt>
 <dd><p>data frame of annotations with rows in the same order as the
 columns of <code>raw</code>. Requires a column labeled <code>"File.Name"</code> with entries
 corresponding to sample names in <code>raw</code>, also needs columns
 <code>c("fov.counted", "fov.count", "binding.density")</code>.These fields can be
 extracted from the nanostring RCC files.</p></dd>
+
+
 <dt>detect</dt>
 <dd><p>threshold of percentage of genes expressed over limit of
 detection (LOD) that we would like to detect (not decimal), defaults to 80
 percent.</p></dd>
+
+
 <dt>sn</dt>
 <dd><p>signal to noise ratio of the housekeeping genes we are willing to
 tolerate, defaults to 150.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>data frame of annotations updated with normalization parameters</p>
+    
+
+<p>data frame of annotations updated with normalization parameters</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -90,8 +99,8 @@ tolerate, defaults to 150.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">exp.OVD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">OVD</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">expOVD</span> <span class="op">&lt;-</span> <span class="fu">NanoStringQC</span><span class="op">(</span><span class="va">ovd.r</span>, <span class="va">exp.OVD</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">exp.OVD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">expQC</span>, <span class="va">OVD</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">expOVD</span> <span class="op">&lt;-</span> <span class="fu">NanoStringQC</span><span class="op">(</span><span class="va">ovd.r</span>, <span class="va">exp.OVD</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -106,7 +115,7 @@ tolerate, defaults to 150.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

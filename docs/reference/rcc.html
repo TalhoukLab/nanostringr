@@ -18,7 +18,7 @@ multiple files, and use the parse_*() functions for single files."><!-- mathjax 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nanostringr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0.9000</span>
       </span>
     </div>
 
@@ -58,23 +58,28 @@ multiple files, and use the <code>parse_*()</code> functions for single files.</
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_rcc</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>
-
-<span class="fu">parse_counts</span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
-
-<span class="fu">parse_attributes</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_rcc</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">parse_counts</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">parse_attributes</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>path</dt>
 <dd><p>directory path for multiple RCC files</p></dd>
+
+
 <dt>file</dt>
 <dd><p>RCC file name</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>read_rcc()</code> reads in a directory of RCC files and outputs a list
+    
+
+<p><code>read_rcc()</code> reads in a directory of RCC files and outputs a list
 with two elements:</p><ul><li><p><code>raw</code>: A tibble of parsed counts for multiple RCC files created by calling
 <code>parse_counts()</code> on each sample. Columns include "Code.Class", "Name",
 "Accession", and a column for each sample ID. There is one row per gene.</p></li>
@@ -83,8 +88,10 @@ calling <code>parse_attributes()</code> on each sample. Columns include "File.Na
 (sample ID), "geneRLF", "nanostring.date", "cartridgeID", "lane.number",
 fov.count", "fov.counted", "binding.density". There is one row per sample.</p></li>
 </ul><p><code>parse_counts()</code> reads a single RCC file and returns a tibble of
-parsed counts.
-<code>parse_attributes()</code> reads a single RCC file and returns a list of
+parsed counts.</p>
+
+
+<p><code>parse_attributes()</code> reads a single RCC file and returns a list of
 parsed attributes.</p>
     </div>
     <div id="details">
@@ -105,8 +112,8 @@ name. Only file extensions ".RCC" or ".rcc" are allowed.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">rcc_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"example.RCC"</span>, package <span class="op">=</span> <span class="st">"nanostringr"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">parse_counts</span><span class="op">(</span><span class="va">rcc_file</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">rcc_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"example.RCC"</span>, package <span class="op">=</span> <span class="st">"nanostringr"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">parse_counts</span><span class="op">(</span><span class="va">rcc_file</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 354 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Code.Class Name    Accession      `TAOC00241-N1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -121,7 +128,8 @@ name. Only file extensions ".RCC" or ".rcc" are allowed.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Endogenous HBB     NM_000518.4               292</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Endogenous MRPS27  NM_001286748.1             91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 344 more rows</span></span>
-<span class="r-in"><span class="fu">parse_attributes</span><span class="op">(</span><span class="va">rcc_file</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span>
+<span class="r-in"><span><span class="fu">parse_attributes</span><span class="op">(</span><span class="va">rcc_file</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $File.Name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "TAOC00241-N1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -160,7 +168,7 @@ name. Only file extensions ".RCC" or ".rcc" are allowed.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
