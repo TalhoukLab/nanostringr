@@ -3,6 +3,8 @@
 export(CCplot)
 export(HKnorm)
 export(NanoStringQC)
+export(normalize_pools)
+export(normalize_random)
 export(parse_attributes)
 export(parse_counts)
 export(read_rcc)

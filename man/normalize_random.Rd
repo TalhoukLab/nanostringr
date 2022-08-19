@@ -18,6 +18,9 @@ has \code{k} levels, then \code{n * k} random samples are selected.}
 
 \item{seed}{random seed for reproducibility}
 }
+\value{
+normalized gene expression
+}
 \description{
 Normalize nanostring gene expression using randomly chosen samples
 for the reference-based approach for batch adjustment.
@@ -32,4 +35,7 @@ removed from \code{x} form \code{R2}, and the remaining samples from \code{x} fo
 
 In subsequent analyses, we refer to a method using \code{normalize_random(n)} as
 the "Random n" method.
+}
+\author{
+Derek Chiu
 }

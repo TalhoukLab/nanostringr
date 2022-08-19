@@ -19,6 +19,10 @@
 #' @param strata a grouping variable for stratified random sampling. If `strata`
 #' has `k` levels, then `n * k` random samples are selected.
 #' @param seed random seed for reproducibility
+#' @return normalized gene expression
+#'
+#' @author Derek Chiu
+#' @export
 normalize_random <- function(x, ref, n = 1, strata = NULL, seed = NULL) {
   if (!is.null(seed)) {
     set.seed(seed)
