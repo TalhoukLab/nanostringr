@@ -54,8 +54,7 @@ CCplot <- function(method1, method2, Ptype = "None", metrics = FALSE,
                    xlabel = "", ylabel = "", title = "", subtitle = NULL,
                    xrange = NULL, yrange = NULL, MArange = c(-3.5, 5.5)) {
   assertthat::assert_that(length(method1) == length(method2))
-  tmp.ccc <- epiR::epi.ccc(method1, method2, ci = "z-transform",
-                           conf.level = 0.95)
+  tmp.ccc <- epi_ccc(method1, method2, ci = "z-transform", conf.level = 0.95)
   r2rob <- paste0("rM: ", round(ccaPP::corM(method1, method2), 2))
   r2lab <- paste0("R: ", round(cor(method1, method2), 2))
   Acc <- paste0("Ca: ", round(tmp.ccc$C.b, 2))
