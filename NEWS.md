@@ -1,5 +1,8 @@
 # nanostringr (development version)
 
+* use stricter R CMD check standard workflow
+* decrease package dependencies: removed `epiR`, `forcats`, `tibble` from Imports, moved `magrittr` to Suggests
+
 # nanostringr 0.4.0
 
 * new `normalize_pools()` function to use common pool samples to correct for batch effects
