@@ -26,5 +26,6 @@ join_avg <- function(cs, y, id, type = c("keep", "discard")) {
     dplyr::group_by(!!rlang::sym(id)) %>%
     dplyr::summarize_if(is.double, mean) %>%
     dplyr::ungroup() %>%
-    tibble::column_to_rownames(id)
+    `rownames<-`(.[[id]]) %>%
+    dplyr::mutate(!!id := NULL)
 }

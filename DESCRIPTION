@@ -35,15 +35,13 @@ Imports:
     ccaPP,
     dplyr,
     epiR,
-    forcats,
-    magrittr,
     purrr,
     rlang,
-    tibble,
     tidyr
 Suggests: 
     covr,
     knitr,
+    magrittr,
     rmarkdown,
     testthat
 VignetteBuilder: 

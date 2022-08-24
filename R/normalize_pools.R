@@ -30,8 +30,8 @@ normalize_pools <- function(x, ref, x_pools, ref_pools, p = 3, weigh = TRUE) {
   x_pools_mgx <- w %>%
     purrr::imap_dfc(~ .x * rowMeans(dplyr::select(x_pools, dplyr::matches(.y)))) %>%
     dplyr::transmute(Name = x_pools[["Name"]], x_exp = rowSums(.))
-  ref_pools_mgx <-
-    tibble::enframe(rowMeans(ref_pools), name = "Name", value = "ref_exp")
+  ref_pools_mgx <- dplyr::tibble(Name = rownames(ref_pools),
+                                 ref_exp = unname(rowMeans(ref_pools)))
 
   x_val <- x %>%
     dplyr::select(.data$Name, setdiff(names(.), names(x_pools)))
@@ -42,9 +42,11 @@ normalize_pools <- function(x, ref, x_pools, ref_pools, p = 3, weigh = TRUE) {
     dplyr::inner_join(x_pools_mgx, by = "Name") %>%
     dplyr::inner_join(ref_pools_mgx, by = "Name") %>%
     dplyr::mutate(be = .data$x_exp - .data$ref_exp) %>%
-    dplyr::transmute(Name = forcats::fct_inorder(.data$Name),
-                     .data$FileName,
-                     exp = .data$be + exp) %>%
+    dplyr::transmute(
+      Name = factor(.data$Name, levels = unique(.data$Name)),
+      .data$FileName,
+      exp = .data$be + exp
+    ) %>%
     tidyr::pivot_wider(names_from = "Name", values_from = "exp")
   return(x_norm)
 }

@@ -50,8 +50,8 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
       llod = .data$ncgMean - 2 * .data$ncgSD,
       spcFlag = raw[raw$Name %in% c("POS_E(0.5)", "POS_1"), -1:-3] %>%
         purrr::flatten() %>%
-        magrittr::is_less_than(.data$llod) %>%
-        magrittr::or(.data$ncgMean == 0),
+        `<`(.data$llod) %>%
+        `|`(.data$ncgMean == 0),
       gd = purrr::map2_int(
         raw[raw$Code.Class == "Endogenous", -1:-3, drop = FALSE],
         .data$lod,

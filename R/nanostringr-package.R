@@ -1,4 +1,4 @@
 #' @keywords internal
-#' @importFrom magrittr "%>%"
+#' @importFrom dplyr "%>%"
 #' @importFrom rlang "%||%" ":=" .data
 "_PACKAGE"
