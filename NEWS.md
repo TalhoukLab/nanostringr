@@ -1,4 +1,4 @@
-# nanostringr (development version)
+# nanostringr 0.4.1
 
 * Add ORCID to package authors
 * Use GitHub Actions for pkgdown site

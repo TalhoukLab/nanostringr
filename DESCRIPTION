@@ -2,7 +2,7 @@ Type: Package
 Package: nanostringr
 Title: Performs Quality Control, Data Normalization, and Batch Effect
     Correction for 'NanoString nCounter' Data
-Version: 0.4.0.9000
+Version: 0.4.1
 Authors@R: c(
     person("Derek", "Chiu", , "dchiu@bccrc.ca", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7591-4881")),
