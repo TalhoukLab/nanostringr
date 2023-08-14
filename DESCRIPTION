@@ -1,26 +1,21 @@
 Type: Package
 Package: nanostringr
-Title: Performs Quality Control, Data Normalization, and Batch
-    Effect Correction for 'NanoString nCounter' Data
+Title: Performs Quality Control, Data Normalization, and Batch Effect
+    Correction for 'NanoString nCounter' Data
 Version: 0.4.0.9000
-Authors@R: 
-    c(person(given = "Derek",
-             family = "Chiu",
-             role = c("aut", "cre"),
-             email = "dchiu@bccrc.ca"),
-      person(given = "Aline",
-             family = "Talhouk",
-             role = "aut",
-             email = "atalhouk@bccrc.ca"),
-      person(given = "Samuel",
-             family = "Leung",
-             role = "aut",
-             email = "Samuel.Leung@vch.ca"))
-Description: Provides quality control (QC), normalization, and
-    batch effect correction operations for 'NanoString nCounter' data,
-    Talhouk et al. (2016) <doi:10.1371/journal.pone.0153844>.  Various
-    metrics are used to determine which samples passed or failed QC.  Gene
-    expression should first be normalized to housekeeping genes, before a
+Authors@R: c(
+    person("Derek", "Chiu", , "dchiu@bccrc.ca", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7591-4881")),
+    person("Aline", "Talhouk", , "atalhouk@bccrc.ca", role = "aut",
+           comment = c(ORCID = "0000-0001-7760-410X")),
+    person("Samuel", "Leung", , "Samuel.Leung@vch.ca", role = "aut",
+           comment = c(ORCID = "0000-0003-0138-7254"))
+  )
+Description: Provides quality control (QC), normalization, and batch
+    effect correction operations for 'NanoString nCounter' data, Talhouk
+    et al. (2016) <doi:10.1371/journal.pone.0153844>.  Various metrics are
+    used to determine which samples passed or failed QC.  Gene expression
+    should first be normalized to housekeeping genes, before a
     reference-based approach is used to adjust for batch effects.  Raw
     NanoString data can be imported in the form of Reporter Code Count
     (RCC) files.
