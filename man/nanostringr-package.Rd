@@ -18,12 +18,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Derek Chiu \email{dchiu@bccrc.ca}
+\strong{Maintainer}: Derek Chiu \email{dchiu@bccrc.ca} (\href{https://orcid.org/0000-0002-7591-4881}{ORCID})
 
 Authors:
 \itemize{
-  \item Aline Talhouk \email{atalhouk@bccrc.ca}
-  \item Samuel Leung \email{Samuel.Leung@vch.ca}
+  \item Aline Talhouk \email{atalhouk@bccrc.ca} (\href{https://orcid.org/0000-0001-7760-410X}{ORCID})
+  \item Samuel Leung \email{Samuel.Leung@vch.ca} (\href{https://orcid.org/0000-0003-0138-7254}{ORCID})
 }
 
 }

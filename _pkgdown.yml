@@ -1,19 +1,7 @@
-destination: docs
+url: http://talhouklab.github.io/nanostringr/
 
 template:
-  params:
-    bootswatch: cerulean
-
-navbar:
-  title: ~
-  type: default
-  left:
-  - text: Reference
-    href: reference/index.html
-  - text: Articles
-    href: articles/index.html
-  - text: News
-    href: news/index.html
-  right:
-  - icon: fa-github
-    href: https://github.com/TalhoukLab/nanostringr
+  bootstrap: 5
+  bootswatch: cerulean
+  bslib:
+    primary: "#0054AD"
