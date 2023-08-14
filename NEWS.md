@@ -1,5 +1,7 @@
 # nanostringr (development version)
 
+* Add ORCID to package authors
+* Use GitHub Actions for pkgdown site
 * use stricter R CMD check standard workflow
 * decrease package dependencies: removed `epiR`, `forcats`, `tibble` from Imports, moved `magrittr` to Suggests
 
