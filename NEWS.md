@@ -1,5 +1,6 @@
 # nanostringr 0.4.1
 
+* Fix warning regarding old-style CITATION
 * Add ORCID to package authors
 * Use GitHub Actions for pkgdown site
 * use stricter R CMD check standard workflow

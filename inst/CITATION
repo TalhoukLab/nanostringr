@@ -1,7 +1,5 @@
-citHeader("To cite nanostringr in publications use:")
-
-citEntry(
-  entry    = "Article",
+bibentry(
+  bibtype    = "Article",
   title    = "Single-Patient Molecular Testing with NanoString nCounter Data Using a Reference-Based Strategy for Batch Effect Correction",
   author   = "Aline Talhouk, Stefan Kommoss, Robertson Mackenzie, Martin Cheung, Samuel Leung, Derek S. Chiu, Steve E. Kalloger, David G. Huntsman, Stephanie Chen, Maria Intermaggio, Jacek Gronwald, Fong C. Chan, Susan J. Ramus, Michael S. Anglesio",
   journal  = "PLOS ONE",
