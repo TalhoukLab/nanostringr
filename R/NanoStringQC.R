@@ -60,9 +60,9 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
       pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
       averageHK = raw[raw$Code.Class == "Housekeeping", -1:-3, drop = FALSE] %>%
         purrr::map_dbl(~ exp(mean(log2(.)))),
-      sn = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
+      snr = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = .data$binding.density < 0.05 | .data$binding.density > 2.25,
-      normFlag = .data$sn < sn | .data$pergd < detect,
+      normFlag = .data$snr < sn | .data$pergd < detect,
       QCFlag = .data$linFlag | .data$imagingFlag | .data$spcFlag |
         .data$normFlag
     ) %>%
