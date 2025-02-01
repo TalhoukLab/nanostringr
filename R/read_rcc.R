@@ -64,7 +64,7 @@ parse_counts <- function(file) {
   rcc_file[cs_header:cs_last] %>%
     paste(collapse = "\n") %>%
     utils::read.csv(stringsAsFactors = FALSE, text = .) %>%
-    dplyr::rename(Code.Class = .data$CodeClass, !!sample_name := .data$Count) %>%
+    dplyr::rename(Code.Class = "CodeClass", !!sample_name := "Count") %>%
     dplyr::as_tibble()
 }
 

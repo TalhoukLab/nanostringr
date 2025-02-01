@@ -70,5 +70,5 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
                      factor,
                      levels = c(TRUE, FALSE),
                      labels = c("Failed", "Passed")) %>%
-    dplyr::select(-c(.data$ncgMean, .data$ncgSD))
+    dplyr::select(-c("ncgMean", "ncgSD"))
 }
