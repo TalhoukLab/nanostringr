@@ -230,7 +230,7 @@ S2.r <- t(refMethod(Y, R1, R2)) # Data from CodeSet 2 now calibrated for CodeSet
 
 We can check the result by selecting a random gene and plotting the expression values from both CodeSets
 
-```{r plot_gene}
+```{r plot_gene, fig.cap='HL1 vs HL2 gene expression with and without ccorrection'}
 set.seed(2016)
 gene <- sample(1:nrow(hld1), 1)
 par(mfrow = c(1, 2))
@@ -242,103 +242,3 @@ plot(t(hld1[gene, !(colnames(hld1) %in% choice.refs)]), t(S2.r[gene, ]),
      xlab = "HL1", ylab = "HL2", main = "Corrected")
 abline(0, 1)
 ```
-
-<!-- # Downstream Analysis -->
-
-<!-- In the previous analysis we compared the gene expression value of an individual gene. Below is the impact on a downstream analysis. We use the HL prognostic model as an example. For additional information on this model, the reader is referred to the [paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0153844). -->
-
-<!-- ```{r downstream_analysis} -->
-<!-- library(CHL26predictor) -->
-
-<!-- # We select the genes that are used in the model -->
-<!-- CHL26.HL1.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName, -->
-<!--                          grep("HL1", colnames(hld.n))] + log(1000, 2) -->
-<!-- CHL26.HL2.exprs <- hld.n[rownames(hld.n) %in% CHL26.model.coef.df$geneName, -->
-<!--                          grep("HL2", colnames(hld.n))] + log(1000, 2) -->
-
-<!-- # This is the threshold -->
-<!-- risk.thres <- 0.6235 -->
-<!-- n <- dim(CHL26.HL1.exprs)[2] -->
-
-<!-- # We compute the risk scores in each CodeSet -->
-<!-- scores.df1 <- get_CHL26_scores(as.matrix(CHL26.HL1.exprs)) -->
-<!-- scores.df2 <- get_CHL26_scores(as.matrix(CHL26.HL2.exprs)) -->
-
-<!-- scores.risk.df1 <- scores.df1 %>% -->
-<!--   mutate(riskClass = ifelse(score >= risk.thres, "High", "Low")) -->
-
-<!-- scores.risk.df2 <- scores.df2 %>% -->
-<!--   mutate(riskClass = ifelse(score >= risk.thres, "High", "Low")) -->
-
-<!-- # We assess how many cases are misclassified -->
-<!-- tabRisk <- table(scores.risk.df1$riskClass, scores.risk.df2$riskClass) -->
-<!-- ind.mis <- which(scores.risk.df1$riskClass != scores.risk.df2$riskClass) -->
-
-<!-- mis <- n - sum(diag(tabRisk)) -->
-<!-- ``` -->
-
-<!-- ```{r RawScores, message = FALSE, echo = FALSE, warning = FALSE} -->
-<!-- CCplot(scores.risk.df1$score, scores.risk.df2$score, Ptype = "scatter", -->
-<!--        xrange = range(scores.df1$score), yrange = range(scores.df2$score), -->
-<!--        xlabel = "HL1", ylabel = "HL2", subtitle = "Scores without Batch Adjustment") -->
-<!-- abline(h = risk.thres, col = 2, lty = 1) -->
-<!-- text(0.7, 0.58, paste("Misclassified:", mis), col = "red") -->
-<!-- points(scores.risk.df1$score[ind.mis], scores.risk.df2$score[ind.mis], col = "red") -->
-<!-- ``` -->
-
-<!-- ```{r BootStrapped, message = FALSE, echo = FALSE, warning = FALSE, cache = TRUE} -->
-<!-- set.seed(40) -->
-<!-- r <- 3  # Number of reference samples -->
-<!-- nB <- 1500  # of bootstrap samples -->
-<!-- nth <- 1000 -->
-<!-- misCount <- rep(0, nB) -->
-<!-- ind.mis.count <- rep(0, nB) -->
-<!-- Cmetrix <- matrix(0, nrow = nB, ncol = 3) -->
-
-<!-- for (i in 1:nB) { -->
-<!--   choice.refs <- exp.hld1$sampleID[sample((1:dim(exp.hld1)[1]), r, replace = F)]  # select reference samples randomly -->
-<!--   DSR1 <- t(hld1[, choice.refs] + log2(1000)) -->
-<!--   DSR2 <- t(hld2[, paste("HL2", getNum(choice.refs), sep = "_")] + log2(1000)) -->
-<!--   DSY <- t(hld2[, !colnames(hld2) %in% paste("HL2", getNum(choice.refs), sep = "_")] + log2(1000)) -->
-
-<!--   DSS2.r <- t(refMethod(DSY, DSR1, DSR2)) -->
-
-<!--   CHL26.HL2.r.SS.exprs <- DSS2.r[rownames(DSS2.r) %in% CHL26.model.coef.df$geneName, ] -->
-<!--   scores.ss.df2.r <- get_CHL26_scores(as.matrix(CHL26.HL2.r.SS.exprs)) -->
-<!--   scores.risk.ss.df2.r <- scores.ss.df2.r %>% -->
-<!--     mutate(riskClass = ifelse(score >= risk.thres, "High", "Low")) -->
-<!--   ndx2.r <- substring(scores.df1$sampleID, 5) %in% substring(scores.ss.df2.r$sampleID, 5) -->
-<!--   misCount[i] <- (n - r) - sum(diag(table(scores.risk.df1$riskClass[ndx2.r], -->
-<!--                                           scores.risk.ss.df2.r$riskClass))) -->
-<!--   ind.mis.t <- scores.risk.ss.df2.r$sampleID[which(scores.risk.df1$riskClass[ndx2.r] != scores.risk.ss.df2.r$riskClass)] -->
-
-<!--   ind.mis.count[i] <- (sum(ind.mis.t %in% c("HL2_30", "HL2_32")) == misCount[i]) -->
-
-<!--   Cmetrix[i, ] <- CCplot(scores.df1$score[ndx2.r], scores.risk.ss.df2.r$score, metrics = TRUE) -->
-
-<!--   if (i %% nth == 0) { -->
-<!--     CCplot(scores.df1$score[ndx2.r], scores.risk.ss.df2.r$score, Ptype = "scatter", -->
-<!--            xrange = range(scores.df1$score), yrange = range(scores.df2$score), -->
-<!--            xlabel = "HL1", ylabel = "HL2") -->
-<!--     abline(h = risk.thres, col = 2, lty = 1) -->
-<!--     text(0.7, 0.58, paste("Misclassified:", misCount[i]), col = "red") -->
-<!--   } -->
-<!-- } -->
-<!-- TotalMisCount <- table(misCount) / nB -->
-<!-- Accuracy <- Cmetrix[, 2] -->
-<!-- knitr::kable(data.frame(table(Accuracy))) -->
-<!-- if (length(TotalMisCount) > 3) { -->
-<!--   print("more than 3 misclassifications observed") -->
-<!-- } -->
-<!-- ``` -->
-
-<!-- Another visualization to assess concordance correlation is the Bland-Altman plot or the MA plot: -->
-
-<!-- ```{r MAplot, echo=FALSE} -->
-<!-- Metrics <- CCplot(scores.risk.df1$score, scores.risk.df2$score, -->
-<!--                   Ptype = "MAplot", -->
-<!--                   xrange = range(scores.df1$score), -->
-<!--                   yrange = range(scores.df2$score), -->
-<!--                   xlabel = "HL1", ylabel = "HL2", metrics = TRUE) -->
-<!-- knitr::kable(data.frame(Metrics)) -->
-<!-- ``` -->
