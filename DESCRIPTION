@@ -35,7 +35,6 @@ Imports:
 Suggests: 
     covr,
     knitr,
-    magrittr,
     rmarkdown,
     testthat
 VignetteBuilder: 
