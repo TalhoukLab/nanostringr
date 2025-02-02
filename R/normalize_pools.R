@@ -36,7 +36,7 @@ normalize_pools <- function(x, ref, x_pools, ref_pools, p = 3, weigh = TRUE) {
   x_val <- x %>%
     dplyr::select(.data$Name, setdiff(names(.), names(x_pools)))
   x_norm <- x_val %>%
-    tidyr::pivot_longer(cols = where(is.numeric),
+    tidyr::pivot_longer(cols = dplyr::where(is.numeric),
                         names_to = "FileName",
                         values_to = "exp") %>%
     dplyr::inner_join(x_pools_mgx, by = "Name") %>%
