@@ -4,12 +4,10 @@
 \alias{normalize_pools}
 \title{Normalize data using common pools}
 \usage{
-normalize_pools(x, ref, x_pools, ref_pools, p = 3, weigh = TRUE)
+normalize_pools(x, x_pools, ref_pools, p = 3, weigh = TRUE)
 }
 \arguments{
 \item{x}{target data}
-
-\item{ref}{reference data}
 
 \item{x_pools}{target pool samples}
 

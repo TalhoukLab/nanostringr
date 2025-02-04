@@ -17,7 +17,7 @@
 #'
 #' @author Derek Chiu
 #' @export
-normalize_pools <- function(x, ref, x_pools, ref_pools, p = 3, weigh = TRUE) {
+normalize_pools <- function(x, x_pools, ref_pools, p = 3, weigh = TRUE) {
   pool_nms <- rlang::set_names(paste0("Pool", seq_len(p)))
   if (weigh) {
     w <- pool_nms %>%
@@ -28,25 +28,29 @@ normalize_pools <- function(x, ref, x_pools, ref_pools, p = 3, weigh = TRUE) {
   }
 
   x_pools_mgx <- w %>%
-    purrr::imap_dfc(~ .x * rowMeans(dplyr::select(x_pools, dplyr::matches(.y)))) %>%
-    dplyr::transmute(Name = x_pools[["Name"]], x_exp = rowSums(.))
+    purrr::imap(~ {
+      .x * rowMeans(dplyr::select(x_pools, dplyr::matches(paste0(.y, "(?![0-9])"), perl = TRUE)))
+    }) %>%
+    dplyr::bind_cols() %>%
+    dplyr::mutate(Name = x_pools[["Name"]],
+                  x_exp = rowSums(.),
+                  .keep = "none")
+
   ref_pools_mgx <- dplyr::tibble(Name = rownames(ref_pools),
                                  ref_exp = unname(rowMeans(ref_pools)))
 
-  x_val <- x %>%
-    dplyr::select(.data$Name, setdiff(names(.), names(x_pools)))
-  x_norm <- x_val %>%
-    tidyr::pivot_longer(cols = dplyr::where(is.numeric),
-                        names_to = "FileName",
-                        values_to = "exp") %>%
+  x_norm <- x %>%
+    tidyr::pivot_longer(
+      cols = dplyr::where(is.numeric),
+      names_to = "FileName",
+      values_to = "exp"
+    ) %>%
     dplyr::inner_join(x_pools_mgx, by = "Name") %>%
     dplyr::inner_join(ref_pools_mgx, by = "Name") %>%
-    dplyr::mutate(be = .data$x_exp - .data$ref_exp) %>%
-    dplyr::transmute(
-      Name = factor(.data$Name, levels = unique(.data$Name)),
-      .data$FileName,
-      exp = .data$be + exp
-    ) %>%
-    tidyr::pivot_wider(names_from = "Name", values_from = "exp")
+    dplyr::mutate(norm_exp = exp + .data$ref_exp - .data$x_exp,
+                  .keep = "unused") %>%
+    tidyr::pivot_wider(id_cols = "FileName",
+                       names_from = "Name",
+                       values_from = "norm_exp")
   return(x_norm)
 }
