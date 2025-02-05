@@ -1,60 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/404.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/articles/Overview.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/authors.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/index.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/news/index.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/CCplot.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/HKnorm.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/NanoStringQC.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/cohort.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/expQC.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/nanostringr-package.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/normalize_pools.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/normalize_random.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/rcc.html</loc>
-  </url>
-  <url>
-    <loc>http://talhouklab.github.io/nanostringr/reference/refMethod.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://talhouklab.github.io/nanostringr/404.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/LICENSE-text.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/LICENSE.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/articles/Overview.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/articles/index.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/authors.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/index.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/news/index.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/CCplot.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/HKnorm.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/NanoStringQC.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/cohort.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/expQC.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/index.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/nanostringr-package.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/normalize_pools.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/normalize_random.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/rcc.html</loc></url>
+<url><loc>https://talhouklab.github.io/nanostringr/reference/refMethod.html</loc></url>
 </urlset>
+
