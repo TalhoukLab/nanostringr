@@ -1,3 +1,9 @@
+# nanostringr 0.5.0
+
+* Fix `normalize_pools()` and `normalize_random()` functions so they actually work
+* Remove `magrittr` from Suggests
+* Remove deprecated usage of `.data`
+
 # nanostringr 0.4.2
 
 * Fix bug in `NanoStringQC()` where the signal to noise ratio input threshold was not being compared against the observed SNR because the parameter name was the same as the column name. Hence the comparison was against itself, and `normFlag` only checked the percent of genes detected.
