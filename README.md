@@ -4,7 +4,7 @@ nanostringr
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/nanostringr)](https://cran.r-project.org/package=nanostringr)
 [![R-CMD-check](https://github.com/TalhoukLab/nanostringr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/TalhoukLab/nanostringr/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/TalhoukLab/nanostringr/branch/master/graph/badge.svg)](https://codecov.io/gh/TalhoukLab/nanostringr?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/TalhoukLab/nanostringr/graph/badge.svg)](https://app.codecov.io/gh/TalhoukLab/nanostringr)
 <!-- badges: end -->
 
 Overview
