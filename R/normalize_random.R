@@ -15,29 +15,29 @@
 #'
 #' @param x target data
 #' @param ref reference data
+#' @param group_df grouping data used to select random reference samples
 #' @param n number of random reference samples to select for normalization
-#' @param strata a grouping variable for stratified random sampling. If `strata`
-#' has `k` levels, then `n * k` random samples are selected.
+#' @param strata character string of grouping variable found in `group_df` for
+#'   stratified random sampling. If `strata` has `k` levels, then a total of `n * k`
+#'   random samples are selected. The default uses no grouping variable and thus
+#'   only simple random sampling is performed.
 #' @param seed random seed for reproducibility
 #' @return normalized gene expression
 #'
 #' @author Derek Chiu
 #' @export
-normalize_random <- function(x, ref, n = 1, strata = NULL, seed = NULL) {
+normalize_random <- function(x, ref, group_df, n = 1, strata = NULL, seed = NULL) {
   if (!is.null(seed)) {
     set.seed(seed)
   }
-
-  df <- dplyr::bind_rows(ref, x)
   if (!is.null(strata)) {
-    rand_df <- df %>%
-      dplyr::bind_cols(strata = strata) %>%
-      dplyr::distinct(.data$ottaID, strata) %>%
-      dplyr::group_by(strata) %>%
+    rand_df <- group_df %>%
+      dplyr::distinct(.data$ottaID, .data[[strata]]) %>%
+      dplyr::group_by(.data[[strata]]) %>%
       dplyr::slice_sample(n = n) %>%
       dplyr::ungroup()
   } else {
-    rand_df <- df %>%
+    rand_df <- group_df %>%
       dplyr::distinct(.data$ottaID) %>%
       dplyr::slice_sample(n = n)
   }

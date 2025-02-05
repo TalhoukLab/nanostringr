@@ -4,17 +4,21 @@
 \alias{normalize_random}
 \title{Normalize data using random reference samples}
 \usage{
-normalize_random(x, ref, n = 1, strata = NULL, seed = NULL)
+normalize_random(x, ref, group_df, n = 1, strata = NULL, seed = NULL)
 }
 \arguments{
 \item{x}{target data}
 
 \item{ref}{reference data}
 
+\item{group_df}{grouping data used to select random reference samples}
+
 \item{n}{number of random reference samples to select for normalization}
 
-\item{strata}{a grouping variable for stratified random sampling. If \code{strata}
-has \code{k} levels, then \code{n * k} random samples are selected.}
+\item{strata}{character string of grouping variable found in \code{group_df} for
+stratified random sampling. If \code{strata} has \code{k} levels, then a total of \code{n * k}
+random samples are selected. The default uses no grouping variable and thus
+only simple random sampling is performed.}
 
 \item{seed}{random seed for reproducibility}
 }
