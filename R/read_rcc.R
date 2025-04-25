@@ -32,23 +32,35 @@
 #' rcc_file <- system.file("extdata", "example.RCC", package = "nanostringr")
 #' parse_counts(rcc_file)
 #' parse_attributes(rcc_file)
+#' read_rcc(dirname(rcc_file))
 read_rcc <- function(path = ".") {
   if (!dir.exists(path)) {
     utils::unzip(zipfile = paste0(path, ".ZIP"), exdir = path)
   }
-  rcc_files <-
-    list.files(path, pattern = "\\.RCC$", full.names = TRUE, ignore.case = TRUE) %>%
-    rlang::set_names(tools::file_path_sans_ext(basename(.)))
-  raw <- rcc_files %>%
-    purrr::map(parse_counts) %>%
-    purrr::imap(~ `names<-`(.x, c(names(.x)[-4], .y))) %>%
-    purrr::reduce(dplyr::inner_join, by = c("Code.Class", "Name", "Accession")) %>%
-    dplyr::mutate(!!"Name" := ifelse(.data$Name == "CD3E", "CD3e", .data$Name)) %>%
+  rcc_files <- list.files(path,
+                          pattern = "\\.RCC$",
+                          full.names = TRUE,
+                          ignore.case = TRUE)
+  rcc_basenames <- tools::file_path_sans_ext(basename(rcc_files))
+  rcc_files <- stats::setNames(rcc_files, rcc_basenames)
+  raw <- rcc_files |>
+    purrr::map(parse_counts) |>
+    purrr::imap(~ dplyr::rename_with(.x, rlang::quo(.y), 4)) |>
+    purrr::reduce(\(x, y) dplyr::inner_join(x, y, by = c("Code.Class", "Name", "Accession"))) |>
+    dplyr::mutate(!!"Name" := dplyr::case_match(
+      .data$Name,
+      "CD3E" ~ "CD3e",
+      "PD1" ~ "PD-1",
+      "PDL1" ~ "PD-L1",
+      .default = .data$Name
+    )) |>
     as.data.frame()
-  exp <- rcc_files %>%
-    purrr::map_df(parse_attributes, .id = "File.Name") %>%
+  exp <- rcc_files |>
+    purrr::map(parse_attributes) |>
+    dplyr::bind_rows(.id = "sample") |>
+    dplyr::select(-.data$File.Name) |>
     as.data.frame()
-  dplyr::lst(raw, exp)
+  rlang::dots_list(raw, exp, .named = TRUE)
 }
 
 #' @param file RCC file name
@@ -61,10 +73,10 @@ parse_counts <- function(file) {
   sample_name <- get_attr(rcc_file, "^ID,.*[[:alnum:]]")
   cs_header <- grep("<Code_Summary>", rcc_file) + 1
   cs_last <- grep("</Code_Summary>", rcc_file) - 1
-  rcc_file[cs_header:cs_last] %>%
-    paste(collapse = "\n") %>%
-    utils::read.csv(stringsAsFactors = FALSE, text = .) %>%
-    dplyr::rename(Code.Class = "CodeClass", !!sample_name := "Count") %>%
+  rcc_file[cs_header:cs_last] |>
+    paste(collapse = "\n") |>
+    utils::read.csv(stringsAsFactors = FALSE, text = _) |>
+    dplyr::rename(Code.Class = "CodeClass", !!sample_name := "Count") |>
     dplyr::as_tibble()
 }
 
@@ -74,16 +86,20 @@ parse_counts <- function(file) {
 #' @export
 parse_attributes <- function(file) {
   rcc_file <- readLines(file)
-  attr_patterns <- c("^ID,.*[[:alnum:]]", "GeneRLF", "Date", "CartridgeID",
-                     "^ID,[[:digit:]]+$", "FovCount", "FovCounted",
-                     "BindingDensity")
-  attr_names <- c("File.Name", "geneRLF", "nanostring.date", "cartridgeID",
-                  "lane.number", "fov.count", "fov.counted", "binding.density")
-  attr_patterns %>%
-    purrr::set_names(attr_names) %>%
-    purrr::map(get_attr, rcc_file = rcc_file) %>%
+  rcc_attrs <- c(
+    File.Name = "^ID,.*[[:alnum:]]",
+    geneRLF = "GeneRLF",
+    nanostring.date = "Date",
+    cartridgeID = "CartridgeID",
+    lane.number = "^ID,[[:digit:]]+$",
+    fov.count = "FovCount",
+    fov.counted = "FovCounted",
+    binding.density =  "BindingDensity"
+  )
+  rcc_attrs |>
+    purrr::map(get_attr, rcc_file = rcc_file) |>
     purrr::map_at(c("fov.count", "fov.counted", "binding.density"),
-                  as.numeric) %>%
+                  as.numeric) |>
     purrr::map_at("nanostring.date", ~ as.character(as.Date(., "%Y%m%d")))
 }
 
@@ -91,7 +107,7 @@ parse_attributes <- function(file) {
 #' @param attr name of lane attribute to extract
 #' @noRd
 get_attr <- function(rcc_file, attr) {
-  grep(attr, rcc_file, value = TRUE) %>%
-    strsplit(split = ",") %>%
+  grep(attr, rcc_file, value = TRUE) |>
+    strsplit(split = ",") |>
     purrr::pluck(1, 2)
 }
