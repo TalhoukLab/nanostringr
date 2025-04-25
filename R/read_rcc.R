@@ -58,7 +58,7 @@ read_rcc <- function(path = ".") {
   exp <- rcc_files |>
     purrr::map(parse_attributes) |>
     dplyr::bind_rows(.id = "sample") |>
-    dplyr::select(-.data$File.Name) |>
+    dplyr::select(-"File.Name") |>
     as.data.frame()
   rlang::dots_list(raw, exp, .named = TRUE)
 }
