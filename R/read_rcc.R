@@ -75,7 +75,7 @@ parse_counts <- function(file) {
   cs_last <- grep("</Code_Summary>", rcc_file) - 1
   rcc_file[cs_header:cs_last] |>
     paste(collapse = "\n") |>
-    utils::read.csv(stringsAsFactors = FALSE, text = _) |>
+    utils::read.csv(text = _) |>
     dplyr::rename(Code.Class = "CodeClass", !!sample_name := "Count") |>
     dplyr::as_tibble()
 }

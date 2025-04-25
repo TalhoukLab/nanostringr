@@ -1,6 +1,6 @@
 # nanostringr 0.6.0
 
-* Replace magrittr pipe with native pipe, subsequently increase minimum R version to 4.1
+* Replace magrittr pipe with native pipe, subsequently increase minimum R version to 4.2
 * Update `read_rcc()` to replace gene names PD1 with PD-1 and PDL1 with PD-L1
 
 # nanostringr 0.5.0
