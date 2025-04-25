@@ -20,35 +20,34 @@
 normalize_pools <- function(x, x_pools, ref_pools, p = 3, weigh = TRUE) {
   pool_nms <- rlang::set_names(paste0("Pool", seq_len(p)))
   if (weigh) {
-    w <- pool_nms %>%
+    w <- pool_nms |>
       purrr::map_dbl(~ mean(grepl(., names(ref_pools), ignore.case = TRUE)))
   } else {
-    w <- pool_nms %>%
-      rlang::rep_named(1 / length(.))
+    w <- rlang::rep_named(pool_nms, 1 / length(pool_nms))
   }
 
-  x_pools_mgx <- w %>%
+  x_pools_mgx <- w |>
     purrr::imap(~ {
       .x * rowMeans(dplyr::select(x_pools, dplyr::matches(paste0(.y, "(?![0-9])"), perl = TRUE)))
-    }) %>%
-    dplyr::bind_cols() %>%
-    dplyr::mutate(Name = x_pools[["Name"]],
-                  x_exp = rowSums(.),
-                  .keep = "none")
+    }) |>
+    dplyr::bind_cols() |>
+    rowSums() |>
+    rlang::set_names(x_pools[["Name"]]) |>
+    tibble::enframe(name = "Name", value = "x_exp")
 
   ref_pools_mgx <- dplyr::tibble(Name = rownames(ref_pools),
                                  ref_exp = unname(rowMeans(ref_pools)))
 
-  x_norm <- x %>%
+  x_norm <- x |>
     tidyr::pivot_longer(
       cols = dplyr::where(is.numeric),
       names_to = "FileName",
       values_to = "exp"
-    ) %>%
-    dplyr::inner_join(x_pools_mgx, by = "Name") %>%
-    dplyr::inner_join(ref_pools_mgx, by = "Name") %>%
+    ) |>
+    dplyr::inner_join(x_pools_mgx, by = "Name") |>
+    dplyr::inner_join(ref_pools_mgx, by = "Name") |>
     dplyr::mutate(norm_exp = exp + .data$ref_exp - .data$x_exp,
-                  .keep = "unused") %>%
+                  .keep = "unused") |>
     tidyr::pivot_wider(id_cols = "FileName",
                        names_from = "Name",
                        values_from = "norm_exp")

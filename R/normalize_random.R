@@ -31,14 +31,14 @@ normalize_random <- function(x, ref, group_df, n = 1, strata = NULL, seed = NULL
     set.seed(seed)
   }
   if (!is.null(strata)) {
-    rand_df <- group_df %>%
-      dplyr::distinct(.data$ottaID, .data[[strata]]) %>%
-      dplyr::group_by(.data[[strata]]) %>%
-      dplyr::slice_sample(n = n) %>%
+    rand_df <- group_df |>
+      dplyr::distinct(.data$ottaID, .data[[strata]]) |>
+      dplyr::group_by(.data[[strata]]) |>
+      dplyr::slice_sample(n = n) |>
       dplyr::ungroup()
   } else {
-    rand_df <- group_df %>%
-      dplyr::distinct(.data$ottaID) %>%
+    rand_df <- group_df |>
+      dplyr::distinct(.data$ottaID) |>
       dplyr::slice_sample(n = n)
   }
 

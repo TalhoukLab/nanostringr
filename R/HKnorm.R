@@ -27,7 +27,7 @@ HKnorm <- function(raw, is.logged = FALSE, corr = 1e-04) {
     hkmeans <- colMeans(log2(hkdat + corr))
   }
   norm <- purrr::map2_df(gxdat, hkmeans, `-`)
-  normdat <- raw[raw$Code.Class == "Endogenous", 1:3] %>%
+  normdat <- raw[raw$Code.Class == "Endogenous", 1:3] |>
     dplyr::bind_cols(norm)
   normdat
 }

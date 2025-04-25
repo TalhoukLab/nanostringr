@@ -34,41 +34,37 @@ NanoStringQC <- function(raw, exp, detect = 80, sn = 150) {
   }
   PCconc <- as.numeric(regmatches(PCgenes, regexpr("\\d+\\.*\\d*", PCgenes)))
 
+  # Expressions by code class
+  endo_exp <- raw[raw$Code.Class == "Endogenous", -1:-3, drop = FALSE]
+  neg_exp <- raw[raw$Code.Class == "Negative", -1:-3, drop = FALSE]
+  pos_exp <- raw[raw$Code.Class == "Positive", -1:-3, drop = FALSE]
+  hk_exp <- raw[raw$Code.Class == "Housekeeping", -1:-3, drop = FALSE]
+  low_pos_exp <- as.list(raw[raw$Name %in% c("POS_E(0.5)", "POS_1"), -1:-3])
+
   # Code QC measures and flags
-  exp %>%
+  exp |>
     dplyr::mutate(
-      linPC = raw[raw$Code.Class == "Positive", -1:-3, drop = FALSE] %>%
-        purrr::map_dbl(~ round(summary(lm(. ~ PCconc))$r.squared, 2)),
+      linPC = purrr::map_dbl(pos_exp, ~ round(summary(lm(. ~ PCconc))$r.squared, 2)),
       linFlag = .data$linPC < 0.95 | is.na(.data$linPC),
       perFOV = (.data$fov.counted / .data$fov.count) * 100,
       imagingFlag = .data$perFOV < 75,
-      ncgMean = raw[raw$Code.Class == "Negative", -1:-3, drop = FALSE] %>%
-        colMeans(),
-      ncgSD = raw[raw$Code.Class == "Negative", -1:-3, drop = FALSE] %>%
-        purrr::map_dbl(sd),
+      ncgMean = colMeans(neg_exp),
+      ncgSD = purrr::map_dbl(neg_exp, sd),
       lod = .data$ncgMean + 2 * .data$ncgSD,
       llod = .data$ncgMean - 2 * .data$ncgSD,
-      spcFlag = raw[raw$Name %in% c("POS_E(0.5)", "POS_1"), -1:-3] %>%
-        purrr::flatten() %>%
-        `<`(.data$llod) %>%
-        `|`(.data$ncgMean == 0),
-      gd = purrr::map2_int(
-        raw[raw$Code.Class == "Endogenous", -1:-3, drop = FALSE],
-        .data$lod,
-        ~ sum(.x > .y)
-      ),
+      spcFlag = low_pos_exp < .data$llod | .data$ncgMean == 0,
+      gd = purrr::map2_int(endo_exp, .data$lod, ~ sum(.x > .y)),
       pergd = (.data$gd / sum(raw$Code.Class == "Endogenous")) * 100,
-      averageHK = raw[raw$Code.Class == "Housekeeping", -1:-3, drop = FALSE] %>%
-        purrr::map_dbl(~ exp(mean(log2(.)))),
+      averageHK = purrr::map_dbl(hk_exp, ~ exp(mean(log2(.)))),
       snr = ifelse(.data$lod < 0.001, 0, .data$averageHK / .data$lod),
       bdFlag = .data$binding.density < 0.05 | .data$binding.density > 2.25,
       normFlag = .data$snr < sn | .data$pergd < detect,
-      QCFlag = .data$linFlag | .data$imagingFlag | .data$spcFlag |
-        .data$normFlag
-    ) %>%
-    dplyr::mutate_if(grepl("Flag", names(.)),
-                     factor,
-                     levels = c(TRUE, FALSE),
-                     labels = c("Failed", "Passed")) %>%
+      QCFlag = .data$linFlag | .data$imagingFlag | .data$spcFlag | .data$normFlag,
+      dplyr::across(dplyr::matches("Flag"), ~ factor(
+        .,
+        levels = c(TRUE, FALSE),
+        labels = c("Failed", "Passed")
+      ))
+    ) |>
     dplyr::select(-c("ncgMean", "ncgSD"))
 }
