@@ -1,3 +1,7 @@
+# nanostringr 0.6.1
+
+* allow normalization of pools from same CodeSet as the reference pools, e.g. when we want to normalize cross-site replicates. Add parameter `same_codeset` to `normalize_pools()` so we can use a different file name pattern to match for these pools.
+
 # nanostringr 0.6.0
 
 * Replace magrittr pipe with native pipe, subsequently increase minimum R version to 4.2
