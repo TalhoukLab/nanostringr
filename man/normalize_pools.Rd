@@ -4,7 +4,14 @@
 \alias{normalize_pools}
 \title{Normalize data using common pools}
 \usage{
-normalize_pools(x, x_pools, ref_pools, p = 3, weigh = TRUE)
+normalize_pools(
+  x,
+  x_pools,
+  ref_pools,
+  p = 3,
+  weigh = TRUE,
+  same_codeset = FALSE
+)
 }
 \arguments{
 \item{x}{target data}
@@ -17,6 +24,11 @@ normalize_pools(x, x_pools, ref_pools, p = 3, weigh = TRUE)
 
 \item{weigh}{logical; if \code{TRUE}, the average expression in \code{x_pools} is
 reweighed by the distribution of the \code{p} pool sample sets in \code{ref_pools}.}
+
+\item{same_codeset}{logical; if \code{TRUE}, the target pool samples are collected
+from the same codset as the reference pool samples. This means the
+pool numbers from the file names use an older format where two-digit pools
+still pertain to pools 1, 2, or 3.}
 }
 \value{
 normalized gene expression

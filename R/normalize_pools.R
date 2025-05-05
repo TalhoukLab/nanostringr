@@ -13,12 +13,21 @@
 #' @param p number of pool sample sets. Defaults to 3.
 #' @param weigh logical; if `TRUE`, the average expression in `x_pools` is
 #'   reweighed by the distribution of the `p` pool sample sets in `ref_pools`.
+#' @param same_codeset logical; if `TRUE`, the target pool samples are collected
+#'   from the same codset as the reference pool samples. This means the
+#'   pool numbers from the file names use an older format where two-digit pools
+#'   still pertain to pools 1, 2, or 3.
 #' @return normalized gene expression
 #'
 #' @author Derek Chiu
 #' @export
-normalize_pools <- function(x, x_pools, ref_pools, p = 3, weigh = TRUE) {
-  pool_nms <- rlang::set_names(paste0("Pool", seq_len(p)))
+normalize_pools <- function(x, x_pools, ref_pools, p = 3, weigh = TRUE, same_codeset = FALSE) {
+  pools <- paste0("Pool", seq_len(p))
+  if (!same_codeset) {
+    pool_nms <- rlang::set_names(pools, paste0(pools, "(?![0-9])"))
+  } else {
+    pool_nms <- rlang::set_names(pools)
+  }
   if (weigh) {
     w <- pool_nms |>
       purrr::map_dbl(~ mean(grepl(., names(ref_pools), ignore.case = TRUE)))
@@ -28,7 +37,7 @@ normalize_pools <- function(x, x_pools, ref_pools, p = 3, weigh = TRUE) {
 
   x_pools_mgx <- w |>
     purrr::imap(~ {
-      .x * rowMeans(dplyr::select(x_pools, dplyr::matches(paste0(.y, "(?![0-9])"), perl = TRUE)))
+      .x * rowMeans(dplyr::select(x_pools, dplyr::matches(.y, perl = TRUE)))
     }) |>
     dplyr::bind_cols() |>
     rowSums() |>
