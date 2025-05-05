@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">nanostringr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Normalize data using common pools</h1>
-      <small class="dont-index">Source: <a href="https://github.com/TalhoukLab/nanostringr/blob/v0.6.0/R/normalize_pools.R" class="external-link"><code>R/normalize_pools.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/TalhoukLab/nanostringr/blob/master/R/normalize_pools.R" class="external-link"><code>R/normalize_pools.R</code></a></small>
       <div class="d-none name"><code>normalize_pools.Rd</code></div>
     </div>
 
@@ -43,7 +43,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">normalize_pools</span><span class="op">(</span><span class="va">x</span>, <span class="va">x_pools</span>, <span class="va">ref_pools</span>, p <span class="op">=</span> <span class="fl">3</span>, weigh <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">normalize_pools</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">x_pools</span>,</span>
+<span>  <span class="va">ref_pools</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  weigh <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  same_codeset <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -69,6 +76,13 @@
 <dt id="arg-weigh">weigh<a class="anchor" aria-label="anchor" href="#arg-weigh"></a></dt>
 <dd><p>logical; if <code>TRUE</code>, the average expression in <code>x_pools</code> is
 reweighed by the distribution of the <code>p</code> pool sample sets in <code>ref_pools</code>.</p></dd>
+
+
+<dt id="arg-same-codeset">same_codeset<a class="anchor" aria-label="anchor" href="#arg-same-codeset"></a></dt>
+<dd><p>logical; if <code>TRUE</code>, the target pool samples are collected
+from the same codset as the reference pool samples. This means the
+pool numbers from the file names use an older format where two-digit pools
+still pertain to pools 1, 2, or 3.</p></dd>
 
 </dl></div>
     <div class="section level2">

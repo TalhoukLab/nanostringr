@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">nanostringr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,9 +33,13 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/TalhoukLab/nanostringr/blob/v0.6.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/TalhoukLab/nanostringr/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.6.1" id="nanostringr-061">nanostringr 0.6.1<a class="anchor" aria-label="anchor" href="#nanostringr-061"></a></h2>
+<ul><li>allow normalization of pools from same CodeSet as the reference pools, e.g. when we want to normalize cross-site replicates. Add parameter <code>same_codeset</code> to <code><a href="../reference/normalize_pools.html">normalize_pools()</a></code> so we can use a different file name pattern to match for these pools.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.0" id="nanostringr-060">nanostringr 0.6.0<a class="anchor" aria-label="anchor" href="#nanostringr-060"></a></h2><p class="text-muted">CRAN release: 2025-04-25</p>
 <ul><li>Replace magrittr pipe with native pipe, subsequently increase minimum R version to 4.2</li>
